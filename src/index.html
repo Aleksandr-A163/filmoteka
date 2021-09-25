@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Заголовок страницы</title>
+    <title>Filmoteka</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
@@ -11,10 +11,15 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body class="body__container body__background">
+    <include src="./partials/header.html"></include>
+    <main>
+      <include src="./partials/home.html"></include>
+      <include src="./partials/my_library.html"></include>
+    </main>
+    <include src="./partials/footer.html"></include>
 
-
-    <!-- Скрипт идёт последним в разметке. В нём уже подключен главный SASS-файл. -->
+    <!-- Скрипт идёт последним в размеке. В нём уже подключен главный SASS-файл. -->
     <script src="./index.js"></script>
   </body>
 </html>
