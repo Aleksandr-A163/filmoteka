@@ -5,6 +5,8 @@
 
 // Стили для файла с примером HTML-фрагмента
 @import './utils/variables';
+@import './utils/functions';
+@import './utils/mixin';
 @import './utils/placeholders';
 @import './base/common';
 @import './components/header';

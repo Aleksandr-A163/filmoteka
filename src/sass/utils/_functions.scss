@@ -1,0 +1,9 @@
+@function toRem($value) {
+  $remValue: ($value / $main-font-size) + rem;
+  @return $remValue;
+}
+
+@function toLineHeight($value, $font-size) {
+  $heightValue: ($value / $font-size);
+  @return $heightValue;
+}
