@@ -1,19 +1,41 @@
-$text-color: #2e2520;
-$background-color: #ffffff;
+//**Цвет
+//Основные цвета текста
+$text-black-color: #000000;
+$text-white-color: #ffffff;
+$text-footer-color: #545454;
+
+//Цвет фона или на фоне
+$bg-first-color: #ffffff;
+$bg-second-color: #f7f7f7;
+$bg-header-color: rgba(0, 0, 0, 0.56);
+
+//Цвет характеристик на карточке
+$modal-subtitle-color: #8c8c8c;
+
+//Дополнительные цвета
 $white-color: #ffffff;
 $black-color: #000000;
-$icon-color: #674d40;
-$button-color: #ab816c;
-$accent-color: #876655;
-$input-text-color: #ab816c;
-$placeholder-color: rgba(171, 129, 108, 0.5);
-$modal-text: #2e2520;
-$duration: 250ms;
-$cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
-$main-font: 'Montserrat', sans-serif;
+
+//Цвет иконки
+$icon-color: #818181;
+
+//Цвета акцентов на кнопках, ценах, описании, при наведении
+$accent-lighter-color: #ff6b01;
+$accent-darker-color: #ff6b08;
+$btn-hover-color: rgba(255, 107, 1, 0.6);
+
+// //**Анимирование
+// $duration: 250ms;
+// $cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
+
+//**Шрифт
+$main-font-size: 12px;
+$main-font: 'Roboto', sans-serif;
+
+//**Адаптив
 $mobile: 320px;
-$mobile-max: 767.9px;
 $tablet: 768px;
-$tablet-max: 1279.9px;
-$desktop: 1280px;
-$bgc-registration: #fffff9; ;
+$desktop: 1024px;
+
+//**Отступы
+$set-gap: 30px;

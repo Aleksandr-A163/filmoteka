@@ -1,9 +1,12 @@
-%flex {
-  display: flex;
-  align-items: center;
+%text-uppercase {
+  text-transform: uppercase;
 }
 
-%margin-rl-auto {
-  margin-left: auto;
-  margin-right: auto;
+%round-radius {
+  border-radius: 5px;
+}
+
+%flex-centered {
+  display: flex;
+  align-items: center;
 }
