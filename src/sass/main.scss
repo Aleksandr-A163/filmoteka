@@ -1,7 +1,6 @@
-/*
- * Главный файл стилей.
- * Все паршалы подключаются сюда.
- */
-
-// Стили для файла с примером HTML-фрагмента
-@import './example';
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: rgb(243, 243, 232);
+    font-weight: 400;
+    font-size: 30px;
+  }
