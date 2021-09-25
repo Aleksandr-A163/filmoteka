@@ -1,0 +1,1 @@
+{"version":3,"sources":["sass/main.scss"],"names":[],"mappings":"AAAA,KACI,gCAAA,CACA,wBAAA,CACA,eAAA,CACA","file":"src.c2711535.css","sourceRoot":"../src","sourcesContent":["body {\n    font-family: 'Open Sans', sans-serif;\n    background-color: rgb(243, 243, 232);\n    font-weight: 400;\n    font-size: 30px;\n  }"]}
