@@ -1,0 +1,17 @@
+{{#each results}}
+  <li>
+    <a href='https://www.themoviedb.org/t/p/w600_and_h900_bestv2{{poster_path}}' target='_blank'>
+      <img src='https://www.themoviedb.org/t/p/w220_and_h330_face{{backdrop_path}}' /></a>
+    <p>id: {{id}}</p>
+    <p><span>vote: {{vote_average}}</span> / <span>votes: {{vote_count}}</span></p>
+    {{#if original_title}}
+      <p>Original Title: {{original_title}}</p>
+    {{/if}}
+    {{#if name}}
+      <p>Original Title: {{name}}</p>
+    {{/if}}
+    <p>Genre: {{genre_ids}}</p>
+    <p>Popularity: {{popularity}}</p>
+    <p>Release Data: {{release_date}}</p>
+  </li>
+{{/each}}
