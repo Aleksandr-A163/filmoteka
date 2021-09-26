@@ -1,5 +1,70 @@
 // добавить контейнеру grid-area: footer;
-footer {
-  grid-area: footer;
-  background-color: turquoise;
+
+.footer {
+   grid-area: footer;
+  background-color: $bg-second-color;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+
+
 }
+
+.section-footer {
+  align-items: center;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.footer-text {
+  font-family: $main-font;
+  color: $text-footer-color;
+}
+
+.material-icons {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: rgb(255, 107, 8);
+  font-size: 18px;
+
+}
+
+.footer-link {
+  color: $text-footer-color;
+  list-style-type: none;
+  font-style: normal;
+  border-bottom: 1px solid rgba(84, 84, 84, 1);
+  margin-left: 5px;
+}
+
+// Адаптивная верстка для footer
+@media screen and (min-width: 320px) {
+  .section-footer-text {
+    display: grid;
+  }
+  .footer-text {
+    font-size: 14px;
+  }
+  .footer-span {
+    display: flex;
+    justify-content: center;
+    margin-left: 4px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .footer-span {
+    margin-top: 10px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .section-footer-text {
+    display: flex;
+    justify-content: center;
+  }
+  .footer-text {
+    font-size: 16px;
+  }
+}
+
