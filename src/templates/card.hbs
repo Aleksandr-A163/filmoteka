@@ -1,0 +1,15 @@
+<li class='card'>
+  <div class='card__tumb'>
+    <img src='{{backdrop_path}}' alt='{{title}}' class='card__image' />
+  </div>
+  <h2 class='card__title'>{{title}}</h2>
+  <div class='card__caption'>
+    <ul class='card__items'>
+      {{#each genre_ids}}
+        <li class='card__item'>{{this}}</li>
+      {{/each}}
+    </ul>
+    <span class='card__year'>{{release_date}}</span>
+    <span class='card__rating'>{{vote_average}}</span>
+  </div>
+</li>
