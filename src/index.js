@@ -1,10 +1,9 @@
 import './sass/main.scss';
 import FetchApi from './JSpart/apiFetch';
-import render from './templates/render.hbs';
-// import foundFilmsByKeyword from './search-by-keyword';
+import render from './templates/card.hbs';
 
 // элемент списка
-const ulEl = document.getElementById('root');
+const ulEl = document.getElementById('home');
 
 // элементы поиска по ключевому слову
 const inputSearchFilm = document.querySelector('.search__input');
