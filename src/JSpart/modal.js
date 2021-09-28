@@ -1,4 +1,4 @@
-import modal from '../templates/modal.hbs'
+import modal from '../templates/modal.hbs';
 
 const collectionList = document.getElementById('home');
 // collectionList взят из index.js
@@ -13,29 +13,104 @@ collectionList.addEventListener('click', onUlElClick);
 let curFilm;
 
 function onUlElClick(e) {
-    e.preventDefault();
-    console.log(e.target)
-    // if (!e.target.classList.contains('card')) {
-    // return
-    // }
-    window.addEventListener('keydown', onKeyPress);
-    backdropEl.classList.remove('is-hidden');
-//     console.log(e.target.src);
-//     modalImageEl.src = e.target.src;
-//   modalImageEl.alt = e.target.alt;
-    
-    //работа с хранилищем
+  e.preventDefault();
+  console.log(e.target);
+  // if (!e.target.classList.contains('card')) {
+  // return
+  // }
+  window.addEventListener('keydown', onKeyPress);
+  backdropEl.classList.remove('is-hidden');
+  //     console.log(e.target.src);
+  //     modalImageEl.src = e.target.src;
+  //   modalImageEl.alt = e.target.alt;
+
+  //работа с хранилищем
   const currentArrayFilms = JSON.parse(localStorage.getItem('currentFilms'));
+  const arrayWatched = JSON.parse(localStorage.getItem('watched'));
+  const arrayQueue = JSON.parse(localStorage.getItem('queue'));
   const currentTarget = e.target.id;
   curFilm = currentArrayFilms.find(elem => elem.id === Number(currentTarget));
-    renderModal(curFilm);
+  renderModal(curFilm);
+  // const currentQueue = JSON.parse(localStorage.getItem('queue'));
+  // const currentWatched = JSON.parse(localStorage.getItem('watched'));
+  // console.log(currentQueue)
+
+  //! Новый код//
+  const buttonWatchedEl = document.getElementById('watchedInModal');
+  const buttonQueueEl = document.getElementById('queueInModal');
+  const containerBtnsRef = document.querySelector('.list-buttons');
+
+  //**Текст кнопок после проверки на наличие в localStorage */
+  //Watched
+  if (arrayWatched.some(e => e.id === Number(currentTarget))) {
+    buttonWatchedEl.textContent = 'Remove to watched';
+  } else {
+    buttonWatchedEl.textContent = 'Add to watched';
+  }
+
+  //Queue
+  if (arrayQueue.some(e => e.id === Number(currentTarget))) {
+    buttonQueueEl.textContent = 'Remove to queue';
+  } else {
+    buttonQueueEl.textContent = 'Add to queue';
+  }
+
+  containerBtnsRef.addEventListener('click', toLocalStorage);
+
+  function toLocalStorage(event) {
+    event.preventDefault();
+    const cardBtn = event.target;
     const currentQueue = JSON.parse(localStorage.getItem('queue'));
-    // console.log(currentQueue)
-    //условие проверки нахождения фильма в хранилище
-    const buttonQueueEl = document.getElementById('queueInModal');
-    if (!currentQueue.some(e => e.id === Number(currentTarget))) {
-        buttonQueueEl.addEventListener('click', addToQueue);
-    }  
+    const currentWatched = JSON.parse(localStorage.getItem('watched'));
+    if (cardBtn.nodeName === 'BUTTON') {
+      if (cardBtn.id === 'watchedInModal') {
+        //cardBtn.toggle('');
+        if (!currentWatched.some(e => e.id === Number(currentTarget))) {
+          addToWatched();
+          buttonWatchedEl.textContent = 'Remove to watched';
+        } else {
+          removeToWatched();
+          buttonWatchedEl.textContent = 'Add to watched';
+        }
+      } else if (cardBtn.id === 'queueInModal') {
+        if (!currentQueue.some(e => e.id === Number(currentTarget))) {
+          addToQueue();
+          buttonQueueEl.textContent = 'Remove to queue';
+        } else {
+          removeToQueue();
+          buttonQueueEl.textContent = 'Add to queue';
+        }
+      }
+    }
+  }
+
+  //условие проверки нахождения фильма в хранилище watched
+  // if (!currentQueue.some(e => e.id === Number(currentTarget))) {
+  //   buttonWatchedEl.addEventListener('click', addToWatched);
+  // }
+
+  //условие проверки нахождения фильма в хранилище queue
+
+  //   if (!currentQueue.some(e => e.id === Number(currentTarget))) {
+  //     buttonQueueEl.addEventListener('click', addToQueue);
+  //   }
+}
+
+// Функция добавления фильма в localeStorage Watched
+function addToWatched() {
+  const currentWatched = localStorage.getItem('watched');
+  const NextWatched = JSON.parse(currentWatched);
+  NextWatched.push(curFilm);
+  localStorage.setItem('watched', JSON.stringify(NextWatched));
+  //   console.log(NextQueue);
+}
+function removeToWatched() {
+  const currentWatched = localStorage.getItem('watched');
+  const NextWatched = JSON.parse(currentWatched);
+  const UpdateWatched = NextWatched.filter(e => {
+    e.id !== curFilm.id;
+  });
+  localStorage.setItem('watched', JSON.stringify(UpdateWatched));
 }
 
 // Функция добавления фильма в localeStorage Oueue
@@ -44,28 +119,38 @@ function addToQueue() {
   const NextQueue = JSON.parse(currentQueue);
   NextQueue.push(curFilm);
   localStorage.setItem('queue', JSON.stringify(NextQueue));
-//   console.log(NextQueue);
+  //   console.log(NextQueue);
 }
+
+function removeToQueue() {
+  const currentQueue = localStorage.getItem('queue');
+  const NextQueue = JSON.parse(currentQueue);
+  const UpdateQueue = NextQueue.filter(e => {
+    e.id !== curFilm.id;
+  });
+  localStorage.setItem('queue', JSON.stringify(UpdateQueue));
+}
+
 // функция динамического рендера разметки модалки с данными
 function renderModal(curFilm) {
   modalContent.innerHTML = modal({ curFilm });
 }
 
 function onKeyPress(event) {
-    if (event.code === 'Escape') {
-        onBtnCloseModalClick();
-    }
+  if (event.code === 'Escape') {
+    onBtnCloseModalClick();
+  }
 }
 btnModalCloseEl.addEventListener('click', onBtnCloseModalClick);
 backdropEl.addEventListener('click', onBackdropClick);
 
 function onBackdropClick(e) {
-    if (e.target === e.currentTarget) {
-        onBtnCloseModalClick();
-    }
+  if (e.target === e.currentTarget) {
+    onBtnCloseModalClick();
+  }
 }
 function onBtnCloseModalClick() {
-    backdropEl.classList.add('is-hidden');
-    window.removeEventListener('keydown', onKeyPress);
-    // modalImageEl.src = "";
+  backdropEl.classList.add('is-hidden');
+  window.removeEventListener('keydown', onKeyPress);
+  // modalImageEl.src = "";
 }
