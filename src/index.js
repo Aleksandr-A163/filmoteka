@@ -15,14 +15,20 @@ const newFetchApi = new FetchApi();
 // запись в локалсторедж всех жанров
 newFetchApi.fetchGenres().then(r => localStorage.setItem('genres', JSON.stringify(r.genres)));
 // запись в локалсторедж зарендеренных фильмов
-newFetchApi.fetchApi().then(r => localStorage.setItem('currentFilms', JSON.stringify(r)))
+newFetchApi.fetchApi().then(r => localStorage.setItem('currentFilms', JSON.stringify(r)));
 //функция проверки наличия в "очереди" фильмов и создания массива если нету
 function isGetQueue() {
-    if (localStorage.getItem('queue'))
-        return
-    localStorage.setItem('queue', "[]")
+  if (localStorage.getItem('queue')) return;
+  localStorage.setItem('queue', '[]');
 }
-isGetQueue()
+isGetQueue();
+
+//функция проверки наличия в "просмотренных" фильмов и создания массива если нету
+function isGetWatched() {
+  if (localStorage.getItem('watched')) return;
+  localStorage.setItem('watched', '[]');
+}
+isGetWatched();
 
 // запрос за популярными фильмами за день и рендер
 newFetchApi.fetchApi().then(results => {
