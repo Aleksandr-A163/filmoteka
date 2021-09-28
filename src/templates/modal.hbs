@@ -1,0 +1,29 @@
+<div class="thumb">
+    <img class="modal__image" src='https://www.themoviedb.org/t/p/w600_and_h900_bestv2{{curFilm.poster_path}}' alt="" />
+</div>
+<div class="content__text">
+    <h2 class="modal__title">Название фильма</h2>
+    <ul class="modal-list">
+        <li>Vote / Votes {{curFilm.vote_average}}/ {{curFilm.vote_count}}</li>
+        <li>Popularity {{curFilm.popularity}}</li>
+        <li>{{#if curFilm.original_title}}
+        <p>Original Title: {{curFilm.original_title}}</p>
+        {{/if}}
+        {{#if curFilm.name}}
+        <p>Original Title: {{curFilm.name}}</p>
+        {{/if}}</li>
+        <li>Genre</li>
+    </ul>
+    <div class="modal-text">
+        <h3 class="modal-text__title">About</h3>
+        <p class="modal-text__item">{{curFilm.overview}}</p>
+    </div>
+    <ul class="list-buttons">
+        <li>
+            <button type="submit" class="button-modal button-modal--orange">add to Watched</button>
+        </li>
+        <li>
+            <button type="submit" class="button-modal" id='queueInModal'>add to queue</button>
+        </li>
+    </ul>
+</div>
