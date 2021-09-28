@@ -1,9 +1,10 @@
 import './sass/main.scss';
 import FetchApi from './JSpart/apiFetch';
 import render from './templates/card.hbs';
-import cleanInput from './JSpart/cleanInput';
-import checkQuery from './JSpart/checkQuery';
-import renderCardsSearchFilms from './JSpart/renderSearchFilms';
+import cleanInput from './JSpart/clean-input';
+import checkQuery from './JSpart/check-query';
+import renderCardsSearchFilms from './JSpart/render-search-films';
+import errorSearch from './JSpart/error-search';
 
 // элемент списка
 const collectionList = document.getElementById('home');
@@ -60,6 +61,7 @@ function foundFilmsByKeyword(e) {
     .then(film => {
       if (film.length === 0) {
         console.log('Search result not successful. Enter the correct movie name.');
+        errorSearch('Search result not successful. Enter the correct movie name.');
         return;
       }
       //обновляем текущие фильмы в localStorage
@@ -68,6 +70,7 @@ function foundFilmsByKeyword(e) {
     })
     .catch(er => {
       console.log('Something went wrong, please try again later');
+      errorSearch('Something went wrong, please try again later');
     });
 
   cleanInput();

@@ -1,5 +1,6 @@
-import checkLanguage from './checkLanguage';
-import cleanInput from './cleanInput';
+import checkLanguage from './check-language';
+import cleanInput from './clean-input';
+import errorSearch from '../JSpart/error-search';
 
 export default function checkQuery(query) {
   if (!query) {
@@ -7,6 +8,7 @@ export default function checkQuery(query) {
   }
   if (checkLanguage(query) != 'en') {
     console.log('Please enter your request in English');
+    errorSearch('Please enter your request in English');
     cleanInput();
     return true;
   }
