@@ -1,12 +1,13 @@
 import './sass/main.scss';
 import FetchApi from './JSpart/apiFetch';
 import render from './templates/card.hbs';
+import cleanInput from './JSpart/cleanInput';
+import checkQuery from './JSpart/checkQuery';
 
 // элемент списка
 const ulEl = document.getElementById('home');
 
 // элементы поиска по ключевому слову
-const inputSearchFilm = document.querySelector('.search__input');
 const btnSearchEl = document.querySelector('.search__button');
 
 // создаёт новый класс на основе базового
@@ -40,12 +41,22 @@ function foundFilmsByKeyword(e) {
   const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
   const query = inputSearchEl.value.trim();
 
-  if (!query) {
-    return;
-  }
+  if (checkQuery(query)) return;
+
   newFetchApi.query = query;
-  newFetchApi.fetchSearchFilms().then(film => {
-    console.log(film);
-    renderFile(film);
-  });
+  newFetchApi
+    .fetchSearchFilms()
+    .then(film => {
+      if (film.length === 0) {
+        console.log('Nothing found, please enter another query');
+        return;
+      }
+      console.log(film);
+      renderFile(film);
+    })
+    .catch(er => {
+      console.log('Something went wrong, please try again later');
+    });
+
+  cleanInput();
 }
