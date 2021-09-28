@@ -3,6 +3,7 @@ import FetchApi from './JSpart/apiFetch';
 import render from './templates/card.hbs';
 import cleanInput from './JSpart/cleanInput';
 import checkQuery from './JSpart/checkQuery';
+import renderCardsSearchFilms from './JSpart/renderSearchFilms';
 
 // элемент списка
 const collectionList = document.getElementById('home');
@@ -17,6 +18,7 @@ const newFetchApi = new FetchApi();
 newFetchApi.fetchGenres().then(r => localStorage.setItem('genres', JSON.stringify(r.genres)));
 // запись в локалсторедж зарендеренных фильмов
 newFetchApi.fetchApi().then(r => localStorage.setItem('currentFilms', JSON.stringify(r)));
+
 //функция проверки наличия в "очереди" фильмов и создания массива если нету
 function isGetQueue() {
   if (localStorage.getItem('queue')) return;
@@ -57,11 +59,12 @@ function foundFilmsByKeyword(e) {
     .fetchSearchFilms()
     .then(film => {
       if (film.length === 0) {
-        console.log('Nothing found, please enter another query');
+        console.log('Search result not successful. Enter the correct movie name.');
         return;
       }
-      console.log(film);
-      renderFile(film);
+      //обновляем текущие фильмы в localStorage
+      localStorage.setItem('currentFilms', JSON.stringify(film));
+      renderCardsSearchFilms();
     })
     .catch(er => {
       console.log('Something went wrong, please try again later');
