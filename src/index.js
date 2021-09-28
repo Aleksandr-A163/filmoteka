@@ -60,7 +60,7 @@ function foundFilmsByKeyword(e) {
     .fetchSearchFilms()
     .then(film => {
       if (film.length === 0) {
-        console.log('Search result not successful. Enter the correct movie name.');
+        // console.log('Search result not successful. Enter the correct movie name.');
         errorSearch('Search result not successful. Enter the correct movie name.');
         return;
       }
@@ -69,7 +69,7 @@ function foundFilmsByKeyword(e) {
       renderCardsSearchFilms();
     })
     .catch(er => {
-      console.log('Something went wrong, please try again later');
+      // console.log('Something went wrong, please try again later');
       errorSearch('Something went wrong, please try again later');
     });
 
