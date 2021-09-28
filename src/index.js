@@ -9,6 +9,14 @@ const collectionList = document.getElementById('home');
 const inputSearchFilm = document.querySelector('.search__input');
 const btnSearchEl = document.querySelector('.search__button');
 
+//элементы и кнопки навигации хэдера
+const logo = document.querySelector('.js-logo');
+const homePage = document.querySelector('.js-home');
+const myLibrary = document.querySelector('.js-library');
+const watched = document.querySelector('.js-watched');
+const queue = document.querySelector('.js-queue');
+
+
 // создаёт новый класс на основе базового
 const newFetchApi = new FetchApi();
 
@@ -57,4 +65,31 @@ function foundFilmsByKeyword(e) {
     console.log(film);
     renderFile(film);
   });
+}
+
+
+//слушатели событий
+logo.addEventListener('click', homePageRender );
+homePage.addEventListener('click',homePageRender);
+myLibrary.addEventListener('click',myLibraryWatched);
+
+//функции отрисовки при переходе на страницы навигации
+function homePageRender() {
+e.preventDefault();
+newFetchApi.fetchApi().then(results => {
+  renderFile(results);
+});
+}
+
+export function myLibraryWatched(e) {
+  e.preventDefault();
+  collectionList.innerHTML = '';
+  myLibrary.classList.add("navigation__link--current");
+  homePage.classList.remove("navigation__link--current");
+  const watchedFilms =  JSON.parse(localStorage.getItem('watched'));
+  if (watchedFilms.length === 0){
+    console.log(watchedFilms);
+    collectionList.innerHTML = '<h1>You  nothing watched </h1>';
+  }
+  renderFile(watchedFilms);
 }
