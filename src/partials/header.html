@@ -1,6 +1,6 @@
-<header class="home-bgi library-bgi">
+<header class="home-bgi">
     <div class="container-header">
-        <nav class="navigation">
+        <nav class="navigation mar-bot-input">
         
             <a class="navigation__logo" href="">
         
@@ -13,17 +13,17 @@
         
             <ul class="navigation__list list">
                 <li class="navigation__item">
-                    <a class="navigation__link navigation__link--current" href="">HOME</a>
+                    <button type="button" class="navigation__link navigation__link--current home-link" href="">HOME</button>
                 </li>
                 <li class="navigation__item">
-                    <a class="navigation__link navigation__link--marg-left" href="">MY LIBRARY</a>
+                    <button type="button" class="navigation__link navigation__link--marg-left library-link" href="">MY LIBRARY</button>
                 </li>
         
             </ul>
         
         
         </nav>
-        <form class="search">
+        <form class="search show">
             <label>
                 <input type="text" class="search__input" placeholder="Поиск фильмов">
         
@@ -37,7 +37,7 @@
         </form>
 
 
-        <div class="btns">
+        <div class="btns hide">
             <button class="button" type="button">WATCHED</button>
             <button class="button button--orange" type="button">QUEUE</button>
         </div>

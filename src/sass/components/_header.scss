@@ -277,8 +277,8 @@ header {
 
 .search {
   position: relative;
+  display: block;
   width: 100%;
-  margin-top: 40px;
 
   @media screen and (min-width: 768px) {
     width: 336px;
@@ -332,7 +332,19 @@ header {
 }
 
 .btns {
-  display: flex;
-  justify-content: center;
+  max-width: 300px;
+  margin: 0 auto;
   margin-top: 46px;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.mar-bot-input {
+  margin-bottom: 40px;
 }
