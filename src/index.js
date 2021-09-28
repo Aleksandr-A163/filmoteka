@@ -5,7 +5,7 @@ import cleanInput from './JSpart/cleanInput';
 import checkQuery from './JSpart/checkQuery';
 
 // элемент списка
-const ulEl = document.getElementById('home');
+const collectionList = document.getElementById('home');
 
 // элементы поиска по ключевому слову
 const btnSearchEl = document.querySelector('.search__button');
@@ -13,14 +13,23 @@ const btnSearchEl = document.querySelector('.search__button');
 // создаёт новый класс на основе базового
 const newFetchApi = new FetchApi();
 
-// запись в локалсторедж объектом
+// запись в локалсторедж всех жанров
 newFetchApi.fetchGenres().then(r => localStorage.setItem('genres', JSON.stringify(r.genres)));
+// запись в локалсторедж зарендеренных фильмов
+newFetchApi.fetchApi().then(r => localStorage.setItem('currentFilms', JSON.stringify(r)));
+//функция проверки наличия в "очереди" фильмов и создания массива если нету
+function isGetQueue() {
+  if (localStorage.getItem('queue')) return;
+  localStorage.setItem('queue', '[]');
+}
+isGetQueue();
 
-// пример того что сохранилось в локалсторедж
-// console.log(JSON.parse(localStorage.getItem('genres')));
-
-// запись в localeStorage отдельными id и name - побаловаться)
-// newFetchApi.fetchGenres().then(r => {r.genres.forEach(e => localStorage.setItem(`${e.id}`,  e.name))})
+//функция проверки наличия в "просмотренных" фильмов и создания массива если нету
+function isGetWatched() {
+  if (localStorage.getItem('watched')) return;
+  localStorage.setItem('watched', '[]');
+}
+isGetWatched();
 
 // запрос за популярными фильмами за день и рендер
 newFetchApi.fetchApi().then(results => {
@@ -29,7 +38,7 @@ newFetchApi.fetchApi().then(results => {
 
 // функция рендера
 function renderFile(results) {
-  ulEl.insertAdjacentHTML('beforeend', render({ results }));
+  collectionList.insertAdjacentHTML('beforeend', render({ results }));
 }
 
 //поиск по названию фильма
