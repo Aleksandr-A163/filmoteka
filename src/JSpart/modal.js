@@ -28,7 +28,7 @@ function onUlElClick(e) {
   const currentArrayFilms = JSON.parse(localStorage.getItem('currentFilms'));
   const arrayWatched = JSON.parse(localStorage.getItem('watched'));
   const arrayQueue = JSON.parse(localStorage.getItem('queue'));
-  const currentTarget = e.target.id;
+  const currentTarget = e.target.closest('.card').querySelector('.card__image').id;
   curFilm = currentArrayFilms.find(elem => elem.id === Number(currentTarget));
   renderModal(curFilm);
   // const currentQueue = JSON.parse(localStorage.getItem('queue'));
