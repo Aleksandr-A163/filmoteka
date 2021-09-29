@@ -1,6 +1,9 @@
 import modal from '../templates/modal.hbs';
+import render from '../templates/card.hbs';
+import { renderFile } from '../JSpart/render-my-library';
 
-const collectionList = document.getElementById('home');
+const collectionList = document.getElementById('page');
+const myLibrary = document.querySelector('.js-library');
 // collectionList взят из index.js
 const modalContent = document.querySelector('.modal__content');
 
@@ -104,6 +107,7 @@ function addToWatched() {
   localStorage.setItem('watched', JSON.stringify(NextWatched));
   //   console.log(NextQueue);
 }
+
 function removeToWatched() {
   const currentWatched = localStorage.getItem('watched');
   const NextWatched = JSON.parse(currentWatched);
@@ -111,6 +115,18 @@ function removeToWatched() {
     e.id !== curFilm.id;
   });
   localStorage.setItem('watched', JSON.stringify(UpdateWatched));
+
+  //перерисовка Watched при удаление фильма 
+  if (myLibrary.classList.contains("navigation__link--current")) {
+     
+    collectionList.innerHTML = '';
+    const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+    renderFile(watchedFilms);
+    console.log(watchedFilms);
+     if (watchedFilms.length === 0){
+    collectionList.innerHTML = '<div class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></div>';
+    }
+  }
 }
 
 // Функция добавления фильма в localeStorage Oueue
@@ -154,3 +170,4 @@ function onBtnCloseModalClick() {
   window.removeEventListener('keydown', onKeyPress);
   // modalImageEl.src = "";
 }
+

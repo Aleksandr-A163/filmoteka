@@ -1,13 +1,14 @@
 import './sass/main.scss';
 import FetchApi from './JSpart/apiFetch';
 import render from './templates/card.hbs';
-
+import {myLibraryWatchedRender , homePageRender } from  './JSpart/render-my-library'; 
 // элемент списка
-const collectionList = document.getElementById('home');
+const collectionList = document.getElementById('page');
 
 // элементы поиска по ключевому слову
 const inputSearchFilm = document.querySelector('.search__input');
 const btnSearchEl = document.querySelector('.search__button');
+
 
 // создаёт новый класс на основе базового
 const newFetchApi = new FetchApi();
@@ -36,6 +37,7 @@ newFetchApi.fetchApi().then(results => {
 });
 
 // функция рендера
+export { renderFile };
 function renderFile(results) {
   collectionList.insertAdjacentHTML('beforeend', render({ results }));
 }
@@ -58,3 +60,8 @@ function foundFilmsByKeyword(e) {
     renderFile(film);
   });
 }
+
+//слушатели событий для header-link-btn
+logo.addEventListener('click', homePageRender );
+homePage.addEventListener('click',homePageRender);
+myLibrary.addEventListener('click',myLibraryWatchedRender);
