@@ -4,6 +4,7 @@ import { renderFile } from '../JSpart/render-my-library';
 
 const collectionList = document.getElementById('page');
 const myLibrary = document.querySelector('.js-library');
+const watched = document.querySelector('.js-watched');
 // collectionList взят из index.js
 const modalContent = document.querySelector('.modal__content');
 
@@ -106,6 +107,12 @@ function addToWatched() {
   NextWatched.push(curFilm);
   localStorage.setItem('watched', JSON.stringify(NextWatched));
   //   console.log(NextQueue);
+  if (watched.classList.contains("button--orange") && myLibrary.classList.contains("navigation__link--current")) {
+    collectionList.innerHTML = '';
+    const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+    renderFile(watchedFilms);
+    console.log(watchedFilms);
+  }
 }
 
 function removeToWatched() {
@@ -117,7 +124,7 @@ function removeToWatched() {
   localStorage.setItem('watched', JSON.stringify(UpdateWatched));
 
   //перерисовка Watched при удаление фильма 
-  if (myLibrary.classList.contains("navigation__link--current")) {
+  if (watched.classList.contains("button--orange") && myLibrary.classList.contains("navigation__link--current")) {
      
     collectionList.innerHTML = '';
     const watchedFilms = JSON.parse(localStorage.getItem('watched'));
