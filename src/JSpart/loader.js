@@ -7,5 +7,5 @@ function onLoad() {
     mask.classList.add('hide-load');
     setTimeout(() => {
         mask.remove();
-    }, 600)
+    }, 600);
 }

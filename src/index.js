@@ -1,6 +1,6 @@
 import './sass/main.scss';
 import FetchApi from "./JSpart/apiFetch";
-import render from "./templates/render.hbs";
+import render from "./templates/card.hbs";
 
 // элемент списка
 const collectionList = document.getElementById('home');
