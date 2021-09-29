@@ -1,6 +1,6 @@
 import './sass/main.scss';
 import FetchApi from './JSpart/apiFetch';
-import render from './templates/card.hbs';
+import render from './templates/render.hbs';
 import cleanInput from './JSpart/clean-input';
 import checkQuery from './JSpart/check-query';
 import renderCardsSearchFilms from './JSpart/render-search-films';
