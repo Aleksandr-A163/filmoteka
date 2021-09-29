@@ -1,6 +1,7 @@
 import './sass/main.scss';
 import FetchApi from "./JSpart/apiFetch";
 import render from "./templates/render.hbs"
+import "./JSpart/modal_students";
 
 // элемент списка
 const ulEl = document.getElementById('root');
