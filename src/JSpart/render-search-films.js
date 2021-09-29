@@ -1,4 +1,4 @@
-import render from '../templates/card.hbs';
+import render from '../templates/render.hbs';
 
 const collectionList = document.getElementById('home');
 
