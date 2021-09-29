@@ -1,37 +1,48 @@
-<header class="home-bgi library-bgi">
-  <div class="container-header">
-    <nav class="navigation">
-      <a class="navigation__logo" href="">
-        <svg class="icon__logo">
-          <use href="/images/header/logo.svg#logo"></use>
-        </svg>
-        <p class="navigation__text animate__flipInX">Filmoteka</p>
-      </a>
+<header class="home-bgi">
+    <div class="container-header">
+        <nav class="navigation mar-bot-input">
+        
+            <a class="navigation__logo" href="">
+        
+                <svg class="icon__logo">
+                    <use href="/images/header/logo.svg#logo"></use>
+                </svg>
+                <p class="navigation__text">Filmoteka</p>
+            </a>
+        
+        
+            <ul class="navigation__list list">
+                <li class="navigation__item">
+                    <button type="button" class="navigation__link navigation__link--current home-link" href="">HOME</button>
+                </li>
+                <li class="navigation__item">
+                    <button type="button" class="navigation__link navigation__link--marg-left library-link" href="">MY LIBRARY</button>
+                </li>
+        
+            </ul>
+        
+        
+        </nav>
+        <form class="search show">
+            <label>
+                <input type="text" class="search__input" placeholder="Поиск фильмов">
+        
+            </label>
+        
+            <button type="submit" class="search__button">
+                <svg class="search__svg">
+                    <use href="/images/header/search.svg#icon-search"></use>
+                </svg>
+            </button>
+        </form>
 
-      <ul class="navigation__list list">
-        <li class="navigation__item">
-          <a class="navigation__link navigation__link--current" href="">HOME</a>
-        </li>
-        <li class="navigation__item">
-          <a class="navigation__link navigation__link--marg-left" href="">MY LIBRARY</a>
-        </li>
-      </ul>
-    </nav>
-    <form class="search">
-      <label>
-        <input type="text" class="search__input" placeholder="Поиск фильмов" />
-      </label>
 
-      <button type="submit" class="search__button">
-        <svg class="search__svg">
-          <use href="/images/header/search.svg#icon-search"></use>
-        </svg>
-      </button>
-    </form>
-
-    <div class="btns">
-      <button class="button" type="button">WATCHED</button>
-      <button class="button button--orange" type="button">QUEUE</button>
+        <div class="btns hide">
+            <button class="button" type="button">WATCHED</button>
+            <button class="button button--orange" type="button">QUEUE</button>
+        </div>
     </div>
-  </div>
+        
+        
+  
 </header>
