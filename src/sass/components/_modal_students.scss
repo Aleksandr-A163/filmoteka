@@ -1,5 +1,5 @@
     /* свойства модального окна по умолчанию */
-    .modal {
+    .modal-students {
         position: fixed;
         /* фиксированное положение */
         top: 0;
@@ -20,7 +20,7 @@
       }
   
       /* при отображении модального окно */
-      .modal:target {
+      .modal-students:target {
         opacity: 1;
         pointer-events: auto;
         overflow-y: auto;
@@ -29,7 +29,7 @@
       /* ширина модального окна и его отступы от экрана */
       .modal-dialog {
         position: relative;
-        width: auto;
+        width: 100%;
         margin: 10px;
       }
   
