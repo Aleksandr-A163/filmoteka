@@ -90,7 +90,7 @@ body {
   }
 }
 
-.container {
+.container-header {
   padding: 0 20px;
 
   @include adaptive-size(tablet) {
@@ -107,7 +107,7 @@ body {
 
 main {
   grid-area: main;
-  background-color: violet;
+  // background-color: violet;
 }
 
 .button {
