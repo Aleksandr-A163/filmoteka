@@ -18,13 +18,33 @@ const btnSearchEl = document.querySelector('.search__button');
 const newFetchApi = new FetchApi();
 
 // запись в локалсторедж всех жанров
-newFetchApi.fetchGenres().then(r => localStorage.setItem('genres', JSON.stringify(r.genres)));
+// let arrayGenre;
+// newFetchApi.fetchGenres().then(r => {
+//   arrayGenre = r.genres;
+  
+//   localStorage.setItem('genres', JSON.stringify(r.genres))
+// });
 // запись в локалсторедж зарендеренных фильмов
 function saveInLocale(films) {
   localStorage.setItem('currentFilms', JSON.stringify(films))
 }
 
-newFetchApi.fetchApi().then(r => saveInLocale(r));
+// function replaceGenre(arrayGenre, filmGenre) {
+//   for (let i = 0; i < arrayGenre.length; i += 1) {
+//     for (let j = 0; j < filmGenre.length; j += 1) {
+//         arrayGenre[i].id === filmGenre[j] ? filmGenre[j] = arrayGenre[i].name : filmGenre[j]        
+//       }
+//   }
+  
+// }
+
+// newFetchApi.fetchApi().then(r => {
+//   r.forEach(elem => {
+//     // replaceGenre(arrayGenre, elem.genre_ids)})
+//   saveInLocale(r)
+
+//   // renderFile(r)
+// });
 
 //функция проверки наличия в "очереди" фильмов и создания массива если нету
 function isGetQueue() {
