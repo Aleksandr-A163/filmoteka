@@ -1,4 +1,5 @@
 import './sass/main.scss';
+import './JSpart/pagination'
 import FetchApi from "./JSpart/apiFetch";
 import render from "./templates/card.hbs";
 
@@ -56,5 +57,5 @@ function foundFilmsByKeyword(e) {
   newFetchApi.fetchSearchFilms().then(film => {
     console.log(film);
     renderFile(film);
-  });
+    });
 }
