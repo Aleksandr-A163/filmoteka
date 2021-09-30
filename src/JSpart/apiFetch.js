@@ -21,7 +21,6 @@ class FetchApi {
     const MY_KEY = 'f67f4d14d6b529f941fa4f285225b954';
     // ниже это урла для популярных фильмов за день
     const BASE_URL = 'https://api.themoviedb.org/3/trending/movie/day';
-
     try {
       const response = await fetch(`${BASE_URL}?api_key=${MY_KEY}`);
       const data = await response.json();
@@ -39,7 +38,6 @@ class FetchApi {
        return (results)
     });
 }
-
 
   incrementPage() {
     this.page += 1;

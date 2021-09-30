@@ -14,26 +14,20 @@ let curFilm;
 
 function onUlElClick(e) {
   e.preventDefault();
-  console.log(e.target);
   // if (!e.target.classList.contains('card')) {
   // return
   // }
   window.addEventListener('keydown', onKeyPress);
   backdropEl.classList.remove('is-hidden');
-  //     console.log(e.target.src);
-  //     modalImageEl.src = e.target.src;
-  //   modalImageEl.alt = e.target.alt;
+
 
   //работа с хранилищем
-  const currentArrayFilms = JSON.parse(localStorage.getItem('currentFilms'));
+  const currentArrayFilms = JSON.parse(localStorage.getItem('currentFilms')).results;
   const arrayWatched = JSON.parse(localStorage.getItem('watched'));
   const arrayQueue = JSON.parse(localStorage.getItem('queue'));
   const currentTarget = e.target.closest('.card').querySelector('.card__image').id;
   curFilm = currentArrayFilms.find(elem => elem.id === Number(currentTarget));
   renderModal(curFilm);
-  // const currentQueue = JSON.parse(localStorage.getItem('queue'));
-  // const currentWatched = JSON.parse(localStorage.getItem('watched'));
-  // console.log(currentQueue)
 
   //! Новый код//
   const buttonWatchedEl = document.getElementById('watchedInModal');
@@ -66,69 +60,38 @@ function onUlElClick(e) {
       if (cardBtn.id === 'watchedInModal') {
         //cardBtn.toggle('');
         if (!currentWatched.some(e => e.id === Number(currentTarget))) {
-          addToWatched();
+          addToStore("watched");
           buttonWatchedEl.textContent = 'Remove to watched';
         } else {
-          removeToWatched();
+          removeToStore("watched");
           buttonWatchedEl.textContent = 'Add to watched';
         }
       } else if (cardBtn.id === 'queueInModal') {
         if (!currentQueue.some(e => e.id === Number(currentTarget))) {
-          addToQueue();
+          addToStore("queue");
           buttonQueueEl.textContent = 'Remove to queue';
         } else {
-          removeToQueue();
+          removeToStore("queue");
           buttonQueueEl.textContent = 'Add to queue';
         }
       }
     }
   }
-
-  //условие проверки нахождения фильма в хранилище watched
-  // if (!currentQueue.some(e => e.id === Number(currentTarget))) {
-  //   buttonWatchedEl.addEventListener('click', addToWatched);
-  // }
-
-  //условие проверки нахождения фильма в хранилище queue
-
-  //   if (!currentQueue.some(e => e.id === Number(currentTarget))) {
-  //     buttonQueueEl.addEventListener('click', addToQueue);
-  //   }
 }
-
-// Функция добавления фильма в localeStorage Watched
-function addToWatched() {
-  const currentWatched = localStorage.getItem('watched');
-  const NextWatched = JSON.parse(currentWatched);
-  NextWatched.push(curFilm);
-  localStorage.setItem('watched', JSON.stringify(NextWatched));
+// Функция добавления фильма в хранилище
+function addToStore(store) {
+  const currentMovie = localStorage.getItem(store);
+  const NextMovie = JSON.parse(currentMovie);
+  NextMovie.push(curFilm);
+  localStorage.setItem(store, JSON.stringify(NextMovie));
   //   console.log(NextQueue);
 }
-function removeToWatched() {
-  const currentWatched = localStorage.getItem('watched');
-  const NextWatched = JSON.parse(currentWatched);
-  const UpdateWatched = NextWatched.filter(e => {
-    e.id !== curFilm.id;
-  });
-  localStorage.setItem('watched', JSON.stringify(UpdateWatched));
-}
-
-// Функция добавления фильма в localeStorage Oueue
-function addToQueue() {
-  const currentQueue = localStorage.getItem('queue');
-  const NextQueue = JSON.parse(currentQueue);
-  NextQueue.push(curFilm);
-  localStorage.setItem('queue', JSON.stringify(NextQueue));
-  //   console.log(NextQueue);
-}
-
-function removeToQueue() {
-  const currentQueue = localStorage.getItem('queue');
-  const NextQueue = JSON.parse(currentQueue);
-  const UpdateQueue = NextQueue.filter(e => {
-    e.id !== curFilm.id;
-  });
-  localStorage.setItem('queue', JSON.stringify(UpdateQueue));
+// Функция удаления фильма из хранилища
+function removeToStore(store) {
+  const currentMovie = localStorage.getItem(store);
+  const NextMovie = JSON.parse(currentMovie);
+  const UpdateMovie = NextMovie.filter(e => e.id !== curFilm.id);
+  localStorage.setItem(store, JSON.stringify(UpdateMovie));
 }
 
 // функция динамического рендера разметки модалки с данными

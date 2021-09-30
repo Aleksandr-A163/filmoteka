@@ -11,15 +11,51 @@ const pagesOnWindow = 5;
 let pageCount;
 let rows = 20;
 
+// //////////////////
+let arrayGenre;
+FetchApi.fetchGenres().then(r => {
+  arrayGenre = r.genres;
+  
+  localStorage.setItem('genres', JSON.stringify(r.genres))
+});
 
+function saveInLocale(films) {
+  localStorage.setItem('currentFilms', JSON.stringify(films))
+}
+
+function replaceGenre(arrayGenre, filmGenre) {
+  for (let i = 0; i < arrayGenre.length; i += 1) {
+    for (let j = 0; j < filmGenre.length; j += 1) {
+        arrayGenre[i].id === filmGenre[j] ? filmGenre[j] = arrayGenre[i].name : filmGenre[j]        
+      }
+  }  
+}
+
+
+///////////////////////
 function newFetchPag(page) {
   FetchApi.fetchPopularFilmsByPage(page).then(r => {
-    localStorage.setItem('currentFilms', JSON.stringify(r.results))
-  renderFile(r.results)
-})
+    r.results.forEach(results => {
+    {
+      replaceGenre(arrayGenre, results.genre_ids)
+      
+    }
+    saveInLocale(r)
+  })  
+  renderFile(r.results)  
+  })
+  
+  
 }
 
 FetchApi.fetchPopularFilmsByPage().then(r => {
+  r.results.forEach(results => {
+    {
+      replaceGenre(arrayGenre, results.genre_ids)
+      
+    }
+    saveInLocale(r)
+  })  
   renderFile(r.results)
   renderPagination(r.total_pages, r.results, displayList);
 })
