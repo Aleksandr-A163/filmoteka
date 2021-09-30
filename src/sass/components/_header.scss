@@ -337,3 +337,11 @@ header {
   justify-content: center;
   margin-top: 46px;
 }
+.error {
+  margin-top: 22px;
+
+  font-size: 14px;
+  line-height: 1.14;
+  color: $text-red-color;
+  text-align: center;
+}
