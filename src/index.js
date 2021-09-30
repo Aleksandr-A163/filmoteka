@@ -6,6 +6,7 @@ import checkQuery from './JSpart/check-query';
 import renderCardsSearchFilms from './JSpart/render-search-films';
 import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
+import './JSpart/pagination'
 
 // элемент списка
 const collectionList = document.getElementById('home');
@@ -19,7 +20,11 @@ const newFetchApi = new FetchApi();
 // запись в локалсторедж всех жанров
 newFetchApi.fetchGenres().then(r => localStorage.setItem('genres', JSON.stringify(r.genres)));
 // запись в локалсторедж зарендеренных фильмов
-newFetchApi.fetchApi().then(r => localStorage.setItem('currentFilms', JSON.stringify(r)));
+function saveInLocale(films) {
+  localStorage.setItem('currentFilms', JSON.stringify(films))
+}
+
+newFetchApi.fetchApi().then(r => saveInLocale(r));
 
 //функция проверки наличия в "очереди" фильмов и создания массива если нету
 function isGetQueue() {
@@ -35,14 +40,15 @@ function isGetWatched() {
 }
 isGetWatched();
 
+
 // запрос за популярными фильмами за день и рендер
-newFetchApi.fetchApi().then(results => {
-  renderFile(results);
-});
+// newFetchApi.fetchApi().then(results => {
+//   renderFile(results);
+// });
 
 // функция рендера
 function renderFile(results) {
-  collectionList.insertAdjacentHTML('beforeend', render({ results }));
+  collectionList.innerHTML = render({ results })
 }
 
 //поиск по названию фильма
@@ -57,6 +63,10 @@ function foundFilmsByKeyword(e) {
   if (checkQuery(query)) return;
 
   newFetchApi.query = query;
+  newFetchApi.fetchSearchFilms().then(film => {
+    console.log(film);
+    renderFile(film);
+    });
   newFetchApi
     .fetchSearchFilms()
     .then(film => {
@@ -66,7 +76,7 @@ function foundFilmsByKeyword(e) {
         return;
       }
       //обновляем текущие фильмы в localStorage
-      localStorage.setItem('currentFilms', JSON.stringify(film));
+      saveInLocale(film)
       renderCardsSearchFilms();
     })
     .catch(er => {
