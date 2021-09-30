@@ -5,6 +5,7 @@ import cleanInput from './JSpart/clean-input';
 import checkQuery from './JSpart/check-query';
 import renderCardsSearchFilms from './JSpart/render-search-films';
 import errorSearch from './JSpart/error-search';
+import './JSpart/modal_students';
 
 // элемент списка
 const collectionList = document.getElementById('home');
