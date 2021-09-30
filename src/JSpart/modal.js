@@ -1,5 +1,5 @@
 import modal from '../templates/modal.hbs';
-import  {  myLibrary, watched, queue, myLibraryWatchedRender, renderFile } from './render-my-library';
+import { myLibrary, watched, queue, myLibraryWatchedRender, renderFile } from './render-my-library';
 const collectionList = document.getElementById('home');
 // collectionList взят из index.js
 const modalContent = document.querySelector('.modal__content');
@@ -14,18 +14,19 @@ let curFilm;
 
 function onUlElClick(e) {
   e.preventDefault();
+  const currentTarget = e.target.closest('.card')?.querySelector('.card__image').id;
+  if (currentTarget === undefined) return;
   // if (!e.target.classList.contains('card')) {
   // return
   // }
   window.addEventListener('keydown', onKeyPress);
   backdropEl.classList.remove('is-hidden');
 
-
   //работа с хранилищем
   const currentArrayFilms = JSON.parse(localStorage.getItem('currentFilms')).results;
   const arrayWatched = JSON.parse(localStorage.getItem('watched'));
   const arrayQueue = JSON.parse(localStorage.getItem('queue'));
-  const currentTarget = e.target.closest('.card').querySelector('.card__image').id;
+
   curFilm = currentArrayFilms.find(elem => elem.id === Number(currentTarget));
   renderModal(curFilm);
 
@@ -60,36 +61,42 @@ function onUlElClick(e) {
       if (cardBtn.id === 'watchedInModal') {
         //cardBtn.toggle('');
         if (!currentWatched.some(e => e.id === Number(currentTarget))) {
-          addToStore("watched");
+          addToStore('watched');
           buttonWatchedEl.textContent = 'Remove to watched';
           //перерисовка watched если пользователь удалил, а потом снова добавил фильм
-            if (watched.classList.contains("button--orange") && myLibrary.classList.contains("navigation__link--current")) {
-                collectionList.innerHTML = '';
-                const watchedFilms = JSON.parse(localStorage.getItem('watched'));
-                renderFile(watchedFilms);
-                console.log(watchedFilms);
-            }
-        } else {
-          removeToStore("watched");
-          buttonWatchedEl.textContent = 'Add to watched';
-           //перерисовка Watched при удаление фильма 
-          if (watched.classList.contains("button--orange") && myLibrary.classList.contains("navigation__link--current")) {
-  
+          if (
+            watched.classList.contains('button--orange') &&
+            myLibrary.classList.contains('navigation__link--current')
+          ) {
             collectionList.innerHTML = '';
             const watchedFilms = JSON.parse(localStorage.getItem('watched'));
             renderFile(watchedFilms);
             console.log(watchedFilms);
-            if (watchedFilms.length === 0){
-            collectionList.innerHTML = '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
+          }
+        } else {
+          removeToStore('watched');
+          buttonWatchedEl.textContent = 'Add to watched';
+          //перерисовка Watched при удаление фильма
+          if (
+            watched.classList.contains('button--orange') &&
+            myLibrary.classList.contains('navigation__link--current')
+          ) {
+            collectionList.innerHTML = '';
+            const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+            renderFile(watchedFilms);
+            console.log(watchedFilms);
+            if (watchedFilms.length === 0) {
+              collectionList.innerHTML =
+                '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
             }
           }
         }
       } else if (cardBtn.id === 'queueInModal') {
         if (!currentQueue.some(e => e.id === Number(currentTarget))) {
-          addToStore("queue");
+          addToStore('queue');
           buttonQueueEl.textContent = 'Remove to queue';
         } else {
-          removeToStore("queue");
+          removeToStore('queue');
           buttonQueueEl.textContent = 'Add to queue';
         }
       }
