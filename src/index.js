@@ -1,5 +1,6 @@
 import './sass/main.scss';
 import FetchApi from "./JSpart/apiFetch";
+import "./JSpart/modal_students";
 import render from "./templates/card.hbs";
 
 // элемент списка
