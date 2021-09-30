@@ -31,6 +31,16 @@ class FetchApi {
       error;
     }
   }
+  fetchPopularFilmsByPage(page) {
+  const url = `https://api.themoviedb.org/3/movie/popular?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=${page}`;
+  return fetch(url)
+    .then(response => response.json())
+    .then(results => {
+       return (results)
+    });
+}
+
+
   incrementPage() {
     this.page += 1;
   }

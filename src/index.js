@@ -1,12 +1,17 @@
 import './sass/main.scss';
-import FetchApi from "./JSpart/apiFetch";
-import render from "./templates/card.hbs";
+import FetchApi from './JSpart/apiFetch';
+import render from './templates/card.hbs';
+import cleanInput from './JSpart/clean-input';
+import checkQuery from './JSpart/check-query';
+import renderCardsSearchFilms from './JSpart/render-search-films';
+import errorSearch from './JSpart/error-search';
+import './JSpart/modal_students';
+import './JSpart/pagination'
 
 // элемент списка
 const collectionList = document.getElementById('home');
 
 // элементы поиска по ключевому слову
-const inputSearchFilm = document.querySelector('.search__input');
 const btnSearchEl = document.querySelector('.search__button');
 
 // создаёт новый класс на основе базового
@@ -15,7 +20,12 @@ const newFetchApi = new FetchApi();
 // запись в локалсторедж всех жанров
 newFetchApi.fetchGenres().then(r => localStorage.setItem('genres', JSON.stringify(r.genres)));
 // запись в локалсторедж зарендеренных фильмов
-newFetchApi.fetchApi().then(r => localStorage.setItem('currentFilms', JSON.stringify(r)));
+function saveInLocale(films) {
+  localStorage.setItem('currentFilms', JSON.stringify(films))
+}
+
+newFetchApi.fetchApi().then(r => saveInLocale(r));
+
 //функция проверки наличия в "очереди" фильмов и создания массива если нету
 function isGetQueue() {
   if (localStorage.getItem('queue')) return;
@@ -30,14 +40,15 @@ function isGetWatched() {
 }
 isGetWatched();
 
+
 // запрос за популярными фильмами за день и рендер
-newFetchApi.fetchApi().then(results => {
-  renderFile(results);
-});
+// newFetchApi.fetchApi().then(results => {
+//   renderFile(results);
+// });
 
 // функция рендера
 function renderFile(results) {
-  collectionList.insertAdjacentHTML('beforeend', render({ results }));
+  collectionList.innerHTML = render({ results })
 }
 
 //поиск по названию фильма
@@ -49,12 +60,29 @@ function foundFilmsByKeyword(e) {
   const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
   const query = inputSearchEl.value.trim();
 
-  if (!query) {
-    return;
-  }
+  if (checkQuery(query)) return;
+
   newFetchApi.query = query;
   newFetchApi.fetchSearchFilms().then(film => {
     console.log(film);
     renderFile(film);
-  });
+    });
+  newFetchApi
+    .fetchSearchFilms()
+    .then(film => {
+      if (film.length === 0) {
+        // console.log('Search result not successful. Enter the correct movie name.');
+        errorSearch('Search result not successful. Enter the correct movie name.');
+        return;
+      }
+      //обновляем текущие фильмы в localStorage
+      saveInLocale(film)
+      renderCardsSearchFilms();
+    })
+    .catch(er => {
+      // console.log('Something went wrong, please try again later');
+      errorSearch('Something went wrong, please try again later');
+    });
+
+  cleanInput();
 }
