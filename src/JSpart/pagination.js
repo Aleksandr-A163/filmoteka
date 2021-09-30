@@ -11,37 +11,33 @@ const pagesOnWindow = 5;
 let pageCount;
 let rows = 20;
 
-
 function newFetchPag(page) {
   FetchApi.fetchPopularFilmsByPage(page).then(r => {
-    localStorage.setItem('currentFilms', JSON.stringify(r.results))
-  renderFile(r.results)
-})
+    localStorage.setItem('currentFilms', JSON.stringify(r.results));
+    renderFile(r.results);
+  });
 }
 
 FetchApi.fetchPopularFilmsByPage().then(r => {
-  renderFile(r.results)
+  renderFile(r.results);
   renderPagination(r.total_pages, r.results, displayList);
-})
-
+});
 
 // функция рендера
 function renderFile(results) {
-  console.log('я зарендерился')
-  listElement.innerHTML = render({ results })
+  console.log('я зарендерился');
+  listElement.innerHTML = render({ results });
 }
 
 function displayList(wrapper, page, searchQuery) {
-    wrapper.innerHTML = '';
+  wrapper.innerHTML = '';
 }
-
 
 export function renderPagination(totalPages, listItems, callback) {
   paginationElement.innerHTML = '';
   currentPage = 1;
 
-    function setupPagination(items, wrapper, rowsPerPage) {
-
+  function setupPagination(items, wrapper, rowsPerPage) {
     wrapper.innerHTML = '';
 
     pageCount = totalPages;
@@ -112,16 +108,15 @@ export function renderPagination(totalPages, listItems, callback) {
 
     button.addEventListener('click', () => {
       currentPage = page;
-      newFetchPag(currentPage)
-    //   fetchPopularFilmsByPage(currentPage);
+      newFetchPag(currentPage);
+      //   fetchPopularFilmsByPage(currentPage);
       callback(listElement, currentPage, searchQuery);
 
       let current_btn = document.querySelector('.pagenumbers button.active');
       current_btn.classList.remove('active');
 
       button.classList.add('active');
-        setupPagination(listItems, paginationElement, rows);
-        
+      setupPagination(listItems, paginationElement, rows);
     });
     return button;
   }
@@ -129,6 +124,7 @@ export function renderPagination(totalPages, listItems, callback) {
   function onArrowLeftClick() {
     if (currentPage > 1) {
       currentPage--;
+      newFetchPag(currentPage);
       setupPagination(listItems, paginationElement, rows);
       callback(listElement, currentPage);
     }
@@ -137,6 +133,7 @@ export function renderPagination(totalPages, listItems, callback) {
   function onArrowRightClick() {
     if (currentPage < totalPages) {
       currentPage++;
+      newFetchPag(currentPage);
       setupPagination(listItems, paginationElement, rows);
       callback(listElement, currentPage);
     }
