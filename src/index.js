@@ -1,13 +1,17 @@
 import './sass/main.scss';
+import FetchApi from './JSpart/apiFetch';
+import render from './templates/card.hbs';
+import cleanInput from './JSpart/clean-input';
+import checkQuery from './JSpart/check-query';
+import renderCardsSearchFilms from './JSpart/render-search-films';
+import errorSearch from './JSpart/error-search';
+import './JSpart/modal_students';
 import './JSpart/pagination'
-import FetchApi from "./JSpart/apiFetch";
-import render from "./templates/card.hbs";
 
 // элемент списка
 const collectionList = document.getElementById('home');
 
 // элементы поиска по ключевому слову
-const inputSearchFilm = document.querySelector('.search__input');
 const btnSearchEl = document.querySelector('.search__button');
 
 // создаёт новый класс на основе базового
@@ -17,6 +21,7 @@ const newFetchApi = new FetchApi();
 newFetchApi.fetchGenres().then(r => localStorage.setItem('genres', JSON.stringify(r.genres)));
 // запись в локалсторедж зарендеренных фильмов
 newFetchApi.fetchApi().then(r => localStorage.setItem('currentFilms', JSON.stringify(r)));
+
 //функция проверки наличия в "очереди" фильмов и создания массива если нету
 function isGetQueue() {
   if (localStorage.getItem('queue')) return;
@@ -50,12 +55,29 @@ function foundFilmsByKeyword(e) {
   const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
   const query = inputSearchEl.value.trim();
 
-  if (!query) {
-    return;
-  }
+  if (checkQuery(query)) return;
+
   newFetchApi.query = query;
   newFetchApi.fetchSearchFilms().then(film => {
     console.log(film);
     renderFile(film);
     });
+  newFetchApi
+    .fetchSearchFilms()
+    .then(film => {
+      if (film.length === 0) {
+        // console.log('Search result not successful. Enter the correct movie name.');
+        errorSearch('Search result not successful. Enter the correct movie name.');
+        return;
+      }
+      //обновляем текущие фильмы в localStorage
+      localStorage.setItem('currentFilms', JSON.stringify(film));
+      renderCardsSearchFilms();
+    })
+    .catch(er => {
+      // console.log('Something went wrong, please try again later');
+      errorSearch('Something went wrong, please try again later');
+    });
+
+  cleanInput();
 }
