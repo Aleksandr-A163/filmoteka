@@ -6,8 +6,8 @@ import checkQuery from './JSpart/check-query';
 import renderCardsSearchFilms from './JSpart/render-search-films';
 import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
-import './JSpart/pagination'
-
+import './JSpart/pagination';
+import { logo, homePage, myLibrary, watched, queue, myLibraryWatchedRender , homePageRender } from './JSpart/render-my-library';
 // элемент списка
 const collectionList = document.getElementById('home');
 
@@ -18,13 +18,33 @@ const btnSearchEl = document.querySelector('.search__button');
 const newFetchApi = new FetchApi();
 
 // запись в локалсторедж всех жанров
-newFetchApi.fetchGenres().then(r => localStorage.setItem('genres', JSON.stringify(r.genres)));
+// let arrayGenre;
+// newFetchApi.fetchGenres().then(r => {
+//   arrayGenre = r.genres;
+
+//   localStorage.setItem('genres', JSON.stringify(r.genres))
+// });
 // запись в локалсторедж зарендеренных фильмов
 function saveInLocale(films) {
-  localStorage.setItem('currentFilms', JSON.stringify(films))
+  localStorage.setItem('currentFilms', JSON.stringify(films));
 }
 
-newFetchApi.fetchApi().then(r => saveInLocale(r));
+// function replaceGenre(arrayGenre, filmGenre) {
+//   for (let i = 0; i < arrayGenre.length; i += 1) {
+//     for (let j = 0; j < filmGenre.length; j += 1) {
+//         arrayGenre[i].id === filmGenre[j] ? filmGenre[j] = arrayGenre[i].name : filmGenre[j]
+//       }
+//   }
+
+// }
+
+// newFetchApi.fetchApi().then(r => {
+//   r.forEach(elem => {
+//     // replaceGenre(arrayGenre, elem.genre_ids)})
+//   saveInLocale(r)
+
+//   // renderFile(r)
+// });
 
 //функция проверки наличия в "очереди" фильмов и создания массива если нету
 function isGetQueue() {
@@ -40,7 +60,6 @@ function isGetWatched() {
 }
 isGetWatched();
 
-
 // запрос за популярными фильмами за день и рендер
 // newFetchApi.fetchApi().then(results => {
 //   renderFile(results);
@@ -48,7 +67,7 @@ isGetWatched();
 
 // функция рендера
 function renderFile(results) {
-  collectionList.innerHTML = render({ results })
+  collectionList.innerHTML = render({ results });
 }
 
 //поиск по названию фильма
@@ -63,10 +82,6 @@ function foundFilmsByKeyword(e) {
   if (checkQuery(query)) return;
 
   newFetchApi.query = query;
-  newFetchApi.fetchSearchFilms().then(film => {
-    console.log(film);
-    renderFile(film);
-    });
   newFetchApi
     .fetchSearchFilms()
     .then(film => {
@@ -76,7 +91,7 @@ function foundFilmsByKeyword(e) {
         return;
       }
       //обновляем текущие фильмы в localStorage
-      saveInLocale(film)
+      saveInLocale(film);
       renderCardsSearchFilms();
     })
     .catch(er => {
@@ -86,3 +101,9 @@ function foundFilmsByKeyword(e) {
 
   cleanInput();
 }
+
+//слушатели событий для header-link-btn
+logo.addEventListener('click', homePageRender );
+homePage.addEventListener('click',homePageRender);
+myLibrary.addEventListener('click',myLibraryWatchedRender);
+watched.addEventListener('click',myLibraryWatchedRender);
