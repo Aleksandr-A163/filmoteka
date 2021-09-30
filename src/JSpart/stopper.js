@@ -30,3 +30,4 @@ export default function replacesDefaultImage(arr) {
     console.log(newArr)
     return newArr;
 }
+
