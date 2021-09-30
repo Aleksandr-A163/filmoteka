@@ -1,7 +1,5 @@
 import fetchApi from './apiFetch';
 import render from '../templates/card.hbs';
-const API_KEY = 'f67f4d14d6b529f941fa4f285225b954';
-const BASE_URL = 'https://api.themoviedb.org/3';
 const FetchApi = new fetchApi();
 
 const listElement = document.querySelector('.collection');
@@ -13,18 +11,10 @@ const pagesOnWindow = 5;
 let pageCount;
 let rows = 20;
 
-// function fetchDataOfPopularFilms() {
-//   const url = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US`;
-//   return fetch(url)
-//     .then(response => {
-//       return response.json();
-//     })
-//     .then(results => {
-//       renderPagination(results.total_pages, results.results, displayList);
-//     });
-// }
+
 function newFetchPag(page) {
   FetchApi.fetchPopularFilmsByPage(page).then(r => {
+    localStorage.setItem('currentFilms', JSON.stringify(r.results))
   renderFile(r.results)
 })
 }
@@ -34,66 +24,24 @@ FetchApi.fetchPopularFilmsByPage().then(r => {
   renderPagination(r.total_pages, r.results, displayList);
 })
 
-// fetchPopularFilmsByPage()
-// function fetchPopularFilmsByPage(page) {
-//   const url = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
-//   return fetch(url)
-//     .then(response => response.json())
-//     .then(results => {
-//         renderFile(results.results)
-//         renderPagination(results.total_pages, results.results, displayList);
-//     });
-// }
-
-// function fetchSearchFilmsByPage(page) {
-//   const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&page=${page}&include_adult=true&query=${searchName}`;
-//   return fetch(url)
-//     .then(response => response.json())
-//     .then(({ results }) => {
-//       return results;
-//     });
-// }
-
-// function fetchFilmsSearch(searchQuery) {
-//   const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${searchQuery}`;
-//   return fetch(url)
-//     .then(response => response.json())
-//     .then(results => {
-//       renderPagination(results.total_pages, results.results, displaySearchListByPage);
-//     });
-// }
-
-// FetchApi.fetchApi().then(results => {
-//   renderPagination(results.total_pages, results.results, displayList)
-// });
 
 // функция рендера
 function renderFile(results) {
-  listElement.insertAdjacentHTML('beforeend', render({ results }));
+  console.log('я зарендерился')
+  listElement.innerHTML = render({ results })
 }
-
-// function renderFilmsCard(articles) {
-//   listElement.innerHTML = renderFile(articles);
-// }
 
 function displayList(wrapper, page, searchQuery) {
     wrapper.innerHTML = '';
-
-    
-//   renderFilmsCard();
 }
-// function displaySearchListByPage(wrapper, page, searchQuery) {
-//   wrapper.innerHTML = '';
-// //   renderFilmsCard();
-// }
+
 
 export function renderPagination(totalPages, listItems, callback) {
   paginationElement.innerHTML = '';
   currentPage = 1;
 
     function setupPagination(items, wrapper, rowsPerPage) {
-        // console.log(items);
-        // console.log(wrapper)
+
     wrapper.innerHTML = '';
 
     pageCount = totalPages;
