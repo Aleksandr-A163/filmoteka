@@ -9,4 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.style.overflow = 'visible';
 
     });
+    document.querySelector('[href="#close-down"]').addEventListener('click', function () {
+      document.body.style.overflow = 'visible';
+
+    });
   });
