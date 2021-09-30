@@ -6,7 +6,8 @@ import checkQuery from './JSpart/check-query';
 import renderCardsSearchFilms from './JSpart/render-search-films';
 import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
-import './JSpart/pagination'
+import './JSpart/pagination';
+import replacesDefaultImage from './JSpart/stopper';
 
 // элемент списка
 const collectionList = document.getElementById('home');
@@ -63,10 +64,11 @@ function foundFilmsByKeyword(e) {
   if (checkQuery(query)) return;
 
   newFetchApi.query = query;
-  newFetchApi.fetchSearchFilms().then(film => {
-    console.log(film);
-    renderFile(film);
-    });
+  // newFetchApi.fetchSearchFilms().then(film => {
+  //   // console.log(film);
+    
+  //   renderFile(film);
+  //   });
   newFetchApi
     .fetchSearchFilms()
     .then(film => {
@@ -75,9 +77,13 @@ function foundFilmsByKeyword(e) {
         errorSearch('Search result not successful. Enter the correct movie name.');
         return;
       }
+      const newFilm = replacesDefaultImage(film)
       //обновляем текущие фильмы в localStorage
-      saveInLocale(film)
+      saveInLocale(newFilm)
+     
+      // saveInLocale(film)
       renderCardsSearchFilms();
+      // renderFile(JSON.parse(localStorage.getItem('currentFilms')));
     })
     .catch(er => {
       // console.log('Something went wrong, please try again later');
