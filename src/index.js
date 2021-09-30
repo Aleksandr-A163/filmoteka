@@ -7,6 +7,7 @@ import renderCardsSearchFilms from './JSpart/render-search-films';
 import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
 import './JSpart/pagination';
+import './JSpart/header-setup';
 import { logo, homePage, myLibrary, watched, queue, myLibraryWatchedRender , homePageRender } from './JSpart/render-my-library';
 // элемент списка
 const collectionList = document.getElementById('home');
