@@ -86,8 +86,7 @@
       }
   
       .modal-title {
-        margin-top: 0;
-        margin-bottom: 0;
+        padding-left: 25px;
         line-height: 1.5;
         font-size: 1.25rem;
         font-weight: 500;
@@ -111,12 +110,30 @@
       /* свойства для кнопки "Закрыть" при нахождении её в фокусе или наведении */
       .close:focus,
       .close:hover {
-        color: #000;
+        color: #ff6b01;
         text-decoration: none;
         cursor: pointer;
         opacity: .75;
       }
-  
+
+      // свойство нижней кнопки закрыть
+      .close-modal-down {
+        margin: 0 auto;
+        margin-bottom: 20px;
+      }
+      .close-down {
+        padding: 10px 45px;
+        border-radius: 2px;
+        background-color: #777472;
+        color: #000;
+        transition-duration: 250ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+      }
+      .close-down:hover,
+      .close-down:focus {
+        background-color: #ff6b01;
+      }
       /* свойства для блока, содержащего основное содержимое окна */
       .modal-body {
         position: relative;
@@ -154,10 +171,44 @@
         font-weight: 500;
         font-size: 16px;
         line-height: 19px;
-        margin-top: 12px;
+        margin-top: 7px;
         display: flex;
+        color: #000;
       }
-      .card-team__title::before {
-        content: '';
-        // background-image: url(../../images/students/github.png);
+
+      .github__svg {
+        width: 40px;
+        height: 40px;
+        margin-right: 5px;
+      }
+      .card-team__box {
+        display: flex;
+        align-items: center;
+      }
+
+      // Ховер на фотке и имени
+      .link-gh:hover .team-photo,
+      .link-gh:focus .team-photo {
+        box-shadow: 0px 5px 11px 3px rgba(255,107,1, 0.816), 0px 2px 1px rgba(0, 0, 0, 0.14),
+        0px 2px 1px rgba(0, 0, 0, 0.233);
+        transition-duration: 250ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+      }
+      .link-gh:hover .github__svg,
+      .link-gh:focus .github__svg {
+        transition-duration: 250ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        fill: rgb(255,107,1);
+        cursor: pointer;
+        
+      }
+      .link-gh:hover .card-team__title,
+      .link-gh:focus .card-team__title {
+        text-decoration: none; 
+        decoration: none;
+        transition-duration: 250ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        color: #ff6b01;
+        cursor: pointer;
       }
