@@ -1,5 +1,5 @@
 import modal from '../templates/modal.hbs';
-
+import  {  myLibrary, watched, queue, myLibraryWatchedRender, renderFile } from './render-my-library';
 const collectionList = document.getElementById('home');
 // collectionList взят из index.js
 const modalContent = document.querySelector('.modal__content');
@@ -62,9 +62,27 @@ function onUlElClick(e) {
         if (!currentWatched.some(e => e.id === Number(currentTarget))) {
           addToStore("watched");
           buttonWatchedEl.textContent = 'Remove to watched';
+          //перерисовка watched если пользователь удалил, а потом снова добавил фильм
+            if (watched.classList.contains("button--orange") && myLibrary.classList.contains("navigation__link--current")) {
+                collectionList.innerHTML = '';
+                const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+                renderFile(watchedFilms);
+                console.log(watchedFilms);
+            }
         } else {
           removeToStore("watched");
           buttonWatchedEl.textContent = 'Add to watched';
+           //перерисовка Watched при удаление фильма 
+          if (watched.classList.contains("button--orange") && myLibrary.classList.contains("navigation__link--current")) {
+  
+            collectionList.innerHTML = '';
+            const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+            renderFile(watchedFilms);
+            console.log(watchedFilms);
+            if (watchedFilms.length === 0){
+            collectionList.innerHTML = '<div class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></div>';
+            }
+          }
         }
       } else if (cardBtn.id === 'queueInModal') {
         if (!currentQueue.some(e => e.id === Number(currentTarget))) {
