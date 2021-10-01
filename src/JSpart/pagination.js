@@ -19,45 +19,35 @@ FetchApi.fetchGenres().then(r => {
   localStorage.setItem('genres', JSON.stringify(r.genres));
 });
 
-function saveInLocale(films) {
-  localStorage.setItem('currentFilms', JSON.stringify(films));
-}
-
-function replaceGenre(arrayGenre, filmGenre) {
-  for (let i = 0; i < arrayGenre.length; i += 1) {
-    for (let j = 0; j < filmGenre.length; j += 1) {
-      arrayGenre[i].id === filmGenre[j] ? (filmGenre[j] = arrayGenre[i].name) : filmGenre[j];
-    }
-  }
-}
-
-///////////////////////
 function newFetchPag(page) {
   FetchApi.fetchPopularFilmsByPage(page).then(r => {
-    r.results.forEach(results => {
-      {
-        replaceGenre(arrayGenre, results.genre_ids);
-      }
-      saveInLocale(r);
-    });
-    renderFile(r.results);
+    // r.results.forEach(results => {
+    //   {
+    //     FetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), results.genre_ids);
+    //   }
+    FetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+      FetchApi.saveInLocale(r);
+    // });
+    // renderFile(r.results);
+    FetchApi.renderCards();
   });
 }
 
 FetchApi.fetchPopularFilmsByPage().then(r => {
-  r.results.forEach(results => {
-    {
-      replaceGenre(arrayGenre, results.genre_ids);
-    }
-    saveInLocale(r);
-  });
-  renderFile(r.results);
+  // r.results.forEach(results => {
+  //   {
+  //      FetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), results.genre_ids);
+  //   }
+  FetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+    FetchApi.saveInLocale(r);
+  // });
+  // renderFile(r.results);
+  FetchApi.renderCards();
   renderPagination(r.total_pages, r.results, displayList);
 });
 
 // функция рендера
 function renderFile(results) {
-  console.log('я зарендерился');
   listElement.innerHTML = render({ results });
 }
 

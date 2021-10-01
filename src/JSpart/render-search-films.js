@@ -1,11 +1,11 @@
-import render from '../templates/card.hbs';
+// import render from '../templates/card.hbs';
 
-const collectionList = document.getElementById('home');
+// const collectionList = document.getElementById('home');
 
-function renderCardsSearchFilms() {
-  const dataFilms = localStorage.getItem('currentFilms');
-  const results = JSON.parse(dataFilms);
+// function renderCardsSearchFilms() {
+//   const dataFilms = localStorage.getItem('currentFilms');
+//   const results = JSON.parse(dataFilms).results;
 
-  collectionList.innerHTML = render({ results });
-}
-export default renderCardsSearchFilms;
+//   collectionList.innerHTML = render({ results });
+// }
+// export default renderCardsSearchFilms;
