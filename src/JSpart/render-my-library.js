@@ -1,4 +1,4 @@
-import FetchApi from './apiFetch';
+import FetchApi from './api-fetch';
 import render from '../templates/card.hbs';
 export { logo, homePage, myLibrary, watched, queue, collectionList, myLibraryWatchedRender, homePageRender,  renderFile};
 

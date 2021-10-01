@@ -1,4 +1,4 @@
-import fetchApi from './apiFetch';
+import fetchApi from './api-fetch';
 import render from '../templates/card.hbs';
 const FetchApi = new fetchApi();
 

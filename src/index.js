@@ -1,5 +1,5 @@
 import './sass/main.scss';
-import FetchApi from './JSpart/apiFetch';
+import FetchApi from './JSpart/api-fetch';
 import render from './templates/card.hbs';
 import cleanInput from './JSpart/clean-input';
 import checkQuery from './JSpart/check-query';
