@@ -1,5 +1,4 @@
 import render from '../templates/card.hbs';
-
 class FetchApi {
   constructor() {
     this.searchQuery = '';
@@ -18,7 +17,6 @@ class FetchApi {
       error;
     }
   }
-
 
   replaceGenreA(arrayGenre, film) {
     console.log(film);
@@ -40,19 +38,6 @@ class FetchApi {
   collectionList.innerHTML = render({ results });
 }
 
-  // async fetchApi() {
-  //   const MY_KEY = 'f67f4d14d6b529f941fa4f285225b954';
-  //   // ниже это урла для популярных фильмов за день
-  //   const BASE_URL = 'https://api.themoviedb.org/3/trending/movie/day';
-  //   try {
-  //     const response = await fetch(`${BASE_URL}?api_key=${MY_KEY}`);
-  //     const data = await response.json();
-  //     const results = await data.results;
-  //     return results;
-  //   } catch {
-  //     error;
-  //   }
-  // }
   fetchPopularFilmsByPage(page) {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=${page}`;
     return fetch(url)

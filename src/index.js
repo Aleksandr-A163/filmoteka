@@ -3,7 +3,6 @@ import FetchApi from './JSpart/api-fetch';
 import render from './templates/card.hbs';
 import cleanInput from './JSpart/clean-input';
 import checkQuery from './JSpart/check-query';
-import renderCardsSearchFilms from './JSpart/render-search-films';
 import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
 import './JSpart/pagination';
