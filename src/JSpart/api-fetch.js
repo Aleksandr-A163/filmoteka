@@ -1,3 +1,4 @@
+import render from '../templates/card.hbs';
 class FetchApi {
   constructor() {
     this.searchQuery = '';
@@ -17,27 +18,37 @@ class FetchApi {
     }
   }
 
-  async fetchApi() {
-    const MY_KEY = 'f67f4d14d6b529f941fa4f285225b954';
-    // ниже это урла для популярных фильмов за день
-    const BASE_URL = 'https://api.themoviedb.org/3/trending/movie/day';
-    try {
-      const response = await fetch(`${BASE_URL}?api_key=${MY_KEY}`);
-      const data = await response.json();
-      const results = await data.results;
-      return results;
-    } catch {
-      error;
+  replaceGenreA(arrayGenre, film) {
+    console.log(film);
+    film.results.forEach(r => {
+      for (let i = 0; i < arrayGenre.length; i += 1) {
+        for (let j = 0; j < r.genre_ids.length; j += 1) {
+          arrayGenre[i].id === r.genre_ids[j] ? (r.genre_ids[j] = arrayGenre[i].name) : r.genre_ids[j];
+        }
+      }
     }
+    )
+  
   }
-  fetchPopularFilmsByPage(page) {
-  const url = `https://api.themoviedb.org/3/movie/popular?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=${page}`;
-  return fetch(url)
-    .then(response => response.json())
-    .then(results => {
-       return (results)
-    });
+  renderCards() {
+  const collectionList = document.getElementById('home');
+  const dataFilms = localStorage.getItem('currentFilms');
+  const results = JSON.parse(dataFilms).results;
+
+  collectionList.innerHTML = render({ results });
 }
+
+  fetchPopularFilmsByPage(page) {
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=${page}`;
+    return fetch(url)
+      .then(response => response.json())
+      .then(results => {
+        return results;
+      });
+  }
+  saveInLocale(films) {
+    localStorage.setItem('currentFilms', JSON.stringify(films));
+  }
 
   incrementPage() {
     this.page += 1;
@@ -64,7 +75,7 @@ class FetchApi {
         `${BASE_URL}search/movie?api_key=${KEY}&language=${LANG}&page=${this.page}&include_adult=false&query=${this.searchQuery}`,
       );
       const data = await response.json();
-      const results = await data.results;
+      const results = await data;
       return results;
     } catch (error) {
       error;

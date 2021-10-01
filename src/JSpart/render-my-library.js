@@ -19,11 +19,18 @@ homePage.addEventListener('click',homePageRender);
 myLibrary.addEventListener('click',myLibraryWatchedRender);
 
 //функции отрисовки при переходе на страницы навигации
-function homePageRender() {
+function homePageRender(e) {
 e.preventDefault();
-newFetchApi.fetchApi().then(results => {
-  renderFile(results);
-});
+  newFetchApi.fetchPopularFilmsByPage()
+    .then(r => {
+     newFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+      newFetchApi.saveInLocale(r);
+      renderFile(r.results);
+    })
+//     .then(results => {
+
+//   renderFile(results);
+// });
 }
 
 function myLibraryWatchedRender(e) {
@@ -34,6 +41,7 @@ function myLibraryWatchedRender(e) {
   const watchedFilms = JSON.parse(localStorage.getItem('watched'));
   if (watchedFilms.length === 0){
     collectionList.innerHTML = '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
+  return
   }
   renderFile(watchedFilms);
   
@@ -41,5 +49,5 @@ function myLibraryWatchedRender(e) {
 
   // функция рендера
  function renderFile(results) {
-  collectionList.insertAdjacentHTML('beforeend', render({ results }));
+  collectionList.innerHTML = render({ results });
 }
