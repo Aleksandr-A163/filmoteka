@@ -34,9 +34,9 @@
 }
 
 .card__caption {
-  display: flex;
+  @extend %flex-centered;
   justify-content: start;
-  align-items: center;
+
   font-size: 12px;
   line-height: 1.33;
   color: $accent-darker-color;
