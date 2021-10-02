@@ -12,50 +12,22 @@ let pageCount;
 let rows = 20;
 
 // //////////////////
-let arrayGenre;
 FetchApi.fetchGenres().then(r => {
-  arrayGenre = r.genres;
-
   localStorage.setItem('genres', JSON.stringify(r.genres));
 });
-
-function newFetchPag(page) {
-  FetchApi.fetchPopularFilmsByPage(page).then(r => {
-    // r.results.forEach(results => {
-    //   {
-    //     FetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), results.genre_ids);
-    //   }
-    FetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
-      FetchApi.saveInLocale(r);
-    // });
-    // renderFile(r.results);
-    FetchApi.renderCards();
-  });
-}
-
+// FetchApi.getPaginationPage('fetchPopularFilmsByPage', 1);
 FetchApi.fetchPopularFilmsByPage().then(r => {
-  // r.results.forEach(results => {
-  //   {
-  //      FetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), results.genre_ids);
-  //   }
   FetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
-    FetchApi.saveInLocale(r);
-  // });
-  // renderFile(r.results);
+  FetchApi.saveInLocale(r);
   FetchApi.renderCards();
   renderPagination(r.total_pages, r.results, displayList);
 });
 
-// функция рендера
-function renderFile(results) {
-  listElement.innerHTML = render({ results });
-}
-
-function displayList(wrapper, page, searchQuery) {
+function displayList(wrapper) {
   wrapper.innerHTML = '';
 }
 
-export function renderPagination(totalPages, listItems, callback) {
+function renderPagination(totalPages, listItems, callback) {
   paginationElement.innerHTML = '';
   currentPage = 1;
 
@@ -123,6 +95,7 @@ export function renderPagination(totalPages, listItems, callback) {
     return threeDots;
   }
   function paginationButton(page, items, searchQuery) {
+    // console.log(searchQuery);
     let button = document.createElement('button');
     button.innerText = page;
 
@@ -130,7 +103,7 @@ export function renderPagination(totalPages, listItems, callback) {
 
     button.addEventListener('click', () => {
       currentPage = page;
-      newFetchPag(currentPage);
+      FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
       //   fetchPopularFilmsByPage(currentPage);
       callback(listElement, currentPage, searchQuery);
 
@@ -146,7 +119,7 @@ export function renderPagination(totalPages, listItems, callback) {
   function onArrowLeftClick() {
     if (currentPage > 1) {
       currentPage--;
-      newFetchPag(currentPage);
+      FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
       setupPagination(listItems, paginationElement, rows);
       callback(listElement, currentPage);
     }
@@ -155,7 +128,7 @@ export function renderPagination(totalPages, listItems, callback) {
   function onArrowRightClick() {
     if (currentPage < totalPages) {
       currentPage++;
-      newFetchPag(currentPage);
+      FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
       setupPagination(listItems, paginationElement, rows);
       callback(listElement, currentPage);
     }
@@ -188,3 +161,4 @@ function disableArrowBtn(totalPages) {
     arrowRight.classList.remove('disabled-arrow');
   }
 }
+export { renderPagination, displayList };

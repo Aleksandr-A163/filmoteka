@@ -1,4 +1,5 @@
 import render from '../templates/card.hbs';
+
 class FetchApi {
   constructor() {
     this.searchQuery = '';
@@ -23,20 +24,20 @@ class FetchApi {
     film.results.forEach(r => {
       for (let i = 0; i < arrayGenre.length; i += 1) {
         for (let j = 0; j < r.genre_ids.length; j += 1) {
-          arrayGenre[i].id === r.genre_ids[j] ? (r.genre_ids[j] = arrayGenre[i].name) : r.genre_ids[j];
+          arrayGenre[i].id === r.genre_ids[j]
+            ? (r.genre_ids[j] = arrayGenre[i].name)
+            : r.genre_ids[j];
         }
       }
-    }
-    )
-  
+    });
   }
   renderCards() {
-  const collectionList = document.getElementById('home');
-  const dataFilms = localStorage.getItem('currentFilms');
-  const results = JSON.parse(dataFilms).results;
+    const collectionList = document.getElementById('home');
+    const dataFilms = localStorage.getItem('currentFilms');
+    const results = JSON.parse(dataFilms).results;
 
-  collectionList.innerHTML = render({ results });
-}
+    collectionList.innerHTML = render({ results });
+  }
 
   fetchPopularFilmsByPage(page) {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=${page}`;
@@ -48,6 +49,9 @@ class FetchApi {
   }
   saveInLocale(films) {
     localStorage.setItem('currentFilms', JSON.stringify(films));
+  }
+  getLSItems() {
+    return JSON.parse(localStorage.getItem('currentFilms'));
   }
 
   incrementPage() {
@@ -80,6 +84,14 @@ class FetchApi {
     } catch (error) {
       error;
     }
+  }
+
+  getPaginationPage(fetchQuery, page) {
+    this[fetchQuery](page).then(r => {
+      this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+      this.saveInLocale(r);
+      this.renderCards();
+    });
   }
 }
 export default FetchApi;
