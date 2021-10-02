@@ -77,16 +77,16 @@ body {
   margin: 0 auto;
 
   @include adaptive-size(mobile) {
-    max-width: 320px;
+    max-width: $mobile;
   }
   @include adaptive-size(tablet) {
     grid-gap: $set-gap;
     grid-template-columns: 230px 1fr 77px;
 
-    max-width: 768px;
+    max-width: $tablet;
   }
   @include adaptive-size(desktop) {
-    max-width: 1024px;
+    max-width: $desktop;
   }
 }
 
