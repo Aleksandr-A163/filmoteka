@@ -4,12 +4,14 @@ class FetchApi {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
+    this.baseUrl = 'https://api.themoviedb.org/3/';
+    this.language = 'en-US';
+    this.key = 'a92e1c28ff5839246667e5b68c28f141';
   }
+
+  //запрос жанров
   async fetchGenres() {
-    const LANG = 'en-US';
-    const MY_KEY = 'f67f4d14d6b529f941fa4f285225b954';
-    // урла для жанров
-    const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${MY_KEY}&language=${LANG}`;
+    const url = `${this.baseUrl}genre/movie/list?api_key=${this.key}&language=${this.language}`;
     try {
       const response = await fetch(url);
       const results = await response.json();
@@ -19,6 +21,31 @@ class FetchApi {
     }
   }
 
+  //запрос фильмов по поиску
+  async fetchSearchFilms() {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}search/movie?api_key=${this.key}&language=${this.language}&page=${this.page}&include_adult=false&query=${this.searchQuery}`,
+      );
+      const data = await response.json();
+      const results = await data;
+      return results;
+    } catch (error) {
+      error;
+    }
+  }
+
+  // запрос популярных фильмов
+  fetchPopularFilmsByPage(page) {
+    const url = `${this.baseUrl}movie/popular?api_key=${this.key}&language=${this.language}&page=${page}`;
+    return fetch(url)
+      .then(response => response.json())
+      .then(results => {
+        return results;
+      });
+  }
+
+  //подмена жанров в цифрах на жанры-слова
   replaceGenreA(arrayGenre, film) {
     console.log(film);
     film.results.forEach(r => {
@@ -31,29 +58,34 @@ class FetchApi {
       }
     });
   }
+
+  //рендер карточек фильмов
   renderCards() {
     const collectionList = document.getElementById('home');
-    const dataFilms = localStorage.getItem('currentFilms');
-    const results = JSON.parse(dataFilms).results;
+    // const dataFilms = localStorage.getItem('currentFilms');
+    // const results = JSON.parse(dataFilms).results;
+    const results = this.getLSItems().results;
 
     collectionList.innerHTML = render({ results });
   }
 
-  fetchPopularFilmsByPage(page) {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=${page}`;
-    return fetch(url)
-      .then(response => response.json())
-      .then(results => {
-        return results;
-      });
-  }
+  //сохранение в локалсторидж
   saveInLocale(films) {
     localStorage.setItem('currentFilms', JSON.stringify(films));
   }
+  // получение из локалсторидж
   getLSItems() {
     return JSON.parse(localStorage.getItem('currentFilms'));
   }
-
+  //пагинация страниц
+  getPaginationPage(fetchQuery, page) {
+    this[fetchQuery](page).then(r => {
+      this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+      this.saveInLocale(r);
+      this.renderCards();
+    });
+  }
+  //работа со страницей
   incrementPage() {
     this.page += 1;
   }
@@ -63,35 +95,12 @@ class FetchApi {
   resetPage() {
     return (this.page = 1);
   }
+  // запросы по поиску get и set
   get query() {
     return this.searchQuery;
   }
   set query(newQuery) {
     this.searchQuery = newQuery;
-  }
-  async fetchSearchFilms() {
-    const LANG = 'en-US';
-    const BASE_URL = 'https://api.themoviedb.org/3/';
-    const KEY = 'a92e1c28ff5839246667e5b68c28f141';
-
-    try {
-      const response = await fetch(
-        `${BASE_URL}search/movie?api_key=${KEY}&language=${LANG}&page=${this.page}&include_adult=false&query=${this.searchQuery}`,
-      );
-      const data = await response.json();
-      const results = await data;
-      return results;
-    } catch (error) {
-      error;
-    }
-  }
-
-  getPaginationPage(fetchQuery, page) {
-    this[fetchQuery](page).then(r => {
-      this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
-      this.saveInLocale(r);
-      this.renderCards();
-    });
   }
 }
 export default FetchApi;
