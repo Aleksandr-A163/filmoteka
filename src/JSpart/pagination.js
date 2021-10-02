@@ -11,27 +11,21 @@ const pagesOnWindow = 5;
 let pageCount;
 let rows = 20;
 
-// //////////////////
 FetchApi.fetchGenres().then(r => {
   localStorage.setItem('genres', JSON.stringify(r.genres));
 });
-// FetchApi.getPaginationPage('fetchPopularFilmsByPage', 1);
 FetchApi.fetchPopularFilmsByPage().then(r => {
   FetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
   FetchApi.saveInLocale(r);
   FetchApi.renderCards();
-  renderPagination(r.total_pages, r.results, displayList);
+  renderPagination(r.total_pages, r.results);
 });
 
-function displayList(wrapper) {
-  wrapper.innerHTML = '';
-}
-
-function renderPagination(totalPages, listItems, callback) {
+function renderPagination(totalPages, listItems) {
   paginationElement.innerHTML = '';
   currentPage = 1;
 
-  function setupPagination(items, wrapper, rowsPerPage) {
+  function setupPagination(items, wrapper) {
     wrapper.innerHTML = '';
 
     pageCount = totalPages;
@@ -94,8 +88,7 @@ function renderPagination(totalPages, listItems, callback) {
     threeDots.innerText = '...';
     return threeDots;
   }
-  function paginationButton(page, items, searchQuery) {
-    // console.log(searchQuery);
+  function paginationButton(page) {
     let button = document.createElement('button');
     button.innerText = page;
 
@@ -104,8 +97,6 @@ function renderPagination(totalPages, listItems, callback) {
     button.addEventListener('click', () => {
       currentPage = page;
       FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
-      //   fetchPopularFilmsByPage(currentPage);
-      callback(listElement, currentPage, searchQuery);
 
       let current_btn = document.querySelector('.pagenumbers button.active');
       current_btn.classList.remove('active');
@@ -121,7 +112,6 @@ function renderPagination(totalPages, listItems, callback) {
       currentPage--;
       FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
       setupPagination(listItems, paginationElement, rows);
-      callback(listElement, currentPage);
     }
   }
 
@@ -130,7 +120,6 @@ function renderPagination(totalPages, listItems, callback) {
       currentPage++;
       FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
       setupPagination(listItems, paginationElement, rows);
-      callback(listElement, currentPage);
     }
   }
 
@@ -138,6 +127,7 @@ function renderPagination(totalPages, listItems, callback) {
   arrowLeft.onclick = onArrowLeftClick;
   arrowRight.onclick = onArrowRightClick;
 }
+
 // отключение стрелок на первой и последней странице
 paginationElement.addEventListener('click', disableArrowBtnAfterPageClick);
 
@@ -161,4 +151,3 @@ function disableArrowBtn(totalPages) {
     arrowRight.classList.remove('disabled-arrow');
   }
 }
-export { renderPagination, displayList };
