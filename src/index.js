@@ -7,21 +7,7 @@ import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
 import './JSpart/pagination-and-Render';
 import './JSpart/header-setup';
-import {
-  logo,
-  homePage,
-  myLibrary,
-  watched,
-  queue,
-  myLibraryWatchedRender,
-  homePageRender,
-} from './JSpart/render-my-library';
-import {
-  renderPaginationBtn,
-  makeActiveBtn,
-  onBtnClick,
-  renderPagination,
-} from './JSpart/pagination-and-Render';
+import './JSpart/theme-switch';
 
 // элемент списка
 const collectionList = document.getElementById('home');

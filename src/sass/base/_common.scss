@@ -61,6 +61,16 @@ body {
   color: $text-black-color;
 }
 
+body.light-theme {
+  color: $text-black-color;
+}
+
+body.dark-theme {
+  background-color: #121212;
+  // background-color: rgba(18, 18, 18, 0.9);
+  color: rgb(255, 255, 255, 0.9);
+}
+
 .body__container {
   display: grid;
   grid-template-areas:
