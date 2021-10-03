@@ -7,7 +7,18 @@ import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
 import './JSpart/pagination';
 import './JSpart/header-setup';
-import { logo, homePage, myLibrary, watched, queue, myLibraryWatchedRender , homePageRender } from './JSpart/render-my-library';
+import {
+  logo,
+  homePage,
+  myLibrary,
+  watched,
+  queue,
+  myLibraryWatchedRender,
+  homePageRender,
+} from './JSpart/render-my-library';
+// import Pagination from './JSpart/new-pagination';
+import FetchApiA from './JSpart/new-pagination';
+
 // элемент списка
 const collectionList = document.getElementById('home');
 
@@ -38,6 +49,13 @@ function renderFile(results) {
 //поиск по названию фильма
 btnSearchEl.addEventListener('click', foundFilmsByKeyword);
 
+////////////////////
+const newFetchApiA = new FetchApiA();
+// const paginationFilms = new Pagination();
+// class newFetchApi extens Pagination;
+const pagesDivEl = document.getElementById('pagination');
+////////////////////
+
 //функция поиска по названию фильма
 function foundFilmsByKeyword(e) {
   e.preventDefault();
@@ -47,6 +65,7 @@ function foundFilmsByKeyword(e) {
   if (checkQuery(query)) return;
 
   newFetchApi.query = query;
+  paginationFilms.fetchQuery = 'fetchSearchFilms';
   newFetchApi
     .fetchSearchFilms()
     .then(film => {
@@ -61,9 +80,9 @@ function foundFilmsByKeyword(e) {
       // console.log(film);
       newFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
       //обновляем текущие фильмы в localStorage
-      
+
       newFetchApi.saveInLocale(film);
-      newFetchApi.renderCards()
+      newFetchApi.renderCards();
       // renderCardsSearchFilms();
     })
     .catch(er => {
@@ -72,10 +91,23 @@ function foundFilmsByKeyword(e) {
     });
 
   cleanInput();
+  paginationFilms.firstDrawingPageNumbers();
 }
 
 //слушатели событий для header-link-btn
-logo.addEventListener('click', homePageRender );
-homePage.addEventListener('click',homePageRender);
-myLibrary.addEventListener('click',myLibraryWatchedRender);
-watched.addEventListener('click',myLibraryWatchedRender);
+logo.addEventListener('click', homePageRender);
+homePage.addEventListener('click', homePageRender);
+myLibrary.addEventListener('click', myLibraryWatchedRender);
+watched.addEventListener('click', myLibraryWatchedRender);
+
+/////////////
+pagesDivEl.addEventListener('click', paginationFilms.targetPage);
+
+// function targetPage(e) {
+//   e.preventDefault();
+
+//   const target = e.target;
+//   if (target.hasAttribute('data-page')) {
+//   }
+// }
+/////////////

@@ -7,6 +7,15 @@ class FetchApi {
     this.baseUrl = 'https://api.themoviedb.org/3/';
     this.language = 'en-US';
     this.key = 'a92e1c28ff5839246667e5b68c28f141';
+    ///////////////////////
+    /////пагинация/////////
+    // this.listElement = document.querySelector('.collection');
+    // this.paginationElement = document.getElementById('pagination');
+    // this.arrowLeft = document.querySelector('.arrow_left');
+    // this.arrowRight = document.querySelector('.arrow_right');
+    // this.pagesOnWindow = 5;
+    // this.rows = 20;
+    ///////////////////////
   }
 
   //запрос жанров
@@ -78,6 +87,7 @@ class FetchApi {
     return JSON.parse(localStorage.getItem('currentFilms'));
   }
   //пагинация страниц
+
   getPaginationPage(fetchQuery, page) {
     this[fetchQuery](page).then(r => {
       this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
@@ -85,6 +95,7 @@ class FetchApi {
       this.renderCards();
     });
   }
+
   //работа со страницей
   incrementPage() {
     this.page += 1;
