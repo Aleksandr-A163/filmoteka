@@ -56,7 +56,7 @@ class FetchApi {
 
   //подмена жанров в цифрах на жанры-слова
   replaceGenreA(arrayGenre, film) {
-    console.log(film);
+    // console.log(film);
     film.results.forEach(r => {
       for (let i = 0; i < arrayGenre.length; i += 1) {
         for (let j = 0; j < r.genre_ids.length; j += 1) {
@@ -138,7 +138,7 @@ class Pagination extends FetchApi {
     this.paginationElement.innerHTML = '';
     const btnPages = [];
     const totalPages = JSON.parse(localStorage.getItem('currentFilms')).total_pages;
-
+    // console.log(totalPages, 'firstDrawingPageNumbers');
     if (totalPages < 5) {
       for (let i = 1; i <= totalPages; i += 1) {
         const btn = document.createElement('button');
@@ -225,37 +225,47 @@ class Pagination extends FetchApi {
   // }
   paginationButton() {
     const arrEl = [];
-    const firstBtn = document.createElement('button');
-    firstBtn.textContent = 1;
-    firstBtn.setAttribute('data-page', 1);
-    arrEl.push(firstBtn);
-    arrEl.push(this.addThreeDotsBlock());
+    if (this.page >= 4 || this.page == 2) {
+      const firstBtn = document.createElement('button');
+      firstBtn.textContent = 1;
+      firstBtn.setAttribute('data-page', 1);
+      arrEl.push(firstBtn);
+    }
+
+    if (this.page > 4) {
+      arrEl.push(this.addThreeDotsBlock());
+    }
+
     for (let i = 2; i > 0; i -= 1) {
       const btn = document.createElement('button');
-
+      if (this.page - i <= 0) break;
       btn.textContent = this.page - i;
       btn.setAttribute('data-page', this.page - i);
       arrEl.push(btn);
     }
+
     const currentPage = document.createElement('button');
     currentPage.textContent = this.page;
     currentPage.setAttribute('data-page', this.page);
     currentPage.classList.add('active');
     arrEl.push(currentPage);
-    for (let i = 1; i <= 2; i += 1) {
-      const btn = document.createElement('button');
+    if (this.page < this.getLSItems().total_pages) {
+      for (let i = 1; i <= 2; i += 1) {
+        const btn = document.createElement('button');
 
-      btn.textContent = Number(this.page) + i;
-      btn.setAttribute('data-page', Number(this.page) + i);
-      arrEl.push(btn);
+        btn.textContent = Number(this.page) + i;
+        btn.setAttribute('data-page', Number(this.page) + i);
+        arrEl.push(btn);
+      }
     }
+
     arrEl.push(this.addThreeDotsBlock());
     const lastBtn = document.createElement('button');
     lastBtn.textContent = this.getLSItems().total_pages;
     lastBtn.setAttribute('data-page', this.getLSItems().total_pages);
     arrEl.push(lastBtn);
 
-    console.log(arrEl);
+    // console.log(arrEl);
     return arrEl;
   }
 }

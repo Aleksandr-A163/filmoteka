@@ -83,10 +83,13 @@ function foundFilmsByKeyword(e) {
       // console.log(film);
       newFetchApiA.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
       //обновляем текущие фильмы в localStorage
-
+      console.log(`после жанров`, film);
       newFetchApiA.saveInLocale(film);
+
       newFetchApiA.renderCards();
+
       // renderCardsSearchFilms();
+      newFetchApiA.firstDrawingPageNumbers();
     })
     .catch(er => {
       // console.log('Something went wrong, please try again later');
@@ -94,7 +97,7 @@ function foundFilmsByKeyword(e) {
     });
 
   cleanInput();
-  newFetchApiA.firstDrawingPageNumbers();
+  console.log(newFetchApiA.getLSItems());
 }
 
 //слушатели событий для header-link-btn
