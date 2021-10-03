@@ -10,7 +10,7 @@ const paginationElement = document.getElementById('pagination');
 const arrowLeft = document.querySelector('.arrow_left');
 const arrowRight = document.querySelector('.arrow_right');
 const btnSearchEl = document.querySelector('.search__button');
-let currentPage = 1;
+// let currentPage = 1;
 const pagesOnWindow = 5;
 let pageCount;
 let rows = 20;
@@ -163,8 +163,8 @@ FetchApi.fetchPopularFilmsByPage().then(r => {
 // Рендер кнопок
 
 function renderPaginationBtn() {
-  const before = currentPage - 2;
-  const after = currentPage + 2;
+  const before = FetchApi.pageNumber - 2;
+  const after = FetchApi.pageNumber + 2;
 
   for (let i = before; i <= after; i += 1) {
     if (i > 0 && i <= totalPages) {
@@ -176,8 +176,12 @@ function renderPaginationBtn() {
 }
 function makeActiveBtn() {
   let pages = paginationElement.querySelectorAll('button');
+
   for (let i = 0; i < pages.length; i += 1) {
-    if (Number(pages[i].textContent) === currentPage) {
+    if (pages[i].classList.contains('active')) {
+      pages[i].classList.remove('active');
+    }
+    if (Number(pages[i].textContent) === FetchApi.pageNumber) {
       pages[i].classList.add('active');
     }
   }
@@ -193,14 +197,14 @@ export function onBtnClick(e) {
   listElement.innerHTML = '';
   paginationElement.innerHTML = '';
 
-  currentPage = Number(e.target.textContent);
-  FetchApi.pagination(currentPage);
+  FetchApi.pageNumber = Number(e.target.textContent);
+
   renderPagination();
   console.log('FetchApi.query', FetchApi.query);
   if (FetchApi.query) {
-    FetchApi.getPaginationPage('fetchSearchFilms', currentPage);
+    FetchApi.getPaginationPage('fetchSearchFilms');
   } else {
-    FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
+    FetchApi.getPaginationPage('fetchPopularFilmsByPage');
   }
 }
 
@@ -216,7 +220,7 @@ btnSearchEl.addEventListener('click', foundFilmsByKeyword);
 
 //функция поиска по названию фильма
 function foundFilmsByKeyword(e) {
-  // FetchApi.resetPage();
+  FetchApi.resetPage();
   e.preventDefault();
   const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
   const query = inputSearchEl.value.trim();
@@ -241,6 +245,7 @@ function foundFilmsByKeyword(e) {
       FetchApi.saveInLocale(film);
       FetchApi.renderCards();
       // renderCardsSearchFilms();
+      makeActiveBtn();
     })
     .catch(er => {
       // console.log('Something went wrong, please try again later');

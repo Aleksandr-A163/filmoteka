@@ -6,8 +6,11 @@ class FetchApi {
     this.page = 1;
   }
 
-  pagination(el) {
+  set pageNumber(el) {
     this.page = el;
+  }
+  get pageNumber() {
+    return this.page;
   }
 
   async fetchGenres() {
@@ -44,8 +47,8 @@ class FetchApi {
     collectionList.innerHTML = render({ results });
   }
 
-  fetchPopularFilmsByPage(page) {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=${page}`;
+  fetchPopularFilmsByPage() {
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=${this.page}`;
     return fetch(url)
       .then(response => response.json())
       .then(results => {
@@ -91,8 +94,8 @@ class FetchApi {
     }
   }
 
-  getPaginationPage(fetchQuery, page) {
-    this[fetchQuery](page).then(r => {
+  getPaginationPage(fetchQuery) {
+    this[fetchQuery]().then(r => {
       this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
       this.saveInLocale(r);
       this.renderCards();
