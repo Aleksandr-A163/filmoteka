@@ -14,6 +14,7 @@ export {
   renderFile,
 };
 
+
 const collectionList = document.getElementById('home');
 const logoEl = document.querySelector('.js-logo');
 const homeEl = document.querySelector('.js-home');
@@ -24,7 +25,13 @@ const btnsEl = document.querySelector('.btns');
 const navEl = document.querySelector('.navigation');
 const watchedEl = document.querySelector('.js-watched');
 const queueEl = document.querySelector('.js-queue');
+
 const allPagination = document.querySelector('.pagination__container_pages');
+
+
+// создаёт новый класс на основе базового
+const newFetchApi = new FetchApi();
+
 
 homeEl.addEventListener('click', onHomeClick);
 logoEl.addEventListener('click', onHomeClick);
