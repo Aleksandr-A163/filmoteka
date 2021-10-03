@@ -7,7 +7,7 @@ import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
 import './JSpart/pagination';
 import './JSpart/header-setup';
-import { logo, homePage, myLibrary, watched, queue, myLibraryWatchedRender , homePageRender } from './JSpart/render-my-library';
+
 // элемент списка
 const collectionList = document.getElementById('home');
 
@@ -74,8 +74,3 @@ function foundFilmsByKeyword(e) {
   cleanInput();
 }
 
-//слушатели событий для header-link-btn
-logo.addEventListener('click', homePageRender );
-homePage.addEventListener('click',homePageRender);
-myLibrary.addEventListener('click',myLibraryWatchedRender);
-watched.addEventListener('click',myLibraryWatchedRender);
