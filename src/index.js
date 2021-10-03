@@ -15,12 +15,6 @@ const collectionList = document.getElementById('home');
 // создаёт новый класс на основе базового
 // const NewFetchApi = new FetchApi();
 
-//слушатели событий для header-link-btn
-logo.addEventListener('click', homePageRender);
-homePage.addEventListener('click', homePageRender);
-myLibrary.addEventListener('click', myLibraryWatchedRender);
-watched.addEventListener('click', myLibraryWatchedRender);
-
 isGetQueue();
 isGetWatched();
 
