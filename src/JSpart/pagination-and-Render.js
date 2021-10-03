@@ -3,7 +3,7 @@ import render from '../templates/card.hbs';
 import cleanInput from './clean-input';
 import checkQuery from './check-query';
 import errorSearch from './error-search';
-const FetchApi = new fetchApi();
+const NewFetchApi = new fetchApi();
 
 const listElement = document.querySelector('.collection');
 const paginationElement = document.getElementById('pagination');
@@ -11,22 +11,131 @@ const arrowLeft = document.querySelector('.arrow_left');
 const arrowRight = document.querySelector('.arrow_right');
 const btnSearchEl = document.querySelector('.search__button');
 // let currentPage = 1;
-const pagesOnWindow = 5;
-let pageCount;
-let rows = 20;
-let totalPages = 10;
+// const pagesOnWindow = 5;
+// let pageCount;
+// let rows = 20;
+let totalPages;
 
-FetchApi.fetchGenres().then(r => {
-  localStorage.setItem('genres', JSON.stringify(r.genres));
-});
-FetchApi.fetchPopularFilmsByPage().then(r => {
-  FetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
-  FetchApi.saveInLocale(r);
-  FetchApi.renderCards();
-  // renderPagination(r.total_pages, r.results);
-  totalPages = r.total_pages;
+//поиск по названию фильма
+btnSearchEl.addEventListener('click', foundFilmsByKeyword);
+
+getFetchGenres();
+fetchPopularFilms();
+
+// Функция записи жанров в Local Storage
+function getFetchGenres() {
+  NewFetchApi.fetchGenres().then(r => {
+    localStorage.setItem('genres', JSON.stringify(r.genres));
+  });
+}
+
+// Запрос популярных фильмов
+function fetchPopularFilms() {
+  NewFetchApi.fetchPopularFilmsByPage().then(r => {
+    NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+    NewFetchApi.saveInLocale(r);
+    NewFetchApi.renderCards();
+    totalPages = r.total_pages;
+    // renderPagination(r.total_pages, r.results);
+
+    renderPagination();
+  });
+}
+
+// Рендер кнопок
+
+function renderPaginationBtn() {
+  const before = NewFetchApi.pageNumber - 2;
+  const after = NewFetchApi.pageNumber + 2;
+
+  for (let i = before; i <= after; i += 1) {
+    if (i > 0 && i <= totalPages) {
+      let button = document.createElement('button');
+      button.innerText = i;
+      paginationElement.appendChild(button);
+    }
+  }
+}
+function makeActiveBtn() {
+  let pages = paginationElement.querySelectorAll('button');
+
+  for (let i = 0; i < pages.length; i += 1) {
+    if (pages[i].classList.contains('active')) {
+      pages[i].classList.remove('active');
+    }
+    if (Number(pages[i].textContent) === NewFetchApi.pageNumber) {
+      pages[i].classList.add('active');
+    }
+  }
+}
+
+function onBtnClick(e) {
+  e.preventDefault();
+
+  if (e.target.tagName !== 'BUTTON') {
+    return;
+  }
+
+  listElement.innerHTML = '';
+  paginationElement.innerHTML = '';
+
+  NewFetchApi.pageNumber = Number(e.target.textContent);
+
   renderPagination();
-});
+  console.log('NewFetchApi.query', NewFetchApi.query);
+  if (NewFetchApi.query) {
+    NewFetchApi.getPaginationPage('fetchSearchFilms');
+  } else {
+    NewFetchApi.getPaginationPage('fetchPopularFilmsByPage');
+  }
+}
+
+paginationElement.addEventListener('click', onBtnClick);
+
+function renderPagination() {
+  renderPaginationBtn();
+  makeActiveBtn();
+}
+
+// //поиск по названию фильма
+// btnSearchEl.addEventListener('click', foundFilmsByKeyword);
+
+//функция поиска по названию фильма
+function foundFilmsByKeyword(e) {
+  NewFetchApi.resetPage();
+  e.preventDefault();
+  const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
+  const query = inputSearchEl.value.trim();
+
+  if (checkQuery(query)) return;
+
+  NewFetchApi.query = query;
+  NewFetchApi.fetchSearchFilms()
+    .then(film => {
+      if (film.results.length === 0) {
+        // console.log('Search result not successful. Enter the correct movie name.');
+        errorSearch('Search result not successful. Enter the correct movie name.');
+        return;
+      }
+      // film.results.forEach(r => {
+      //   newFetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), r.genre_ids )
+      // })
+      // console.log(film);
+      NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
+      //обновляем текущие фильмы в localStorage
+
+      NewFetchApi.saveInLocale(film);
+      NewFetchApi.renderCards();
+      // renderCardsSearchFilms();
+      makeActiveBtn();
+    })
+    .catch(er => {
+      // console.log('Something went wrong, please try again later');
+      errorSearch('Something went wrong, please try again later');
+    });
+
+  cleanInput();
+}
 
 // function renderPagination(totalPages, listItems) {
 //   paginationElement.innerHTML = '';
@@ -159,98 +268,3 @@ FetchApi.fetchPopularFilmsByPage().then(r => {
 //     arrowRight.classList.remove('disabled-arrow');
 //   }
 // }
-
-// Рендер кнопок
-
-function renderPaginationBtn() {
-  const before = FetchApi.pageNumber - 2;
-  const after = FetchApi.pageNumber + 2;
-
-  for (let i = before; i <= after; i += 1) {
-    if (i > 0 && i <= totalPages) {
-      let button = document.createElement('button');
-      button.innerText = i;
-      paginationElement.appendChild(button);
-    }
-  }
-}
-function makeActiveBtn() {
-  let pages = paginationElement.querySelectorAll('button');
-
-  for (let i = 0; i < pages.length; i += 1) {
-    if (pages[i].classList.contains('active')) {
-      pages[i].classList.remove('active');
-    }
-    if (Number(pages[i].textContent) === FetchApi.pageNumber) {
-      pages[i].classList.add('active');
-    }
-  }
-}
-
-export function onBtnClick(e) {
-  e.preventDefault();
-
-  if (e.target.tagName !== 'BUTTON') {
-    return;
-  }
-
-  listElement.innerHTML = '';
-  paginationElement.innerHTML = '';
-
-  FetchApi.pageNumber = Number(e.target.textContent);
-
-  renderPagination();
-  console.log('FetchApi.query', FetchApi.query);
-  if (FetchApi.query) {
-    FetchApi.getPaginationPage('fetchSearchFilms');
-  } else {
-    FetchApi.getPaginationPage('fetchPopularFilmsByPage');
-  }
-}
-
-paginationElement.addEventListener('click', onBtnClick);
-
-function renderPagination() {
-  renderPaginationBtn();
-  makeActiveBtn();
-}
-
-//поиск по названию фильма
-btnSearchEl.addEventListener('click', foundFilmsByKeyword);
-
-//функция поиска по названию фильма
-function foundFilmsByKeyword(e) {
-  FetchApi.resetPage();
-  e.preventDefault();
-  const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
-  const query = inputSearchEl.value.trim();
-
-  if (checkQuery(query)) return;
-
-  FetchApi.query = query;
-  FetchApi.fetchSearchFilms()
-    .then(film => {
-      if (film.results.length === 0) {
-        // console.log('Search result not successful. Enter the correct movie name.');
-        errorSearch('Search result not successful. Enter the correct movie name.');
-        return;
-      }
-      // film.results.forEach(r => {
-      //   newFetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), r.genre_ids )
-      // })
-      // console.log(film);
-      FetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
-      //обновляем текущие фильмы в localStorage
-
-      FetchApi.saveInLocale(film);
-      FetchApi.renderCards();
-      // renderCardsSearchFilms();
-      makeActiveBtn();
-    })
-    .catch(er => {
-      // console.log('Something went wrong, please try again later');
-      errorSearch('Something went wrong, please try again later');
-    });
-
-  cleanInput();
-}
