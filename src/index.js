@@ -7,6 +7,7 @@ import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
 import './JSpart/pagination';
 import './JSpart/header-setup';
+import './JSpart/theme-switch';
 
 // элемент списка
 const collectionList = document.getElementById('home');

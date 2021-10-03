@@ -1,5 +1,6 @@
 // добавить контейнеру grid-area: header;
 header {
+  position: relative;
   grid-area: header;
   background-color: yellowgreen;
   padding-top: 46px;
