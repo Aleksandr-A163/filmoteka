@@ -1,5 +1,5 @@
 import './sass/main.scss';
-import FetchApi from './JSpart/api-fetch';
+// import FetchApi from './JSpart/api-fetch';
 import render from './templates/card.hbs';
 import cleanInput from './JSpart/clean-input';
 import checkQuery from './JSpart/check-query';
@@ -17,7 +17,7 @@ import {
   homePageRender,
 } from './JSpart/render-my-library';
 // import Pagination from './JSpart/new-pagination';
-import FetchApiA from './JSpart/new-pagination';
+import Pagination from './JSpart/api-fetch';
 
 // элемент списка
 const collectionList = document.getElementById('home');
@@ -26,7 +26,7 @@ const collectionList = document.getElementById('home');
 const btnSearchEl = document.querySelector('.search__button');
 
 // создаёт новый класс на основе базового
-const newFetchApi = new FetchApi();
+// const newFetchApi = new FetchApi();
 
 //функция проверки наличия в "очереди" фильмов и создания массива если нету
 function isGetQueue() {
@@ -50,7 +50,9 @@ function renderFile(results) {
 btnSearchEl.addEventListener('click', foundFilmsByKeyword);
 
 ////////////////////
-const newFetchApiA = new FetchApiA();
+const newFetchApiA = new Pagination();
+console.log(newFetchApiA);
+console.log(newFetchApiA.getPaginationPage());
 // const paginationFilms = new Pagination();
 // class newFetchApi extens Pagination;
 const pagesDivEl = document.getElementById('pagination');
@@ -59,14 +61,15 @@ const pagesDivEl = document.getElementById('pagination');
 //функция поиска по названию фильма
 function foundFilmsByKeyword(e) {
   e.preventDefault();
+
   const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
   const query = inputSearchEl.value.trim();
 
   if (checkQuery(query)) return;
 
-  newFetchApi.query = query;
-  paginationFilms.fetchQuery = 'fetchSearchFilms';
-  newFetchApi
+  newFetchApiA.query = query;
+  newFetchApiA.fetchQuery = 'fetchSearchFilms';
+  newFetchApiA
     .fetchSearchFilms()
     .then(film => {
       if (film.results.length === 0) {
@@ -78,11 +81,11 @@ function foundFilmsByKeyword(e) {
       //   newFetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), r.genre_ids )
       // })
       // console.log(film);
-      newFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
+      newFetchApiA.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
       //обновляем текущие фильмы в localStorage
 
-      newFetchApi.saveInLocale(film);
-      newFetchApi.renderCards();
+      newFetchApiA.saveInLocale(film);
+      newFetchApiA.renderCards();
       // renderCardsSearchFilms();
     })
     .catch(er => {
@@ -91,7 +94,7 @@ function foundFilmsByKeyword(e) {
     });
 
   cleanInput();
-  paginationFilms.firstDrawingPageNumbers();
+  newFetchApiA.firstDrawingPageNumbers();
 }
 
 //слушатели событий для header-link-btn
@@ -101,7 +104,7 @@ myLibrary.addEventListener('click', myLibraryWatchedRender);
 watched.addEventListener('click', myLibraryWatchedRender);
 
 /////////////
-pagesDivEl.addEventListener('click', paginationFilms.targetPage);
+pagesDivEl.addEventListener('click', newFetchApiA.targetPage);
 
 // function targetPage(e) {
 //   e.preventDefault();
