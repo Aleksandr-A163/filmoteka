@@ -24,6 +24,7 @@ const btnsEl = document.querySelector('.btns');
 const navEl = document.querySelector('.navigation');
 const watchedEl = document.querySelector('.js-watched');
 const queueEl = document.querySelector('.js-queue');
+const allPagination = document.querySelector('.pagination__container_pages');
 
 homeEl.addEventListener('click', onHomeClick);
 logoEl.addEventListener('click', onHomeClick);
@@ -50,6 +51,7 @@ function onHomeClick(e) {
 
 function onLibraryClick(e) {
   e.preventDefault();
+  allPagination.innerHTML = '';
   myLibraryWatchedRender(e);
 
   if (headerEl.classList.contains('library-bgi')) {

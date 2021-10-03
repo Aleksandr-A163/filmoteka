@@ -9,6 +9,7 @@ const listElement = document.querySelector('.collection');
 const paginationElement = document.getElementById('pagination');
 const arrowLeft = document.querySelector('.arrow_left');
 const arrowRight = document.querySelector('.arrow_right');
+const allPagination = document.querySelector('.pagination__container_pages');
 const btnSearchEl = document.querySelector('.search__button');
 // let currentPage = 1;
 // const pagesOnWindow = 5;
