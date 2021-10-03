@@ -170,6 +170,10 @@ class Pagination extends FetchApi {
     this.paginationElement.innerHTML = '';
     const btnPages = [];
     const totalPages = JSON.parse(localStorage.getItem('currentFilms')).total_pages;
+    const currentPage = JSON.parse(localStorage.getItem('currentFilms')).page;
+    const pagesOnWindow = 5;
+    let maxLeftPage = currentPage - Math.floor(pagesOnWindow / 2);
+    let maxRightPage = currentPage + Math.floor(pagesOnWindow / 2);
 
     if (totalPages < 5) {
       for (let i = 1; i <= totalPages; i += 1) {
@@ -183,6 +187,20 @@ class Pagination extends FetchApi {
       }
       this.paginationElement.append(...btnPages);
     } else {
+      const arr = this.paginationButton();
+
+      this.paginationElement.append(...arr);
+      // if (maxLeftPage < 1) {
+      //   maxLeftPage = 1;
+      //   maxRightPage = pagesOnWindow;
+      // }
+      // if (maxRightPage > totalPages) {
+      //   maxLeftPage = totalPages - (pagesOnWindow - 1);
+      //   if (maxLeftPage < 1) {
+      //     maxLeftPage = 1;
+      //   }
+      //   maxRightPage = totalPages;
+      // }
     }
     // console.log('drawingPageNumbers');
   }
@@ -198,20 +216,48 @@ class Pagination extends FetchApi {
     btn.setAttribute('data-page', totalPages);
     return btn;
   }
-  targetPage(e) {
-    // e.preventDefault();
+  // targetPage(e) {
+  //   const target = e.target;
+  //   if (target.hasAttribute('data-page')) {
+  //     this.page = target.getAttribute('data-page');
+  //     console.log(this.page);
+  //   }
+  // }
+  paginationButton() {
+    const arrEl = [];
+    const firstBtn = document.createElement('button');
+    firstBtn.textContent = 1;
+    firstBtn.setAttribute('data-page', 1);
+    arrEl.push(firstBtn);
+    arrEl.push(this.addThreeDotsBlock());
+    for (let i = 2; i > 0; i -= 1) {
+      const btn = document.createElement('button');
 
-    const target = e.target;
-    if (target.hasAttribute('data-page')) {
-      this.page = target.getAttribute('data-page');
-
-      // this.getPaginationPage();
-      // this.drawingPageNumbers();
+      btn.textContent = this.page - i;
+      btn.setAttribute('data-page', this.page - i);
+      arrEl.push(btn);
     }
-  }
-  /////пагинация/////////
+    const currentPage = document.createElement('button');
+    currentPage.textContent = this.page;
+    currentPage.setAttribute('data-page', this.page);
+    currentPage.classList.add('active');
+    arrEl.push(currentPage);
+    for (let i = 1; i <= 2; i += 1) {
+      const btn = document.createElement('button');
 
-  ///////////////////////
+      btn.textContent = Number(this.page) + i;
+      btn.setAttribute('data-page', Number(this.page) + i);
+      arrEl.push(btn);
+    }
+    arrEl.push(this.addThreeDotsBlock());
+    const lastBtn = document.createElement('button');
+    lastBtn.textContent = this.getLSItems().total_pages;
+    lastBtn.setAttribute('data-page', this.getLSItems().total_pages);
+    arrEl.push(lastBtn);
+
+    console.log(arrEl);
+    return arrEl;
+  }
 }
 
 export default Pagination;

@@ -51,8 +51,8 @@ btnSearchEl.addEventListener('click', foundFilmsByKeyword);
 
 ////////////////////
 const newFetchApiA = new Pagination();
-console.log(newFetchApiA);
-console.log(newFetchApiA.drawingPageNumbers());
+// console.log(newFetchApiA);
+// console.log(newFetchApiA.paginationButton());
 // const paginationFilms = new Pagination();
 // class newFetchApi extens Pagination;
 const pagesDivEl = document.getElementById('pagination');
@@ -108,7 +108,11 @@ pagesDivEl.addEventListener('click', targetPageFunction);
 
 function targetPageFunction(e) {
   e.preventDefault();
-  newFetchApiA.targetPage;
+  const target = e.target;
+  if (target.hasAttribute('data-page')) {
+    newFetchApiA.page = target.getAttribute('data-page');
+    console.log(newFetchApiA.page);
+  }
   newFetchApiA.getPaginationPage();
   newFetchApiA.drawingPageNumbers();
 }

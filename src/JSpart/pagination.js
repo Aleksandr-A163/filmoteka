@@ -53,15 +53,15 @@ function renderPagination(totalPages, listItems, callback) {
 
     for (let i = 1; i <= totalPages; i++) {
       if (maxLeftPage !== 1 && i == 1) {
-        let btn = paginationButton(i, items);
+        let btn = paginationButton(i);
         wrapper.appendChild(btn);
       }
       if (maxRightPage !== totalPages && i == totalPages) {
-        let btn = paginationButton(i, items);
+        let btn = paginationButton(i);
         wrapper.appendChild(btn);
       }
       if (i >= maxLeftPage && i <= maxRightPage) {
-        let btn = paginationButton(i, items);
+        let btn = paginationButton(i);
         wrapper.appendChild(btn);
       }
 
@@ -94,7 +94,7 @@ function renderPagination(totalPages, listItems, callback) {
     threeDots.innerText = '...';
     return threeDots;
   }
-  function paginationButton(page, items, searchQuery) {
+  function paginationButton(page, searchQuery) {
     // console.log(searchQuery);
     let button = document.createElement('button');
     button.innerText = page;
