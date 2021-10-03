@@ -1,7 +1,7 @@
 import '../sass/main.scss';
 import FetchApi from './api-fetch';
 import render from '../templates/card.hbs';
-export { logoEl, homeEl, libraryEl, watchedEl, queueEl, collectionList, myLibraryWatchedRender, homePageRender, myLibraryQueueRender,  renderFile};
+export { logoEl, homeEl, libraryEl, watchedEl, queueEl, collectionList, renderFile};
 
 
 const collectionList = document.getElementById('home');
@@ -13,7 +13,10 @@ const searchEl = document.querySelector('.search');
 const btnsEl = document.querySelector('.btns');
 const navEl = document.querySelector('.navigation')
 const watchedEl = document.querySelector('.js-watched');
-const queueEl = document.querySelector('.js-queue')
+const queueEl = document.querySelector('.js-queue');
+
+// создаёт новый класс на основе базового
+const newFetchApi = new FetchApi();
 
 homeEl.addEventListener('click', onHomeClick);
 logoEl.addEventListener('click', onHomeClick);

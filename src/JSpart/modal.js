@@ -113,8 +113,7 @@ function onUlElClick(e) {
               collectionList.innerHTML = '';
               const queueFilms = JSON.parse(localStorage.getItem('queue'));
               renderFile(queueFilms);
-              console.log(queueFilms);
-                if (queueFilms.length === 0) {
+               if (queueFilms.length === 0) {
                 collectionList.innerHTML =
                   '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
               }
