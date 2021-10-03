@@ -5,6 +5,11 @@ class FetchApi {
     this.searchQuery = '';
     this.page = 1;
   }
+
+  pagination(el) {
+    this.page = el;
+  }
+
   async fetchGenres() {
     const LANG = 'en-US';
     const MY_KEY = 'f67f4d14d6b529f941fa4f285225b954';
