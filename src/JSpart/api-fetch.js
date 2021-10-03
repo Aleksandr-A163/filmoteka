@@ -125,12 +125,12 @@ class Pagination extends FetchApi {
   }
 
   getPaginationPage() {
-    // this[this.fetchQuery]().then(r => {
-    //   this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
-    //   this.saveInLocale(r);
-    //   this.renderCards();
-    // });
-    console.log('dfgd');
+    this[this.fetchQuery]().then(r => {
+      this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+      this.saveInLocale(r);
+      this.renderCards();
+    });
+    // console.log('dfgd');
   }
   ///////////////////////
   /////отрисовка страниц/
@@ -182,7 +182,9 @@ class Pagination extends FetchApi {
         btnPages.push(btn);
       }
       this.paginationElement.append(...btnPages);
+    } else {
     }
+    // console.log('drawingPageNumbers');
   }
   addThreeDotsBlock() {
     const threeDots = document.createElement('div');
@@ -197,13 +199,13 @@ class Pagination extends FetchApi {
     return btn;
   }
   targetPage(e) {
-    e.preventDefault();
+    // e.preventDefault();
 
     const target = e.target;
     if (target.hasAttribute('data-page')) {
       this.page = target.getAttribute('data-page');
 
-      this.getPaginationPage();
+      // this.getPaginationPage();
       // this.drawingPageNumbers();
     }
   }
