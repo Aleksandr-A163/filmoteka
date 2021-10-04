@@ -3,7 +3,6 @@ import render from '../templates/card.hbs';
 import cleanInput from './clean-input';
 import checkQuery from './check-query';
 import errorSearch from './error-search';
-// import { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl } from './variables';
 import refs from './variables';
 const { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl, ...rest } = refs;
 const NewFetchApi = new fetchApi();
