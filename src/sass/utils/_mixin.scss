@@ -1,6 +1,9 @@
+// $mobile: 320px;
+// $tablet: 768px;
+// $desktop: 1024px;
 @mixin adaptive-size($range) {
   @if $range == mobile-break {
-    @media screen and (max-width: #{$mobile - 0.1}) {
+    @media screen and (max-width: #{$mobile - 1}) {
       @content;
     }
   } @else if $range == mobile {
@@ -8,7 +11,7 @@
       @content;
     }
   } @else if $range == tablet-break {
-    @media screen and (max-width: #{$tablet - 0.1}) {
+    @media screen and (max-width: #{$tablet - 1}) {
       @content;
     }
   } @else if $range == tablet {
@@ -16,7 +19,7 @@
       @content;
     }
   } @else if $range == desktop-break {
-    @media screen and (max-width: #{$desktop - 0.1}) {
+    @media screen and (max-width: #{$desktop - 1}) {
       @content;
     }
   } @else if $range == desktop {

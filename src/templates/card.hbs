@@ -1,0 +1,32 @@
+{{#each results}}
+  <li class='card'>
+    <div class='card__tumb'>
+      <img
+        id='{{id}}'
+        {{#if poster_path}}
+        src='https://www.themoviedb.org/t/p/w220_and_h330_face{{poster_path}}'
+        {{#if backdrop_path}}
+        src='https://www.themoviedb.org/t/p/w220_and_h330_face{{backdrop_path}}'
+        {{/if}}
+        {{/if}}
+        alt='{{title}}'
+        class='card__image'
+      />
+    </div>
+    {{#if original_title}}
+      <h2 class='card__title'>{{original_title}}</h2>
+    {{/if}}
+    {{#if name}}
+      <h2 class='card__title'>{{name}}</h2>
+    {{/if}}
+    <div class='card__caption'>
+      <ul class='card__items'>
+        {{#each genre_ids}}
+          <li class='card__item'>{{this}}</li>
+        {{/each}}
+      </ul>
+      <span class='card__year'>{{release_date}}</span>
+      <span class='card__rating'>{{vote_average}}</span>
+    </div>
+  </li>
+{{/each}}

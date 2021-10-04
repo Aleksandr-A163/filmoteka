@@ -61,6 +61,16 @@ body {
   color: $text-black-color;
 }
 
+body.light-theme {
+  color: $text-black-color;
+}
+
+body.dark-theme {
+  background-color: #121212;
+  // background-color: rgba(18, 18, 18, 0.9);
+  color: rgb(255, 255, 255, 0.9);
+}
+
 .body__container {
   display: grid;
   grid-template-areas:
@@ -75,20 +85,29 @@ body {
 
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
 
   @include adaptive-size(mobile) {
-    max-width: 320px;
+    max-width: $mobile;
   }
   @include adaptive-size(tablet) {
     grid-gap: $set-gap;
     grid-template-columns: 230px 1fr 77px;
+
+    max-width: $tablet;
+  }
+  @include adaptive-size(desktop) {
+    max-width: $desktop;
+  }
+}
+
+.container-header {
+  padding: 0 20px;
+
+  @include adaptive-size(tablet) {
     padding: 0 75px;
-    max-width: 768px;
   }
   @include adaptive-size(desktop) {
     padding: 0 71px;
-    max-width: 1024px;
   }
 }
 
@@ -98,5 +117,20 @@ body {
 
 main {
   grid-area: main;
-  background-color: violet;
+  // background-color: violet;
+}
+
+.button {
+  width: 136px;
+  height: 44px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: $text-white-color;
+  border: 1px solid $text-white-color;
+
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
 }
