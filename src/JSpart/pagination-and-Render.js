@@ -3,6 +3,9 @@ import render from '../templates/card.hbs';
 import cleanInput from './clean-input';
 import checkQuery from './check-query';
 import errorSearch from './error-search';
+// import { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl } from './variables';
+import refs from './variables';
+const { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl, ...rest } = refs;
 const NewFetchApi = new fetchApi();
 
 const listElement = document.querySelector('.collection');
@@ -11,6 +14,7 @@ const arrowLeft = document.querySelector('.arrow_left');
 const arrowRight = document.querySelector('.arrow_right');
 const allPagination = document.querySelector('.pagination__container_pages');
 const btnSearchEl = document.querySelector('.search__button');
+
 // let currentPage = 1;
 // const pagesOnWindow = 5;
 // let pageCount;
@@ -19,6 +23,8 @@ let totalPages;
 
 //поиск по названию фильма
 btnSearchEl.addEventListener('click', foundFilmsByKeyword);
+logoEl.addEventListener('click', onHomeClick);
+homeEl.addEventListener('click', onHomeClick);
 
 getFetchGenres();
 fetchPopularFilms();
@@ -42,7 +48,39 @@ function fetchPopularFilms() {
     renderPagination();
   });
 }
+// функции отрисовки при переходе на страницы навигации
+function homePageRender() {
+  NewFetchApi.fetchPopularFilmsByPage().then(r => {
+    NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+    NewFetchApi.saveInLocale(r);
+    // renderFile(r.results);
+    NewFetchApi.renderCards();
+  });
+}
+///////
+// функция рендера
+function renderFile(results) {
+  collectionList.innerHTML = render({ results });
+}
+////////
+function onHomeClick(e) {
+  e.preventDefault();
 
+  console.log('функция onHomeClick');
+  homePageRender();
+  if (headerEl.classList.contains('home-bgi')) {
+    return;
+  }
+  libraryEl.classList.remove('navigation__link--current');
+  headerEl.classList.add('home-bgi');
+  headerEl.classList.remove('library-bgi');
+  homeEl.classList.add('navigation__link--current');
+  searchEl.classList.remove('hide');
+  searchEl.classList.add('show');
+  btnsEl.classList.remove('show');
+  btnsEl.classList.add('hide');
+  navEl.classList.add('mar-bot-input');
+}
 // Рендер кнопок
 
 function renderPaginationBtn() {
@@ -105,14 +143,14 @@ function addThreeDotsBlock() {
 function onArrowLeftClick() {
   if (NewFetchApi.pageNumber > 1) {
     NewFetchApi.pageNumber = NewFetchApi.pageNumber - 1;
-    drawPageWhenClickOnArrow()
+    drawPageWhenClickOnArrow();
   }
 }
 // функция листания страниц вправо
 function onArrowRightClick() {
   if (NewFetchApi.pageNumber < totalPages) {
     NewFetchApi.pageNumber = NewFetchApi.pageNumber + 1;
-    drawPageWhenClickOnArrow()
+    drawPageWhenClickOnArrow();
   }
 }
 // функция отрисовки при нажатии на стрелочки
@@ -122,8 +160,8 @@ function drawPageWhenClickOnArrow() {
   } else {
     NewFetchApi.getPaginationPage('fetchPopularFilmsByPage');
   }
-    paginationElement.innerHTML = '';
-    renderPagination()
+  paginationElement.innerHTML = '';
+  renderPagination();
 }
 
 function makeActiveBtn() {
@@ -209,7 +247,7 @@ function foundFilmsByKeyword(e) {
 
   cleanInput();
 }
-
+// export { homePageRender };
 ////////////////////////////////// ниже логика пагинации в запасе)
 
 // function renderPagination(totalPages, listItems) {
