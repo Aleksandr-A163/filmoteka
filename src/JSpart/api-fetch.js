@@ -4,8 +4,8 @@ class FetchApi {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
+    this.list = 'home';
   }
-
   set pageNumber(el) {
     this.page = el;
   }
