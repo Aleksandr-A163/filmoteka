@@ -105,19 +105,24 @@ function addThreeDotsBlock() {
 function onArrowLeftClick() {
   if (NewFetchApi.pageNumber > 1) {
     NewFetchApi.pageNumber = NewFetchApi.pageNumber - 1;
-    NewFetchApi.getPaginationPage('fetchPopularFilmsByPage');
-    paginationElement.innerHTML = '';
-    renderPagination()
+    drawPageWhenClickOnArrow()
   }
 }
 // функция листания страниц вправо
 function onArrowRightClick() {
   if (NewFetchApi.pageNumber < totalPages) {
     NewFetchApi.pageNumber = NewFetchApi.pageNumber + 1;
+    drawPageWhenClickOnArrow()
+  }
+}
+function drawPageWhenClickOnArrow() {
+  if (NewFetchApi.query) {
+    NewFetchApi.getPaginationPage('fetchSearchFilms');
+  } else {
     NewFetchApi.getPaginationPage('fetchPopularFilmsByPage');
+  }
     paginationElement.innerHTML = '';
     renderPagination()
-  }
 }
 
 function makeActiveBtn() {
