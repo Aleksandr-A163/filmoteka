@@ -1,4 +1,5 @@
 import modal from '../templates/modal.hbs';
+import fetchApi from './api-fetch';
 import { libraryEl, watchedEl, queueEl, renderFile } from './header-setup';
 const collectionList = document.getElementById('home');
 // collectionList взят из index.js
@@ -11,6 +12,10 @@ const modalImageEl = document.querySelector('.modal__image');
 collectionList.addEventListener('click', onUlElClick);
 // переменная для фильма, который открыт в модальном окне
 let curFilm;
+const NewFetchApi = new fetchApi();
+libraryEl.addEventListener('click', () => { NewFetchApi.list = 'watch' });
+watchedEl.addEventListener('click', () => { NewFetchApi.list = 'watch' });
+queueEl.addEventListener('click', ()=>{NewFetchApi.list = 'queue'});
 
 function onUlElClick(e) {
   e.preventDefault();
@@ -22,12 +27,21 @@ function onUlElClick(e) {
   window.addEventListener('keydown', onKeyPress);
   backdropEl.classList.remove('is-hidden');
 
-  //работа с хранилищем
+  //работа с хранилищем  
   const currentArrayFilms = JSON.parse(localStorage.getItem('currentFilms')).results;
   const arrayWatched = JSON.parse(localStorage.getItem('watched'));
   const arrayQueue = JSON.parse(localStorage.getItem('queue'));
+  if (NewFetchApi.list === 'home') {
+    curFilm = currentArrayFilms.find(elem => elem.id === Number(currentTarget));
+  }
+  if (NewFetchApi.list === 'watch') {
+    curFilm = arrayWatched.find(elem => elem.id === Number(currentTarget));
+  }
+  if (NewFetchApi.list === 'queue') {
+    curFilm = arrayQueue.find(elem => elem.id === Number(currentTarget));
+  }
 
-  curFilm = currentArrayFilms.find(elem => elem.id === Number(currentTarget));
+  
   renderModal(curFilm);
 
   //! Новый код//

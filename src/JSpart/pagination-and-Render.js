@@ -174,7 +174,6 @@ function renderPagination() {
 function foundFilmsByKeyword(e) {
   paginationElement.innerHTML = '';
   NewFetchApi.resetPage();
-
   e.preventDefault();
   const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
   const query = inputSearchEl.value.trim();
