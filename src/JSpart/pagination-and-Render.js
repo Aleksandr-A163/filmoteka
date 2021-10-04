@@ -79,6 +79,8 @@ function renderPaginationBtn() {
       paintFirstPage();
     }
   }
+  arrowLeft.onclick = onArrowLeftClick;
+  arrowRight.onclick = onArrowRightClick;
 }
 // функция отрисовки первой страницы
 function paintFirstPage() {
@@ -98,6 +100,24 @@ function addThreeDotsBlock() {
   threeDots.classList.add('threeDots');
   threeDots.innerText = '...';
   return threeDots;
+}
+// функция листания страниц влево
+function onArrowLeftClick() {
+  if (NewFetchApi.pageNumber > 1) {
+    NewFetchApi.pageNumber = NewFetchApi.pageNumber - 1;
+    NewFetchApi.getPaginationPage('fetchPopularFilmsByPage');
+    paginationElement.innerHTML = '';
+    renderPagination()
+  }
+}
+// функция листания страниц вправо
+function onArrowRightClick() {
+  if (NewFetchApi.pageNumber < totalPages) {
+    NewFetchApi.pageNumber = NewFetchApi.pageNumber + 1;
+    NewFetchApi.getPaginationPage('fetchPopularFilmsByPage');
+    paginationElement.innerHTML = '';
+    renderPagination()
+  }
 }
 
 function makeActiveBtn() {
@@ -158,7 +178,6 @@ function foundFilmsByKeyword(e) {
   NewFetchApi.query = query;
   NewFetchApi.fetchSearchFilms()
     .then(film => {
-      console.log('сначала выполняюсь я');
       totalPages = film.total_pages;
       renderPagination();
       if (film.results.length === 0) {
@@ -176,7 +195,7 @@ function foundFilmsByKeyword(e) {
       NewFetchApi.saveInLocale(film);
       NewFetchApi.renderCards();
       // renderCardsSearchFilms();
-      makeActiveBtn();
+      // makeActiveBtn();
     })
     .catch(er => {
       // console.log('Something went wrong, please try again later');
