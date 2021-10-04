@@ -37,8 +37,15 @@ class FetchApi {
             : r.genre_ids[j];
         }
       }
+      // отрисовка OTHER
+      if (r.genre_ids.length > 3) {
+        const other = 'Other';
+        r.genre_ids[2] = other;
+        r.genre_ids.length = 3;
+      };
     });
   }
+
   renderCards() {
     const collectionList = document.getElementById('home');
     const dataFilms = localStorage.getItem('currentFilms');
