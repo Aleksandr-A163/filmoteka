@@ -115,6 +115,7 @@ function onArrowRightClick() {
     drawPageWhenClickOnArrow()
   }
 }
+// функция отрисовки при нажатии на стрелочки
 function drawPageWhenClickOnArrow() {
   if (NewFetchApi.query) {
     NewFetchApi.getPaginationPage('fetchSearchFilms');
