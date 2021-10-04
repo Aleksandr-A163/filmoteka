@@ -56,7 +56,76 @@ function renderPaginationBtn() {
       paginationElement.appendChild(button);
     }
   }
+  // условия по добавлению трехточек и крайних страниц
+  if (after < totalPages) {
+    // условие проверяет частный случай, где текущий page = 497, нет необходимости рисовать treeDotsBlock 1..495,496,497,498,499,500
+    if (after + 1 === totalPages) {
+      paintLastPage();
+    }
+    // условие 1..494,495,496,497,498,...500
+    else {
+      const threeDotsEl = addThreeDotsBlock();
+      paginationElement.insertBefore(threeDotsEl, paginationElement[paginationElement.length - 2]);
+      paintLastPage();
+    }
+  }
+  // условие отрисовки первой карточки и точек
+  if (before > 1) {
+    if (before - 1 === 1) {
+      paintFirstPage();
+    } else {
+      const threeDotsEl = addThreeDotsBlock();
+      paginationElement.prepend(threeDotsEl);
+      paintFirstPage();
+    }
+  }
+  arrowLeft.onclick = onArrowLeftClick;
+  arrowRight.onclick = onArrowRightClick;
 }
+// функция отрисовки первой страницы
+function paintFirstPage() {
+  let button = document.createElement('button');
+  button.innerText = 1;
+  paginationElement.prepend(button);
+}
+// функция отрисовки последней страницы
+function paintLastPage() {
+  let button = document.createElement('button');
+  button.innerText = totalPages;
+  paginationElement.appendChild(button);
+}
+// функция отрисовки 3-х точек
+function addThreeDotsBlock() {
+  const threeDots = document.createElement('div');
+  threeDots.classList.add('threeDots');
+  threeDots.innerText = '...';
+  return threeDots;
+}
+// функция листания страниц влево
+function onArrowLeftClick() {
+  if (NewFetchApi.pageNumber > 1) {
+    NewFetchApi.pageNumber = NewFetchApi.pageNumber - 1;
+    drawPageWhenClickOnArrow()
+  }
+}
+// функция листания страниц вправо
+function onArrowRightClick() {
+  if (NewFetchApi.pageNumber < totalPages) {
+    NewFetchApi.pageNumber = NewFetchApi.pageNumber + 1;
+    drawPageWhenClickOnArrow()
+  }
+}
+// функция отрисовки при нажатии на стрелочки
+function drawPageWhenClickOnArrow() {
+  if (NewFetchApi.query) {
+    NewFetchApi.getPaginationPage('fetchSearchFilms');
+  } else {
+    NewFetchApi.getPaginationPage('fetchPopularFilmsByPage');
+  }
+    paginationElement.innerHTML = '';
+    renderPagination()
+}
+
 function makeActiveBtn() {
   let pages = paginationElement.querySelectorAll('button');
 
@@ -103,7 +172,9 @@ function renderPagination() {
 
 //функция поиска по названию фильма
 function foundFilmsByKeyword(e) {
+  paginationElement.innerHTML = '';
   NewFetchApi.resetPage();
+
   e.preventDefault();
   const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
   const query = inputSearchEl.value.trim();
@@ -113,6 +184,8 @@ function foundFilmsByKeyword(e) {
   NewFetchApi.query = query;
   NewFetchApi.fetchSearchFilms()
     .then(film => {
+      totalPages = film.total_pages;
+      renderPagination();
       if (film.results.length === 0) {
         // console.log('Search result not successful. Enter the correct movie name.');
         errorSearch('Search result not successful. Enter the correct movie name.');
@@ -128,7 +201,7 @@ function foundFilmsByKeyword(e) {
       NewFetchApi.saveInLocale(film);
       NewFetchApi.renderCards();
       // renderCardsSearchFilms();
-      makeActiveBtn();
+      // makeActiveBtn();
     })
     .catch(er => {
       // console.log('Something went wrong, please try again later');
@@ -137,6 +210,8 @@ function foundFilmsByKeyword(e) {
 
   cleanInput();
 }
+
+////////////////////////////////// ниже логика пагинации в запасе)
 
 // function renderPagination(totalPages, listItems) {
 //   paginationElement.innerHTML = '';
@@ -199,12 +274,6 @@ function foundFilmsByKeyword(e) {
 //     }
 //   }
 
-//   function addThreeDotsBlock() {
-//     const threeDots = document.createElement('div');
-//     threeDots.classList.add('threeDots');
-//     threeDots.innerText = '...';
-//     return threeDots;
-//   }
 //   function paginationButton(page) {
 //     console.log(page);
 //     let button = document.createElement('button');
