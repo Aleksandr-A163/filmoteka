@@ -4,32 +4,33 @@
     <svg class="theme-switch__icon" role="img" aria-label="Иконка солнца">
       <use href="./images/sprite.svg#sun"></use>
     </svg>
-  
+
     <div class="theme-switch__control">
-      <input class="theme-switch__toggle" type="checkbox" name="theme" id="theme-switch-toggle"
-        aria-label="Переключить между тёмной и светлой темой" />
-      <label aria-hidden="true" class="theme-switch__track" for="theme-switch-toggle">
-      </label>
+      <input
+        class="theme-switch__toggle"
+        type="checkbox"
+        name="theme"
+        id="theme-switch-toggle"
+        aria-label="Переключить между тёмной и светлой темой"
+      />
+      <label aria-hidden="true" class="theme-switch__track" for="theme-switch-toggle"> </label>
       <div aria-hidden="true" class="theme-switch__marker"></div>
     </div>
-  
+
     <svg class="theme-switch__icon" aria-label="Иконка луны">
       <use href="./images/sprite.svg#moon"></use>
     </svg>
   </div>
   <!-- /разметка переключателя темы -->
-  
+
   <div class="container-header">
     <nav class="navigation mar-bot-input">
-
       <a class="navigation__logo js-logo" href="">
-
         <svg class="icon__logo">
           <use href="/images/header/logo.svg#logo"></use>
         </svg>
         <p class="navigation__text">Filmoteka</p>
       </a>
-
 
       <ul class="navigation__list list">
         <li class="navigation__item">
@@ -38,15 +39,11 @@
         <li class="navigation__item">
           <a class="navigation__link navigation__link--marg-left js-library" href="">MY LIBRARY</a>
         </li>
-
       </ul>
-
-
     </nav>
     <form class="search show">
       <label>
-        <input type="text" class="search__input" placeholder="Поиск фильмов">
-
+        <input type="text" class="search__input" placeholder="Поиск фильмов" />
       </label>
 
       <button type="submit" class="search__button">
@@ -55,10 +52,10 @@
         </svg>
       </button>
     </form>
-
+    <p class="error visually-hidden"></p>
 
     <div class="btns hide">
-      <button class="button button--orange js-watched " type="button">WATCHED</button>
+      <button class="button button--orange js-watched" type="button">WATCHED</button>
       <button class="button js-queue" type="button">QUEUE</button>
     </div>
   </div>
