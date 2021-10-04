@@ -2,6 +2,7 @@ import modal from '../templates/modal.hbs';
 import { myLibrary, watched, queue, myLibraryWatchedRender, renderFile } from './render-my-library';
 const collectionList = document.getElementById('home');
 // collectionList взят из index.js
+const modalEl = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal__content');
 
 const btnModalCloseEl = document.querySelector('.button-modal--close');
@@ -124,7 +125,7 @@ function renderModal(curFilm) {
   modalContent.innerHTML = modal({ curFilm });
 }
 
-function onKeyPress(event) {
+export function onKeyPress(event) {
   if (event.code === 'Escape') {
     onBtnCloseModalClick();
   }
@@ -138,6 +139,7 @@ function onBackdropClick(e) {
   }
 }
 function onBtnCloseModalClick() {
+  modalEl.classList.remove('modal--students');
   backdropEl.classList.add('is-hidden');
   window.removeEventListener('keydown', onKeyPress);
   // modalImageEl.src = "";

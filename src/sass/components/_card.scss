@@ -10,72 +10,72 @@
   @media screen and (min-width: $desktop) {
     width: 274px;
   }
-}
 
-.card__tumb {
-  height: 398px;
-}
-
-.card__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: $radius;
-}
-
-.card__title {
-  text-transform: uppercase;
-  font-size: 12px;
-  line-height: 1.17;
-  padding-top: 10px;
-  @media screen and (min-width: $tablet) {
-    line-height: 1.33;
+  &__tumb {
+    height: 398px;
   }
-}
 
-.card__caption {
-  @extend %flex-centered;
-  justify-content: start;
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $radius;
+  }
 
-  font-size: 12px;
-  line-height: 1.33;
-  color: $accent-darker-color;
-  padding: 1px 0;
-}
-.card__items {
-  display: flex;
-  justify-content: start;
-  margin: right 3px;
-}
-
-.card__item {
-  margin-right: 5px;
-  &:not(:last-child) {
-    margin-right: 3px;
-    &::after {
-      content: ',';
-      display: inline-block;
+  &__title {
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 1.17;
+    padding-top: 10px;
+    @media screen and (min-width: $tablet) {
+      line-height: 1.33;
     }
   }
-}
 
-.card__year::before {
-  content: '';
-  display: inline-block;
-  width: 1px;
-  height: 11px;
-  margin-right: 5px;
-  background-color: $accent-darker-color;
-}
+  &__caption {
+    @extend %flex-centered;
+    justify-content: start;
 
-.card__rating {
-  margin-left: 10px;
-  color: $text-white-color;
-  line-height: 14px;
-  height: 16px;
-  width: 36px;
-  padding-top: 1px;
-  text-align: center;
-  background-color: $accent-lighter-color;
-  border-radius: $radius;
+    font-size: 12px;
+    line-height: 1.33;
+    color: $accent-darker-color;
+    padding: 1px 0;
+  }
+  &__items {
+    display: flex;
+    justify-content: start;
+    margin: right 3px;
+  }
+
+  &__item {
+    margin-right: 5px;
+    &:not(:last-child) {
+      margin-right: 3px;
+      &::after {
+        content: ',';
+        display: inline-block;
+      }
+    }
+  }
+
+  &__year::before {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 11px;
+    margin-right: 5px;
+    background-color: $accent-darker-color;
+  }
+
+  &__rating {
+    margin-left: 10px;
+    color: $text-white-color;
+    line-height: 14px;
+    height: 16px;
+    width: 36px;
+    padding-top: 1px;
+    text-align: center;
+    background-color: $accent-lighter-color;
+    border-radius: $radius;
+  }
 }

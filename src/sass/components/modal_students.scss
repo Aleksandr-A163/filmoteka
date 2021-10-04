@@ -1,0 +1,27 @@
+.modal--students {
+  & .card {
+    height: min-content;
+  }
+  & .card__title {
+    font-size: 16px;
+  }
+
+  @media screen and (min-width: $tablet) {
+    width: 708px;
+    height: 672px;
+    padding: 10px;
+    & .card {
+      width: 186px;
+    }
+    & .card__tumb {
+      height: 270px;
+    }
+  }
+  @media screen and (min-width: $desktop) {
+    width: 994px;
+    height: 728px;
+    & .card {
+      width: 198px;
+    }
+  }
+}
