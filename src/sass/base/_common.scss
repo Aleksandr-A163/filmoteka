@@ -61,34 +61,34 @@ body {
   color: $text-black-color;
 }
 
-// .body__container {
-//   display: grid;
-//   grid-template-areas:
-//     'header header header'
-//     'main main main '
-//     'footer footer footer';
-//   grid-template-rows: 230px 1fr 100px;
-//   grid-template-columns: repeat(3, 1fr);
-//   height: 100vh;
+.body__container {
+  display: grid;
+  grid-template-areas:
+    'header header header'
+    'main main main '
+    'footer footer footer';
+  grid-template-rows: 230px 1fr 100px;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100vh;
 
-//   grid-area: header;
+  grid-area: header;
 
-//   max-width: 100%;
-//   margin: 0 auto;
+  max-width: 100%;
+  margin: 0 auto;
 
-//   @include adaptive-size(mobile) {
-//     max-width: $mobile;
-//   }
-//   @include adaptive-size(tablet) {
-//     grid-gap: $set-gap;
-//     grid-template-columns: 230px 1fr 77px;
+  @include adaptive-size(mobile) {
+    max-width: $mobile;
+  }
+  @include adaptive-size(tablet) {
+    grid-gap: $set-gap;
+    grid-template-columns: 230px 1fr 77px;
 
-//     max-width: $tablet;
-//   }
-//   @include adaptive-size(desktop) {
-//     max-width: $desktop;
-//   }
-// }
+    max-width: $tablet;
+  }
+  @include adaptive-size(desktop) {
+    max-width: $desktop;
+  }
+}
 
 .container-header {
   padding: 0 20px;

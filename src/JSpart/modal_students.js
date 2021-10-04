@@ -1,22 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     let scrollbar = document.body.clientWidth - window.innerWidth + 'px';
-//     console.log(scrollbar);
-//     document.querySelector('[href="#openModal"]').addEventListener('click', function () {
-//       document.body.style.overflow = 'hidden';
-
-// import { defaults } from "gh-pages";
-
-    
-//     });
-//     document.querySelector('[href="#close"]').addEventListener('click', function () {
-//       document.body.style.overflow = 'visible';
-
-//     });
-//     document.querySelector('[href="#close-down"]').addEventListener('click', function () {
-//       document.body.style.overflow = 'visible';
-
-//     });
-//   });
 import studentsData from '../JSON/arr.json';
 import studentsTemplate from '../templates/modal_students.hbs';
 
