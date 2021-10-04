@@ -80,7 +80,9 @@ body {
 .body__container {
   display: -ms-grid;
   display: grid;
-      grid-template-areas: 'header header header' 'main main main ' 'footer footer footer';
+      grid-template-areas: 'header header header'
+ 'main main main '
+ 'footer footer footer';
   -ms-grid-rows: 230px 1fr 100px;
       grid-template-rows: 230px 1fr 100px;
   -ms-grid-columns: (1fr)[3];
@@ -888,6 +890,33 @@ header {
   height: 30px;
 }
 
+
+.empty-my-library {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-empty-my-library {
+  position: absolute;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 70px;
+  background: rgba(47, 48, 58, 0.8);
+  color: #fff;
+}
+
+
 .pagination__container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1176,6 +1205,17 @@ header {
 
 /* свойства для заголовка модального окна */
 .modal-header {
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+
   padding: 15px;
   border-bottom: 1px solid #eceeef;
 }
