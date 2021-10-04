@@ -5,6 +5,9 @@ class FetchApi {
     this.searchQuery = '';
     this.page = 1;
     this.list = 'home';
+    this.baseUrl = 'https://api.themoviedb.org/3/';
+    this.language = 'en-US';
+    this.key = 'a92e1c28ff5839246667e5b68c28f141';
   }
   set pageNumber(el) {
     this.page = el;
@@ -14,13 +17,30 @@ class FetchApi {
   }
 
   async fetchGenres() {
-    const LANG = 'en-US';
-    const MY_KEY = 'f67f4d14d6b529f941fa4f285225b954';
-    // урла для жанров
-    const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${MY_KEY}&language=${LANG}`;
+    const url = `${this.baseUrl}genre/movie/list?api_key=${this.key}&language=${this.language}`;
     try {
       const response = await fetch(url);
       const results = await response.json();
+      return results;
+    } catch (error) {
+      error;
+    }
+  }
+  fetchPopularFilmsByPage() {
+    const url = `${this.baseUrl}movie/popular?api_key=${this.key}&language=${this.language}&page=${this.page}`;
+    return fetch(url)
+      .then(response => response.json())
+      .then(results => {
+        return results;
+      });
+  }
+  async fetchSearchFilms() {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}search/movie?api_key=${this.key}&language=${this.language}&page=${this.page}&include_adult=false&query=${this.searchQuery}`,
+      );
+      const data = await response.json();
+      const results = await data;
       return results;
     } catch (error) {
       error;
@@ -46,15 +66,6 @@ class FetchApi {
 
     collectionList.innerHTML = render({ results });
   }
-
-  fetchPopularFilmsByPage() {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=${this.page}`;
-    return fetch(url)
-      .then(response => response.json())
-      .then(results => {
-        return results;
-      });
-  }
   saveInLocale(films) {
     localStorage.setItem('currentFilms', JSON.stringify(films));
   }
@@ -77,23 +88,6 @@ class FetchApi {
   set query(newQuery) {
     this.searchQuery = newQuery;
   }
-  async fetchSearchFilms() {
-    const LANG = 'en-US';
-    const BASE_URL = 'https://api.themoviedb.org/3/';
-    const KEY = 'a92e1c28ff5839246667e5b68c28f141';
-
-    try {
-      const response = await fetch(
-        `${BASE_URL}search/movie?api_key=${KEY}&language=${LANG}&page=${this.page}&include_adult=false&query=${this.searchQuery}`,
-      );
-      const data = await response.json();
-      const results = await data;
-      return results;
-    } catch (error) {
-      error;
-    }
-  }
-
   getPaginationPage(fetchQuery) {
     this[fetchQuery]().then(r => {
       this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
