@@ -5,6 +5,9 @@
   & .card__title {
     font-size: 16px;
   }
+  & .card__tumb {
+    height: 326px;
+  }
 
   @media screen and (min-width: $tablet) {
     width: 708px;

@@ -3,26 +3,24 @@
   justify-content: space-around;
   align-items: center;
   padding: 15px 0;
-  &__item {
-    background-color: $white-color;
-    border: 2px $accent-lighter-color solid;
-    border-radius: 25%;
-    padding: 2px;
-    &:hover,
-    :active,
-    :focus {
-      background-color: $accent-lighter-color;
-      box-shadow: $shadow;
-      transition: background-color $animation, box-shadow $animation;
-    }
-  }
   &__link {
     display: block;
-    height: 26px;
-    width: 26px;
+    height: 30px;
+    width: 30px;
+    background-color: $white-color;
+    border: 2px $accent-lighter-color solid;
+    opacity: 0.75;
     background-repeat: no-repeat;
     background-size: 14px;
     background-position: center;
+    border-radius: 25%;
+    &:hover,
+    :active,
+    :focus {
+      transition: background-color $animation, box-shadow $animation, opacity $animation;
+      background-color: $accent-lighter-color;
+      box-shadow: $shadow;
+    }
     &.githab {
       background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/433-github.png');
     }
