@@ -4,20 +4,22 @@
   align-items: center;
   padding: 15px 0;
   &__item {
-    border: 1px $accent-lighter-color solid;
+    background-color: $white-color;
+    border: 2px $accent-lighter-color solid;
     border-radius: 25%;
-    padding: 4px;
+    padding: 2px;
     &:hover,
     :active,
     :focus {
-      background-color: $accent-darker-color;
+      background-color: $accent-lighter-color;
       box-shadow: $shadow;
+      transition: background-color $animation, box-shadow $animation;
     }
   }
   &__link {
     display: block;
-    height: 22px;
-    width: 22px;
+    height: 26px;
+    width: 26px;
     background-repeat: no-repeat;
     background-size: 14px;
     background-position: center;

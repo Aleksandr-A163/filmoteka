@@ -3,6 +3,7 @@ import fetchApi from './api-fetch';
 import { libraryEl, watchedEl, queueEl, renderFile } from './header-setup';
 const collectionList = document.getElementById('home');
 // collectionList взят из index.js
+const modalEl = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal__content');
 
 const btnModalCloseEl = document.querySelector('.button-modal--close');
@@ -172,6 +173,8 @@ function onBackdropClick(e) {
   }
 }
 function onBtnCloseModalClick() {
+
+  modalEl.classList.remove('modal--students');
   backdropEl.classList.add('is-hidden');
   window.removeEventListener('keydown', onKeyPress);
   // modalImageEl.src = "";

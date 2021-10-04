@@ -29,7 +29,7 @@ const renderStudentsModal = () => {
 
 
 const linkToDev = document.getElementById('openModalLink');
-// const studentsModal = document.querySelector('.backdrop__students');
+
 
 const openLink = () => {
     modalStudents.innerHTML = '';
