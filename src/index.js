@@ -8,15 +8,23 @@ import './JSpart/modal_students';
 import './JSpart/pagination-and-Render';
 import './JSpart/header-setup';
 import './JSpart/theme-switch';
+import "./JSpart/loader"
+import { getFetchGenres, fetchPopularFilms, onBtnClick } from './JSpart/pagination-and-Render'
+
 
 // элемент списка
 const collectionList = document.getElementById('home');
+const paginationElement = document.getElementById('pagination');
+paginationElement.addEventListener('click', onBtnClick);
 
 // создаёт новый класс на основе базового
 // const NewFetchApi = new FetchApi();
 
 isGetQueue();
 isGetWatched();
+
+getFetchGenres();
+fetchPopularFilms();
 
 //функция проверки наличия в "просмотренных" фильмов и создания массива если нету
 function isGetWatched() {
