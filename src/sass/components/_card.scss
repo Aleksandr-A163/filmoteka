@@ -59,6 +59,13 @@
   }
 }
 
+.card__year {
+  width: 33px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:unset;
+}
+
 .card__year::before {
   content: '';
   display: inline-block;

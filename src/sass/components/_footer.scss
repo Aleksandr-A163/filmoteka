@@ -1,12 +1,9 @@
-
-
 .footer {
   grid-area: footer;
   background-color: $bg-second-color;
   // margin-left: auto;
   // margin-right: auto;
   width: 100%;
-
 
   &__section {
     font-family: $main-font;
@@ -16,48 +13,47 @@
     padding-top: 30px;
     padding-bottom: 30px;
 
-      @include adaptive-size(mobile) {
-        max-width: $mobile;
-        grid-gap: $set-gap;
-        
-          &__section-span {
-            margin-left: 4px;
-          }
-      }
-      @include adaptive-size(tablet) {
-        max-width: $tablet;
-        font-size: 16px;
-      }
-      @include adaptive-size(desktop) {
-        grid-gap: $set-gap;
-        max-width: $desktop;
-        font-size: 16px;
-      }
-    }
-    &__section-text {
-      @include adaptive-size(mobile) {
-        font-size: 14px;
-      }
-      @include adaptive-size(tablet) {
-        display: flex;
-        justify-content: center;
-        font-size: 16px;
-      }
-      @include adaptive-size(desktop) {
-        display: flex;
-        justify-content: center;
-        font-size: 16px;
-      }
-    }
+    @include adaptive-size(mobile) {
+      max-width: $mobile;
+      grid-gap: $set-gap;
 
-    &__section-span {
-      @include adaptive-size(mobile) {
-        display: flex;
-        justify-content: center;
+      &__section-span {
         margin-left: 4px;
       }
     }
+    @include adaptive-size(tablet) {
+      max-width: $tablet;
+      font-size: 16px;
+    }
+    @include adaptive-size(desktop) {
+      grid-gap: $set-gap;
+      max-width: $desktop;
+      font-size: 16px;
+    }
+  }
+  &__section-text {
+    @include adaptive-size(mobile) {
+      font-size: 14px;
+    }
+    @include adaptive-size(tablet) {
+      display: flex;
+      justify-content: center;
+      font-size: 16px;
+    }
+    @include adaptive-size(desktop) {
+      display: flex;
+      justify-content: center;
+      font-size: 16px;
+    }
+  }
 
+  &__section-span {
+    @include adaptive-size(mobile) {
+      display: flex;
+      justify-content: center;
+      margin-left: 4px;
+    }
+  }
 
   &__link {
     color: $text-footer-color;
@@ -65,8 +61,8 @@
     font-style: normal;
     border-bottom: 1px solid rgba(84, 84, 84, 1);
     margin-left: 5px;
+    cursor: pointer;
   }
-
 }
 
 .material-icons {
@@ -74,10 +70,4 @@
   margin-right: 10px;
   color: rgb(255, 107, 8);
   font-size: 18px;
-
 }
-
-
-
-
-
