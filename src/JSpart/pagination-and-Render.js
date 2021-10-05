@@ -199,13 +199,11 @@ function foundFilmsByKeyword(e) {
       // })
       // console.log(film);
       NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
-      console.log(film, "это наш фильм")
       const newFilm = replacesDefaultImage(film.results);
       film.results = newFilm;
       //обновляем текущие фильмы в localStorage
 
       NewFetchApi.saveInLocale(film);
-      console.log(NewFetchApi.getLSItems, "проверка")
       NewFetchApi.renderCards();
       // renderCardsSearchFilms();
       // makeActiveBtn();
