@@ -4,6 +4,15 @@
  * Все паршалы подключаются сюда.
  */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+.card__caption {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -71,7 +80,9 @@ body {
 .body__container {
   display: -ms-grid;
   display: grid;
-      grid-template-areas: 'header header header' 'main main main ' 'footer footer footer';
+      grid-template-areas: 'header header header'
+ 'main main main '
+ 'footer footer footer';
   -ms-grid-rows: 230px 1fr 100px;
       grid-template-rows: 230px 1fr 100px;
   -ms-grid-columns: (1fr)[3];
@@ -425,13 +436,29 @@ header {
 }
 
 .btns {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  max-width: 300px;
+  margin: 0 auto;
   margin-top: 46px;
+}
+
+.error {
+  margin-top: 22px;
+  font-size: 14px;
+  line-height: 1.14;
+  color: #ff001b;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.mar-bot-input {
+  margin-bottom: 40px;
 }
 
 .container {
@@ -515,15 +542,9 @@ header {
 }
 
 .card__caption {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   font-size: 12px;
   line-height: 1.33;
   color: #ff6b08;
@@ -869,6 +890,175 @@ header {
   height: 30px;
 }
 
+
+.empty-my-library {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-empty-my-library {
+  position: absolute;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 70px;
+  background: rgba(47, 48, 58, 0.8);
+  color: #fff;
+}
+
+
+.pagination__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 60px;
+}
+
+.pagination__container .list {
+  width: 100%;
+  max-width: 768px;
+  background-color: #ffffff;
+  margin-top: 25px;
+}
+
+.pagination__container .list .item {
+  padding: 15px;
+}
+
+.pagination__container .list .item:hover {
+  background-color: rgba(255, 107, 1, 0.6);
+}
+
+.pagenumbers {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.pagenumbers button {
+  width: 40px;
+  height: 40px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  color: rgba(255, 107, 1, 0.6);
+  font-family: "Roboto", sans-serif, sans-serif;
+  font-size: 12px;
+  background-color: transparent;
+}
+
+.pagenumbers button:hover {
+  background-color: rgba(255, 107, 1, 0.6);
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.pagenumbers button.active {
+  background-color: #ff6b01;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.arrow_left {
+  background-repeat: no-repeat;
+  background-image: url(../images/arrow-left.svg);
+}
+
+.arrow_right {
+  background-repeat: no-repeat;
+  background-image: url(../images/arrow-right.svg);
+}
+
+.pagination__container_pages {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.pag-arrow {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  background-position: center;
+  border: none;
+  background-color: #f7f7f7;
+  -webkit-transition: background-color 0.25s ease-in;
+  transition: background-color 0.25s ease-in;
+  border-radius: 5px;
+}
+
+.pag-arrow:hover {
+  background-color: rgba(255, 107, 1, 0.6);
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.pag-arrow:active {
+  background-color: green;
+}
+
+.threeDots {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border: none;
+  background-color: transparent;
+  display: inline-block;
+  text-align: center;
+  padding: 10px 5px 1px 5px;
+}
+
+.hide {
+  display: none;
+}
+
+.disabled-arrow {
+  pointer-events: none;
+  background-color: #c2c0c4;
+}
+
 .footer {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
@@ -948,24 +1138,255 @@ header {
   }
 }
 
-.mask {
-  width: 100%;
-  height: 100%;
-  background: #fff;
+/* свойства модального окна по умолчанию */
+.modal-students {
   position: fixed;
+  /* фиксированное положение */
   top: 0;
-  z-index: 100;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  /* цвет фона */
+  z-index: 1050;
+  opacity: 0;
+  /* по умолчанию модальное окно прозрачно */
+  -webkit-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  /* анимация перехода */
+  pointer-events: none;
+  /* элемент невидим для событий мыши */
+}
+
+/* при отображении модального окно */
+.modal-students:target {
+  opacity: 1;
+  pointer-events: auto;
+  overflow-y: auto;
+}
+
+/* ширина модального окна и его отступы от экрана */
+.modal-dialog {
+  position: relative;
+  width: 100%;
+  margin: 10px;
+}
+
+@media (min-width: 1024px) {
+  .modal-dialog {
+    max-width: 1024px;
+    margin: 30px auto;
+  }
+}
+
+/* свойства для блока, содержащего контент модального окна */
+.modal-content {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: .3rem;
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* свойства для заголовка модального окна */
+.modal-header {
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+
+  padding: 15px;
+  border-bottom: 1px solid #eceeef;
+}
+
+.modal-title {
+  padding-left: 25px;
+  line-height: 1.5;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+/* свойства для кнопки "Закрыть" */
+.close {
+  position: absolute;
+  top: 19px;
+  right: 24px;
+  font-family: sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+  text-decoration: none;
+}
+
+/* свойства для кнопки "Закрыть" при нахождении её в фокусе или наведении */
+.close:focus,
+.close:hover {
+  color: #ff6b01;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: .75;
+}
+
+.close-modal-down {
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.close-down {
+  padding: 10px 45px;
+  border-radius: 2px;
+  background-color: #777472;
+  color: #000;
+  -webkit-transition-duration: 250ms;
+          transition-duration: 250ms;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.close-down:hover,
+.close-down:focus {
+  background-color: #ff6b01;
+}
+
+/* свойства для блока, содержащего основное содержимое окна */
+.modal-body {
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 15px;
+  overflow: auto;
+}
+
+.team-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.team-container {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.card-team {
+  width: 200px;
+}
+
+.team-photo {
+  width: 250px;
+  height: 260px;
+  -webkit-box-shadow: 0px 5px 11px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.233);
+          box-shadow: 0px 5px 11px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.233);
+}
+
+.card-team__title {
+  max-width: 100px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  margin-top: 7px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #000;
+}
+
+.github__svg {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+}
+
+.card-team__box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.link-gh:hover .team-photo,
+.link-gh:focus .team-photo {
+  -webkit-box-shadow: 0px 5px 11px 3px rgba(255, 107, 1, 0.816), 0px 2px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.233);
+          box-shadow: 0px 5px 11px 3px rgba(255, 107, 1, 0.816), 0px 2px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.233);
+  -webkit-transition-duration: 250ms;
+          transition-duration: 250ms;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.link-gh:hover .github__svg,
+.link-gh:focus .github__svg {
+  -webkit-transition-duration: 250ms;
+          transition-duration: 250ms;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  fill: #ff6b01;
+  cursor: pointer;
+}
+
+.link-gh:hover .card-team__title,
+.link-gh:focus .card-team__title {
+  text-decoration: none;
+  decoration: none;
+  -webkit-transition-duration: 250ms;
+          transition-duration: 250ms;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  color: #ff6b01;
+  cursor: pointer;
+}
+
+.mask {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .loader {

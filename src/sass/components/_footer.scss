@@ -1,25 +1,72 @@
-// добавить контейнеру grid-area: footer;
+
 
 .footer {
-   grid-area: footer;
+  grid-area: footer;
   background-color: $bg-second-color;
-  margin-left: auto;
-  margin-right: auto;
+  // margin-left: auto;
+  // margin-right: auto;
   width: 100%;
 
 
-}
+  &__section {
+    font-family: $main-font;
+    color: $text-footer-color;
+    align-items: center;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
 
-.section-footer {
-  align-items: center;
-  text-align: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
+      @include adaptive-size(mobile) {
+        max-width: $mobile;
+        grid-gap: $set-gap;
+        
+          &__section-span {
+            margin-left: 4px;
+          }
+      }
+      @include adaptive-size(tablet) {
+        max-width: $tablet;
+        font-size: 16px;
+      }
+      @include adaptive-size(desktop) {
+        grid-gap: $set-gap;
+        max-width: $desktop;
+        font-size: 16px;
+      }
+    }
+    &__section-text {
+      @include adaptive-size(mobile) {
+        font-size: 14px;
+      }
+      @include adaptive-size(tablet) {
+        display: flex;
+        justify-content: center;
+        font-size: 16px;
+      }
+      @include adaptive-size(desktop) {
+        display: flex;
+        justify-content: center;
+        font-size: 16px;
+      }
+    }
 
-.footer-text {
-  font-family: $main-font;
-  color: $text-footer-color;
+    &__section-span {
+      @include adaptive-size(mobile) {
+        display: flex;
+        justify-content: center;
+        margin-left: 4px;
+      }
+    }
+
+
+  &__link {
+    color: $text-footer-color;
+    list-style-type: none;
+    font-style: normal;
+    border-bottom: 1px solid rgba(84, 84, 84, 1);
+    margin-left: 5px;
+  }
+
 }
 
 .material-icons {
@@ -30,41 +77,7 @@
 
 }
 
-.footer-link {
-  color: $text-footer-color;
-  list-style-type: none;
-  font-style: normal;
-  border-bottom: 1px solid rgba(84, 84, 84, 1);
-  margin-left: 5px;
-}
 
-// Адаптивная верстка для footer
-@media screen and (min-width: 320px) {
-  .section-footer-text {
-    display: grid;
-  }
-  .footer-text {
-    font-size: 14px;
-  }
-  .footer-span {
-    display: flex;
-    justify-content: center;
-    margin-left: 4px;
-  }
-}
 
-@media screen and (max-width: 767px) {
-  .footer-span {
-    margin-top: 10px;
-  }
-}
-@media screen and (min-width: 768px) {
-  .section-footer-text {
-    display: flex;
-    justify-content: center;
-  }
-  .footer-text {
-    font-size: 16px;
-  }
-}
+
 
