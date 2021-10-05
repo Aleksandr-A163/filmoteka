@@ -6,6 +6,7 @@ import checkQuery from './JSpart/check-query';
 import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
 import './JSpart/pagination-and-Render';
+import './JSpart/loader';
 import './JSpart/header-setup';
 import './JSpart/theme-switch';
 
