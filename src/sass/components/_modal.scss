@@ -6,7 +6,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.25);
   opacity: 1;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity $animation;
 
   @media screen and (max-width: 767px) {
     overflow-y: scroll;
@@ -37,7 +37,7 @@
   background-color: $bg-first-color;
 
   transform: translate(-50%, -50%), scale(1);
-  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform $animation;
 
   @media screen and (min-width: $mobile) {
     width: 280px;
@@ -218,7 +218,7 @@
   text-transform: uppercase;
   cursor: pointer;
 
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color $animation;
 
   @media screen and (min-width: $tablet) {
     min-width: 125px;
@@ -241,7 +241,7 @@
   border: none;
   color: $text-white-color;
 
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color $animation;
 
   &:hover,
   &:focus {
@@ -265,7 +265,7 @@
 .close__svg {
   fill: currentColor;
 
-  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: fill $animation;
 
   &:hover,
   &:focus {
