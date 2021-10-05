@@ -4,63 +4,63 @@
   top: 7%;
   display: flex;
   align-items: center;
-}
 
-.theme-switch__icon {
-  color: $white-color;
-  height: 14px;
-  width: 14px;
-  margin-right: 8px;
-  margin-left: 8px;
-}
+  &__icon {
+    color: $white-color;
+    height: 14px;
+    width: 14px;
+    margin-right: 8px;
+    margin-left: 8px;
+  }
 
-.theme-switch__control {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  position: relative;
-  width: 55px;
-  height: 25px;
-  border-radius: 50em;
-  padding: 3px 0;
-}
+  &__control {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    position: relative;
+    width: 55px;
+    height: 25px;
+    border-radius: 50em;
+    padding: 3px 0;
+  }
 
-.theme-switch__toggle {
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 0;
-  padding: 0;
-  opacity: 0;
-  height: 0;
-  width: 0;
-  pointer-events: none;
-}
+  &__toggle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+  }
 
-.theme-switch__track {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  color: transparent;
-  user-select: none;
-  background-color: $bg-header-color;
-  border-radius: inherit;
-  border: 1px solid $icon-color;
-  cursor: pointer;
-}
+  &__track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    user-select: none;
+    background-color: $bg-header-color;
+    border-radius: inherit;
+    border: 1px solid $icon-color;
+    cursor: pointer;
+  }
 
-.theme-switch__marker {
-  position: relative;
-  background-color: $accent-lighter-color;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  pointer-events: none;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-  transform: translateX(3px);
-  //   transition: transform 250ms var(--timing-function);
+  &__marker {
+    position: relative;
+    background-color: $accent-lighter-color;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    transform: translateX(3px);
+    transition: transform $animation;
+  }
 }
 
 .theme-switch__toggle:checked + .theme-switch__track {
@@ -70,8 +70,3 @@
 .theme-switch__toggle:checked ~ .theme-switch__marker {
   transform: translateX(35px);
 }
-
-// .theme-switch__toggle:focus + .theme-switch__track,
-// .theme-switch__toggle:active + .theme-switch__track {
-//   box-shadow: 0 0 0 3px $icon-color;
-// }
