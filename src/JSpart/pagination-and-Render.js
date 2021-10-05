@@ -79,6 +79,8 @@ function onHomeClick(e) {
   btnsEl.classList.remove('show');
   btnsEl.classList.add('hide');
   navEl.classList.add('mar-bot-input');
+  // console.log(NewFetchApi.list);
+  // NewFetchApi.list = 'home';
 }
 // Рендер кнопок
 
