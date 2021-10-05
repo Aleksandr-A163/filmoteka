@@ -10,7 +10,6 @@ const { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl, ...rest } 
 
 const NewFetchApi = new fetchApi();
 
-
 const listElement = document.querySelector('.collection');
 const paginationElement = document.getElementById('pagination');
 const arrowLeft = document.querySelector('.arrow_left');
@@ -43,8 +42,8 @@ function getFetchGenres() {
 function fetchPopularFilms() {
   NewFetchApi.fetchPopularFilmsByPage().then(r => {
     NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
-  const newFilm = replacesDefaultImage(r.results);
-      r.results = newFilm;
+    const newFilm = replacesDefaultImage(r.results);
+    r.results = newFilm;
     NewFetchApi.saveInLocale(r);
     NewFetchApi.renderCards();
     totalPages = r.total_pages;
@@ -57,6 +56,8 @@ function fetchPopularFilms() {
 function homePageRender() {
   NewFetchApi.fetchPopularFilmsByPage().then(r => {
     NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+    const newFilm = replacesDefaultImage(r.results);
+    r.results = newFilm;
     NewFetchApi.saveInLocale(r);
     // renderFile(r.results);
     NewFetchApi.renderCards();
