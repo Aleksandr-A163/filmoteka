@@ -36,6 +36,8 @@ function getFetchGenres() {
 function fetchPopularFilms() {
   NewFetchApi.fetchPopularFilmsByPage().then(r => {
     NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+  const newFilm = replacesDefaultImage(r.results);
+      r.results = newFilm;
     NewFetchApi.saveInLocale(r);
     NewFetchApi.renderCards();
     totalPages = r.total_pages;
