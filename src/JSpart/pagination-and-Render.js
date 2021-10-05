@@ -95,6 +95,8 @@ function renderPaginationBtn() {
       paginationElement.appendChild(button);
     }
   }
+
+
   // условия по добавлению трехточек и крайних страниц
   if (after < totalPages) {
     // условие проверяет частный случай, где текущий page = 497, нет необходимости рисовать treeDotsBlock 1..495,496,497,498,499,500
@@ -126,12 +128,25 @@ function paintFirstPage() {
   let button = document.createElement('button');
   button.innerText = 1;
   paginationElement.prepend(button);
+
+  
+      const leftArr = document.createElement('button');
+      leftArr.classList.add('pag-arrow');
+      leftArr.classList.add('arrow_left');
+      leftArr.setAttribute('data-action', 'prev-page')
+      paginationElement.prepend(leftArr);
+  
 }
 // функция отрисовки последней страницы
 function paintLastPage() {
   let button = document.createElement('button');
   button.innerText = totalPages;
   paginationElement.appendChild(button);
+        const rightArr = document.createElement('button');
+      rightArr.classList.add('pag-arrow', 'arrow_right');
+      
+      rightArr.setAttribute('data-action', 'next-page')
+      paginationElement.append(rightArr);
 }
 // функция отрисовки 3-х точек
 function addThreeDotsBlock() {
@@ -140,6 +155,13 @@ function addThreeDotsBlock() {
   threeDots.innerText = '...';
   return threeDots;
 }
+
+
+
+
+
+
+
 // функция листания страниц влево
 function onArrowLeftClick() {
   if (NewFetchApi.pageNumber > 1) {
