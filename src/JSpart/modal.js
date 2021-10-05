@@ -1,7 +1,13 @@
 import modal from '../templates/modal.hbs';
+import fetchApi from './api-fetch';
+// import { libraryEl, watchedEl, queueEl, renderFile } from './header-setup';
+import { renderFile } from './header-setup';
+import refs from './variables';
+const { libraryEl, watchedEl, queueEl, collectionList, ...rest } = refs;
+// const collectionList = document.getElementById('home');
 
-const collectionList = document.getElementById('home');
 // collectionList взят из index.js
+const modalEl = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal__content');
 
 const btnModalCloseEl = document.querySelector('.button-modal--close');
@@ -11,29 +17,42 @@ const modalImageEl = document.querySelector('.modal__image');
 collectionList.addEventListener('click', onUlElClick);
 // переменная для фильма, который открыт в модальном окне
 let curFilm;
+const NewFetchApi = new fetchApi();
+libraryEl.addEventListener('click', () => {
+  NewFetchApi.list = 'watch';
+});
+watchedEl.addEventListener('click', () => {
+  NewFetchApi.list = 'watch';
+});
+queueEl.addEventListener('click', () => {
+  NewFetchApi.list = 'queue';
+});
 
 function onUlElClick(e) {
   e.preventDefault();
-  console.log(e.target);
+  const currentTarget = e.target.closest('.card')?.querySelector('.card__image').id;
+  if (currentTarget === undefined) return;
   // if (!e.target.classList.contains('card')) {
   // return
   // }
   window.addEventListener('keydown', onKeyPress);
   backdropEl.classList.remove('is-hidden');
-  //     console.log(e.target.src);
-  //     modalImageEl.src = e.target.src;
-  //   modalImageEl.alt = e.target.alt;
 
   //работа с хранилищем
-  const currentArrayFilms = JSON.parse(localStorage.getItem('currentFilms'));
+  const currentArrayFilms = JSON.parse(localStorage.getItem('currentFilms')).results;
   const arrayWatched = JSON.parse(localStorage.getItem('watched'));
   const arrayQueue = JSON.parse(localStorage.getItem('queue'));
-  const currentTarget = e.target.id;
-  curFilm = currentArrayFilms.find(elem => elem.id === Number(currentTarget));
+  if (NewFetchApi.list === 'home') {
+    curFilm = currentArrayFilms.find(elem => elem.id === Number(currentTarget));
+  }
+  if (NewFetchApi.list === 'watch') {
+    curFilm = arrayWatched.find(elem => elem.id === Number(currentTarget));
+  }
+  if (NewFetchApi.list === 'queue') {
+    curFilm = arrayQueue.find(elem => elem.id === Number(currentTarget));
+  }
+
   renderModal(curFilm);
-  // const currentQueue = JSON.parse(localStorage.getItem('queue'));
-  // const currentWatched = JSON.parse(localStorage.getItem('watched'));
-  // console.log(currentQueue)
 
   //! Новый код//
   const buttonWatchedEl = document.getElementById('watchedInModal');
@@ -66,69 +85,80 @@ function onUlElClick(e) {
       if (cardBtn.id === 'watchedInModal') {
         //cardBtn.toggle('');
         if (!currentWatched.some(e => e.id === Number(currentTarget))) {
-          addToWatched();
+          addToStore('watched');
           buttonWatchedEl.textContent = 'Remove to watched';
+
+          //перерисовка watched если пользователь удалил, а потом снова добавил фильм
+          if (
+            watchedEl.classList.contains('button--orange') &&
+            libraryEl.classList.contains('navigation__link--current')
+          ) {
+            collectionList.innerHTML = '';
+            const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+            renderFile(watchedFilms);
+          }
         } else {
-          removeToWatched();
+          removeToStore('watched');
           buttonWatchedEl.textContent = 'Add to watched';
+
+          //перерисовка Watched при удаление фильма
+          if (
+            watchedEl.classList.contains('button--orange') &&
+            libraryEl.classList.contains('navigation__link--current')
+          ) {
+            collectionList.innerHTML = '';
+            const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+            renderFile(watchedFilms);
+            if (watchedFilms.length === 0) {
+              collectionList.innerHTML =
+                '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
+            }
+          }
         }
       } else if (cardBtn.id === 'queueInModal') {
         if (!currentQueue.some(e => e.id === Number(currentTarget))) {
-          addToQueue();
+          addToStore('queue');
           buttonQueueEl.textContent = 'Remove to queue';
+
+          //перерисовка Queue если пользователь удалил, а потом снова добавил фильм
+          if (queueEl.classList.contains('button--orange')) {
+            collectionList.innerHTML = '';
+            const queueFilms = JSON.parse(localStorage.getItem('queue'));
+            renderFile(queueFilms);
+          }
         } else {
-          removeToQueue();
+          removeToStore('queue');
           buttonQueueEl.textContent = 'Add to queue';
+
+          //перерисовка Queue при удаление фильма
+          if (queueEl.classList.contains('button--orange')) {
+            collectionList.innerHTML = '';
+            const queueFilms = JSON.parse(localStorage.getItem('queue'));
+            renderFile(queueFilms);
+            if (queueFilms.length === 0) {
+              collectionList.innerHTML =
+                '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
+            }
+          }
         }
       }
     }
   }
-
-  //условие проверки нахождения фильма в хранилище watched
-  // if (!currentQueue.some(e => e.id === Number(currentTarget))) {
-  //   buttonWatchedEl.addEventListener('click', addToWatched);
-  // }
-
-  //условие проверки нахождения фильма в хранилище queue
-
-  //   if (!currentQueue.some(e => e.id === Number(currentTarget))) {
-  //     buttonQueueEl.addEventListener('click', addToQueue);
-  //   }
 }
-
-// Функция добавления фильма в localeStorage Watched
-function addToWatched() {
-  const currentWatched = localStorage.getItem('watched');
-  const NextWatched = JSON.parse(currentWatched);
-  NextWatched.push(curFilm);
-  localStorage.setItem('watched', JSON.stringify(NextWatched));
+// Функция добавления фильма в хранилище
+function addToStore(store) {
+  const currentMovie = localStorage.getItem(store);
+  const NextMovie = JSON.parse(currentMovie);
+  NextMovie.push(curFilm);
+  localStorage.setItem(store, JSON.stringify(NextMovie));
   //   console.log(NextQueue);
 }
-function removeToWatched() {
-  const currentWatched = localStorage.getItem('watched');
-  const NextWatched = JSON.parse(currentWatched);
-  const UpdateWatched = NextWatched.filter(e => {
-    e.id !== curFilm.id;
-  });
-  localStorage.setItem('watched', JSON.stringify(UpdateWatched));
-}
-
-// Функция добавления фильма в localeStorage Oueue
-function addToQueue() {
-  const currentQueue = localStorage.getItem('queue');
-  const NextQueue = JSON.parse(currentQueue);
-  NextQueue.push(curFilm);
-  localStorage.setItem('queue', JSON.stringify(NextQueue));
-  //   console.log(NextQueue);
-}
-
-function removeToQueue() {
-  const currentQueue = localStorage.getItem('queue');
-  const NextQueue = JSON.parse(currentQueue);
-  const UpdateQueue = NextQueue.filter(e => {
-    e.id !== curFilm.id;
-  });
-  localStorage.setItem('queue', JSON.stringify(UpdateQueue));
+// Функция удаления фильма из хранилища
+function removeToStore(store) {
+  const currentMovie = localStorage.getItem(store);
+  const NextMovie = JSON.parse(currentMovie);
+  const UpdateMovie = NextMovie.filter(e => e.id !== curFilm.id);
+  localStorage.setItem(store, JSON.stringify(UpdateMovie));
 }
 
 // функция динамического рендера разметки модалки с данными
@@ -150,6 +180,8 @@ function onBackdropClick(e) {
   }
 }
 function onBtnCloseModalClick() {
+
+  modalEl.classList.remove('modal--students');
   backdropEl.classList.add('is-hidden');
   window.removeEventListener('keydown', onKeyPress);
   // modalImageEl.src = "";

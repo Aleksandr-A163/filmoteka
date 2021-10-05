@@ -3,6 +3,7 @@
 $text-black-color: #000000;
 $text-white-color: #ffffff;
 $text-footer-color: #545454;
+$text-red-color: #ff001b;
 
 //Цвет фона или на фоне
 $bg-first-color: #ffffff;
@@ -25,8 +26,8 @@ $accent-darker-color: #ff6b08;
 $btn-hover-color: rgba(255, 107, 1, 0.6);
 
 // //**Анимирование
-// $duration: 250ms;
-// $cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
+
+$animation: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
 //**Шрифт
 $main-font-size: 12px;
@@ -43,3 +44,8 @@ $set-gap: 30px;
 //**Скругление
 
 $radius: 5px;
+
+//**Тень
+
+$shadow: 0px 5px 11px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.14),
+  0px 2px 1px rgba(0, 0, 0, 0.233);

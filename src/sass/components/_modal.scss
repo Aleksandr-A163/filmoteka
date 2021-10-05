@@ -6,7 +6,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.25);
   opacity: 1;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity $animation;
 
   @media screen and (max-width: 767px) {
     overflow-y: scroll;
@@ -30,64 +30,154 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  padding-top: 50px;
+  padding-top: 48px;
   padding-bottom: 40px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: $bg-first-color;
 
   transform: translate(-50%, -50%), scale(1);
-  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform $animation;
 
-  @media screen and (min-width: 480px) {
-    width: 618px;
-    height: 562px;
+  @media screen and (min-width: $mobile) {
+    width: 280px;
+    height: 958px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: $tablet) {
+    width: 618px;
+    height: 562px;
+    padding-top: 42px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @media screen and (min-width: $desktop) {
     width: 882px;
     height: 568px;
+    padding-top: 48px;
+    padding-bottom: 41px;
   }
 
   &__title {
     margin-bottom: 20px;
-    font-size: 30px;
-    line-height: 1.16;
+    font-size: 20px;
+    line-height: 1.15;
+    text-transform: uppercase;
 
-    // @media screen and (min-width: 1200px) {
-    //   line-height: 1.15;
-    // }
+    @media screen and (min-width: $desktop) {
+      font-size: 30px;
+      line-height: 1.16;
+    }
   }
 }
+
+.modal.dark-theme {
+  background-color: #333333;
+  // background-color: $text-footer-color;
+  color: rgb(255, 255, 255, 0.9);
+}
 .modal__content {
-  display: flex;
+  @media screen and (min-width: $tablet) {
+    display: flex;
+  }
 }
 // -----изображение
 .thumb {
-  width: 396px;
-  height: 477px;
-  background-color: aqua;
+  width: 240px;
+  height: 356px;
   border-radius: 5px;
   overflow: hidden;
+
+  @media screen and (min-width: $tablet) {
+    width: 264px;
+    height: 373px;
+  }
+  @media screen and (min-width: $desktop) {
+    width: 396px;
+    height: 477px;
+  }
 }
 .modal__image {
   width: 100%;
+  height: auto;
 }
 
 // ------текстовая часть
+.wrap-modal {
+  display: flex;
+}
+
+.wrap-modal ul:not(:last-child) {
+  margin-right: 30px;
+}
+
 .content__text {
-  margin-left: 30px;
-  width: 396px;
+  margin-top: 30px;
+  width: 240px;
+
+  @media screen and (min-width: $tablet) {
+    margin-left: 30px;
+    margin-top: 0px;
+    width: 264px;
+  }
+  @media screen and (min-width: $desktop) {
+    width: 396px;
+  }
 }
-.modal-list {
+.modal__list {
   margin-bottom: 20px;
-}
-.modal-list li {
+  font-size: 12px;
+  line-height: 1.33;
   color: $modal-subtitle-color;
 }
 
-.modal-list li:not(:last-child) {
+.modal__list--keys {
+  width: 122px;
+}
+.modal__list--values {
+  // color: $text-black-color;
+  color: inherit;
+}
+
+.modal__list--values li:nth-child(-n + 2) {
+  line-height: 1.16;
+}
+.modal-list__item {
+  display: flex;
+}
+.modal__list li:not(:last-child) {
   margin-bottom: 10px;
+}
+
+.modal__rating {
+  line-height: 14px;
+  height: 16px;
+  width: 36px;
+  padding-top: 1px;
+  text-align: center;
+  background-color: $bg-second-color;
+  border-radius: $radius;
+  color: $text-black-color;
+}
+
+.modal__rating--orange {
+  color: $text-white-color;
+  line-height: 14px;
+  height: 16px;
+  width: 36px;
+  padding-top: 1px;
+  text-align: center;
+  background-color: $accent-lighter-color;
+  border-radius: $radius;
+}
+
+.modal__rating--slash {
+  line-height: 14px;
+  height: 16px;
+  padding-top: 1px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .modal-text__title {
@@ -114,43 +204,80 @@
   padding-top: 14px;
   padding-bottom: 12px;
   border-radius: 4px;
-  min-width: 136px;
+  min-width: 112px;
   min-height: 44px;
 
-  border: 1px solid #000000;
+  border: 1px solid $black-color;
   border-radius: 5px;
 
   font-family: inherit;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1.33;
   text-align: center;
   text-transform: uppercase;
   cursor: pointer;
 
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color $animation;
+
+  @media screen and (min-width: $tablet) {
+    min-width: 125px;
+    font-size: 12px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    min-width: 136px;
+  }
 
   &:hover,
   &:focus {
-    background-color: $btn-hover-color;
+    background-color: $accent-lighter-color;
+    color: $text-white-color;
+    border: none;
   }
 }
 .button-modal--orange {
   background: $accent-lighter-color;
   border: none;
   color: $text-white-color;
+
+  transition: background-color $animation;
+
+  &:hover,
+  &:focus {
+    background-color: $bg-first-color;
+    border: 1px solid $black-color;
+    color: $text-black-color;
+  }
 }
+
 .button-modal--close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   right: 10px;
   top: 10px;
   width: 30px;
   height: 30px;
-  background-color: $accent-lighter-color;
-  border-radius: 25%;
+}
+
+.close__svg {
+  fill: currentColor;
+
+  transition: fill $animation;
 
   &:hover,
   &:focus {
-    background-color: $btn-hover-color;
+    fill: $accent-lighter-color;
+  }
+}
+
+.close__svg.dark-theme {
+  fill: $white-color;
+
+  &:hover,
+  &:focus {
+    fill: $accent-lighter-color;
   }
 }

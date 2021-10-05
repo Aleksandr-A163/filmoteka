@@ -1,5 +1,6 @@
 // добавить контейнеру grid-area: header;
 header {
+  position: relative;
   grid-area: header;
   background-color: yellowgreen;
   padding-top: 46px;
@@ -333,7 +334,27 @@ header {
 }
 
 .btns {
-  display: flex;
-  justify-content: center;
+  max-width: 300px;
+  margin: 0 auto;
   margin-top: 46px;
+}
+.error {
+  margin-top: 22px;
+
+  font-size: 14px;
+  line-height: 1.14;
+  color: $text-red-color;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.mar-bot-input {
+  margin-bottom: 40px;
 }
