@@ -1,4 +1,5 @@
 import render from '../templates/card.hbs';
+import replacesDefaultImage from './stopper';
 
 class FetchApi {
   constructor() {
@@ -98,6 +99,8 @@ class FetchApi {
   getPaginationPage(fetchQuery) {
     this[fetchQuery]().then(r => {
       this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+        const newFilm = replacesDefaultImage(r.results);
+      r.results = newFilm;
       this.saveInLocale(r);
       this.renderCards();
     });

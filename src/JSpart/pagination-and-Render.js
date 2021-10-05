@@ -3,9 +3,13 @@ import render from '../templates/card.hbs';
 import cleanInput from './clean-input';
 import checkQuery from './check-query';
 import errorSearch from './error-search';
+
+import replacesDefaultImage from './stopper';
 import refs from './variables';
 const { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl, ...rest } = refs;
+
 const NewFetchApi = new fetchApi();
+
 
 const listElement = document.querySelector('.collection');
 const paginationElement = document.getElementById('pagination');
@@ -39,6 +43,8 @@ function getFetchGenres() {
 function fetchPopularFilms() {
   NewFetchApi.fetchPopularFilmsByPage().then(r => {
     NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+  const newFilm = replacesDefaultImage(r.results);
+      r.results = newFilm;
     NewFetchApi.saveInLocale(r);
     NewFetchApi.renderCards();
     totalPages = r.total_pages;
@@ -234,6 +240,8 @@ function foundFilmsByKeyword(e) {
       // })
       // console.log(film);
       NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
+      const newFilm = replacesDefaultImage(film.results);
+      film.results = newFilm;
       //обновляем текущие фильмы в localStorage
 
       NewFetchApi.saveInLocale(film);

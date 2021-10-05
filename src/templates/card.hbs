@@ -3,12 +3,15 @@
     <div class='card__tumb'>
       <img
         id='{{id}}'
+
         {{#if poster_path}}
-        src='https://www.themoviedb.org/t/p/w220_and_h330_face{{poster_path}}'
+        src='{{poster_path}}'
+
         {{#if backdrop_path}}
-        src='https://www.themoviedb.org/t/p/w220_and_h330_face{{backdrop_path}}'
+        src='{{backdrop_path}}'
         {{/if}}
         {{/if}}
+
         alt='{{title}}'
         class='card__image'
       />
