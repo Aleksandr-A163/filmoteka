@@ -7,7 +7,7 @@ import errorSearch from './JSpart/error-search';
 import './JSpart/modal_students';
 
 
-import replacesDefaultImage from './JSpart/stopper';
+
 
 import './JSpart/pagination-and-Render';
 import './JSpart/header-setup';

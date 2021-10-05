@@ -3,7 +3,9 @@ import render from '../templates/card.hbs';
 import cleanInput from './clean-input';
 import checkQuery from './check-query';
 import errorSearch from './error-search';
+import replacesDefaultImage from './stopper';
 const NewFetchApi = new fetchApi();
+
 
 const listElement = document.querySelector('.collection');
 const paginationElement = document.getElementById('pagination');
@@ -195,9 +197,13 @@ function foundFilmsByKeyword(e) {
       // })
       // console.log(film);
       NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
+      console.log(film, "это наш фильм")
+      const newFilm = replacesDefaultImage(film.results);
+      film.results = newFilm;
       //обновляем текущие фильмы в localStorage
 
       NewFetchApi.saveInLocale(film);
+      console.log(NewFetchApi.getLSItems, "проверка")
       NewFetchApi.renderCards();
       // renderCardsSearchFilms();
       // makeActiveBtn();

@@ -1,5 +1,5 @@
 export default function replacesDefaultImage(arr) {
-    console.log(arr);
+    // console.log(arr);
     const defaultImage = '/monHD8rdfeKCgxeLnsV3xwNlNvX.jpg'
 //     const defaultImage = "https://cdn.pixabay.com/photo/2021/08/07/19/49/cosmea-6529220_960_720.jpg";
 // //     arr.forEach(({ backdrop_path }) => {
@@ -27,7 +27,7 @@ export default function replacesDefaultImage(arr) {
         // }
         return element;
     });
-    console.log(newArr)
+    console.log(newArr, "замена")
     return newArr;
 }
 
