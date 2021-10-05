@@ -1,30 +1,106 @@
+.backdrop--students {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  opacity: 1;
+  transition: opacity $animation;
+
+  @include adaptive-size(tablet-break) {
+    overflow-y: scroll;
+  }
+
+  &.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.is-hidden .modal--students {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
 .modal--students {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 20px;
+  text-align: center;
+  border-radius: $radius;
+
+  background-color: $bg-first-color;
+
+  transform: translate(-50%, -50%), scale(1);
+  transition: transform $animation;
+
+  & .dark-theme {
+    background-color: $bg-dark-modal-color;
+    color: $text-dark-theme-color;
+  }
+  & .team-items {
+    list-style: none;
+    margin: 10px auto;
+
+    @media screen and (min-width: $tablet) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+  }
+  & .button-modal {
+    margin: 20px 0;
+    padding: 8px 10px;
+    min-width: 180px;
+    @media screen and (min-width: $tablet) {
+      min-width: 180px;
+    }
+
+    @media screen and (min-width: $desktop) {
+      min-width: 180px;
+    }
+  }
   & .card {
     height: min-content;
   }
   & .card__title {
     font-size: 16px;
+    font-weight: 400;
+    display: inline-block;
+    padding: 5px;
+    text-transform: unset;
+    text-align: start;
   }
   & .card__tumb {
-    height: 326px;
+    max-width: 302px;
+    // max-height: 326px;
+  }
+  & .card__image {
+    box-shadow: $shadow;
   }
 
   @media screen and (min-width: $tablet) {
     width: 708px;
-    height: 672px;
+    height: 667px;
     padding: 10px;
     & .card {
-      width: 186px;
+      margin: 0 0 20px 0;
+      width: 140px;
     }
     & .card__tumb {
-      height: 270px;
+      height: 170px;
+    }
+    & .card__title {
+      font-size: 12px;
     }
   }
   @media screen and (min-width: $desktop) {
-    width: 994px;
-    height: 728px;
-    & .card {
-      width: 198px;
-    }
+    height: 778px;
   }
 }
