@@ -30,8 +30,11 @@ queueEl.addEventListener('click', onQueueClick);
 
 function onLibraryClick(e) {
   e.preventDefault();
+  allPagination.classList.add('visually-hidden')
+  paginationLibElement.classList.remove('visually-hidden')
 
-  allPagination.innerHTML = '';
+  // renderLibPag(watchedFilmsPage)
+
   myLibraryWatchedRender(e);
   if (headerEl.classList.contains('library-bgi')) {
     return;

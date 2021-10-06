@@ -9,9 +9,11 @@ const NewFetchApi = new fetchApi();
 
 const listElement = document.querySelector('.collection');
 const paginationElement = document.getElementById('pagination');
-
+  const arrowLeft = document.querySelector('.arrow_left');
+  const arrowRight = document.querySelector('.arrow_right');
 const allPagination = document.querySelector('.pagination__container_pages');
 const btnSearchEl = document.querySelector('.search__button');
+const paginationLibElement = document.getElementById('paginationLibrary');
 
 // let currentPage = 1;
 // const pagesOnWindow = 5;
@@ -63,6 +65,8 @@ function renderFile(results) {
 ////////
 function onHomeClick(e) {
   e.preventDefault();
+  allPagination.classList.remove('visually-hidden')
+  paginationLibElement.classList.add('visually-hidden')
 
   console.log('функция onHomeClick');
   homePageRender();
@@ -97,15 +101,15 @@ function renderPaginationBtn() {
     }
   }
  
-    const leftArr = document.createElement('button');
-  leftArr.classList.add('pag-arrow', 'arrow_left');
-  leftArr.setAttribute('data-action', 'prev-page')
-  allPagination.prepend(leftArr);
+  //   const leftArr = document.createElement('button');
+  // leftArr.classList.add('pag-arrow', 'arrow_left');
+  // leftArr.setAttribute('data-action', 'prev-page')
+  // allPagination.prepend(leftArr);
 
-  const rightArr = document.createElement('button');
-  rightArr.classList.add('pag-arrow', 'arrow_right');
-  rightArr.setAttribute('data-action', 'next-page')
-  paginationElement.append(rightArr);
+  // const rightArr = document.createElement('button');
+  // rightArr.classList.add('pag-arrow', 'arrow_right');
+  // rightArr.setAttribute('data-action', 'next-page')
+  // paginationElement.append(rightArr);
 
 
 
@@ -134,8 +138,8 @@ function renderPaginationBtn() {
   }
   
   // addArrow()
-  const arrowLeft = document.querySelector('.arrow_left');
-  const arrowRight = document.querySelector('.arrow_right');
+  // const arrowLeft = document.querySelector('.arrow_left');
+  // const arrowRight = document.querySelector('.arrow_right');
   
     arrowLeft.onclick = onArrowLeftClick;
     arrowRight.onclick = onArrowRightClick;
