@@ -1,9 +1,10 @@
 import modal from '../templates/modal.hbs';
+import render from '../templates/card.hbs';
 import fetchApi from './api-fetch';
 // import { libraryEl, watchedEl, queueEl, renderFile } from './header-setup';
 // import { renderFile } from './header-setup';
 import refs from './variables';
-const { libraryEl, watchedEl, queueEl,homeEl,logoEl, collectionList, ...rest } = refs;
+const { libraryEl, watchedEl, queueEl, homeEl, logoEl, collectionList, ...rest } = refs;
 // const collectionList = document.getElementById('home');
 
 // collectionList взят из index.js
@@ -29,14 +30,31 @@ queueEl.addEventListener('click', () => {
 });
 homeEl.addEventListener('click', () => {
   NewFetchApi.list = 'home';
-})
+});
 logoEl.addEventListener('click', () => {
   NewFetchApi.list = 'home';
-})
+});
 
 // функция рендера
 function renderFile(results) {
   collectionList.innerHTML = render({ results });
+}
+
+function sliceLibraryOnPage(value) {
+  if (value === null) {
+    return;
+  }
+  // const NextMovie = JSON.parse(value);
+  // console.log(value)
+  const groupSize = 20;
+  const sliceArr = value
+    .map(function (e, i) {
+      return i % groupSize === 0 ? value.slice(i, i + groupSize) : null;
+    })
+    .filter(function (e) {
+      return e;
+    });
+  return sliceArr;
 }
 
 function onUlElClick(e) {
@@ -92,6 +110,13 @@ function onUlElClick(e) {
     const cardBtn = event.target;
     const currentQueue = JSON.parse(localStorage.getItem('queue'));
     const currentWatched = JSON.parse(localStorage.getItem('watched'));
+
+    // const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+    // const queueFilms = JSON.parse(localStorage.getItem('queue'));
+
+    // const watchedFilmsPage = sliceLibraryOnPage(watchedFilms);
+    // const queueFilmsPage = sliceLibraryOnPage(queueFilms);
+
     if (cardBtn.nodeName === 'BUTTON') {
       if (cardBtn.id === 'watchedInModal') {
         //cardBtn.toggle('');
@@ -106,7 +131,8 @@ function onUlElClick(e) {
           ) {
             collectionList.innerHTML = '';
             const watchedFilms = JSON.parse(localStorage.getItem('watched'));
-            renderFile(watchedFilms);
+            const watchedFilmsPage = sliceLibraryOnPage(watchedFilms);
+            renderFile(watchedFilmsPage[0]);
           }
         } else {
           removeToStore('watched');
@@ -119,7 +145,8 @@ function onUlElClick(e) {
           ) {
             collectionList.innerHTML = '';
             const watchedFilms = JSON.parse(localStorage.getItem('watched'));
-            renderFile(watchedFilms);
+            const watchedFilmsPage = sliceLibraryOnPage(watchedFilms);
+            renderFile(watchedFilmsPage[0]);
             if (watchedFilms.length === 0) {
               collectionList.innerHTML =
                 '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
@@ -135,7 +162,8 @@ function onUlElClick(e) {
           if (queueEl.classList.contains('button--orange')) {
             collectionList.innerHTML = '';
             const queueFilms = JSON.parse(localStorage.getItem('queue'));
-            renderFile(queueFilms);
+            const queueFilmsPage = sliceLibraryOnPage(queueFilms);
+            renderFile(queueFilmsPage[0]);
           }
         } else {
           removeToStore('queue');
@@ -145,7 +173,8 @@ function onUlElClick(e) {
           if (queueEl.classList.contains('button--orange')) {
             collectionList.innerHTML = '';
             const queueFilms = JSON.parse(localStorage.getItem('queue'));
-            renderFile(queueFilms);
+            const queueFilmsPage = sliceLibraryOnPage(queueFilms);
+            renderFile(queueFilmsPage[0]);
             if (queueFilms.length === 0) {
               collectionList.innerHTML =
                 '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
@@ -156,6 +185,7 @@ function onUlElClick(e) {
     }
   }
 }
+
 // Функция добавления фильма в хранилище
 function addToStore(store) {
   const currentMovie = localStorage.getItem(store);
@@ -191,8 +221,7 @@ function onBackdropClick(e) {
   }
 }
 function onBtnCloseModalClick() {
-
-  modalEl.classList.remove('modal--students');
+  // modalEl.classList.remove('modal--students');
   backdropEl.classList.add('is-hidden');
   window.removeEventListener('keydown', onKeyPress);
   // modalImageEl.src = "";

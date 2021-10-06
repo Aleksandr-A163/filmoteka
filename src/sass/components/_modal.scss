@@ -164,30 +164,25 @@
 }
 
 .modal__rating {
-  line-height: 14px;
+  line-height: 1.16;
   height: 16px;
   width: 36px;
-  padding-top: 1px;
-  text-align: center;
   background-color: $bg-second-color;
   border-radius: $radius;
   color: $text-black-color;
 
   &--orange {
     color: $text-white-color;
-    line-height: 14px;
+    line-height: 1.16;
     height: 16px;
     width: 36px;
-    padding-top: 1px;
-    text-align: center;
     background-color: $accent-lighter-color;
     border-radius: $radius;
   }
 
   &--slash {
-    line-height: 14px;
+    line-height: 1.16;
     height: 16px;
-    padding-top: 1px;
     padding-left: 3px;
     padding-right: 3px;
   }

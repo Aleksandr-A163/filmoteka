@@ -13,15 +13,12 @@
 
   &:hover,
   &:focus {
-    .card__image {
-      transform: scale(1.05);
-      transition: transform 0.3s ease-in-out 0s;
-    }
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out 0s;
+
     .card__title {
-      transition: all 0.3s ease-in-out;
       color: $accent-lighter-color;
-      transform: translateY(-7px) scale(1.05) translateX(6px);
-    }    
+    };
   }
 }
 
@@ -43,6 +40,7 @@
   font-size: 12px;
   line-height: 1.17;
   padding-top: 10px;
+  transition: color 0.3s ease-in-out 0s;
 
   @media screen and (min-width: $tablet) {
     line-height: 1.33;
