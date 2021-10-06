@@ -21,7 +21,7 @@ const openLink = () => {
 const closeModalStud = () => {
     backdropStEl.classList.add('is-hidden');
     window.removeEventListener('keydown', onKeyPress);
-}
+};
 
 linkToDev.addEventListener('click', openLink);
 closeModalBtn.addEventListener('click', closeModalStud);
