@@ -6,16 +6,16 @@ import errorSearch from './error-search';
 
 import replacesDefaultImage from './stopper';
 import refs from './variables';
-const { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl, ...rest } = refs;
-
+const { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl,  homePagination, libraryPagination, ...rest } = refs;
 const NewFetchApi = new fetchApi();
 
 const listElement = document.querySelector('.collection');
 const paginationElement = document.getElementById('pagination');
-const arrowLeft = document.querySelector('.arrow_left');
-const arrowRight = document.querySelector('.arrow_right');
+  const arrowLeft = document.querySelector('.arrow_left');
+  const arrowRight = document.querySelector('.arrow_right');
 const allPagination = document.querySelector('.pagination__container_pages');
 const btnSearchEl = document.querySelector('.search__button');
+const paginationLibElement = document.getElementById('paginationLibrary');
 
 // let currentPage = 1;
 // const pagesOnWindow = 5;
@@ -52,17 +52,58 @@ function fetchPopularFilms() {
     renderPagination();
   });
 }
-// функции отрисовки при переходе на страницы навигации
-function homePageRender() {
-  NewFetchApi.fetchPopularFilmsByPage().then(r => {
-    NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
-    const newFilm = replacesDefaultImage(r.results);
-    r.results = newFilm;
-    NewFetchApi.saveInLocale(r);
-    // renderFile(r.results);
-    NewFetchApi.renderCards();
-  });
+
+//функция поиска по названию фильма
+function foundFilmsByKeyword(e) {
+  paginationElement.innerHTML = '';
+  NewFetchApi.resetPage();
+  e.preventDefault();
+  const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
+  const query = inputSearchEl.value.trim();
+
+  if (checkQuery(query)) return;
+
+  NewFetchApi.query = query;
+  NewFetchApi.fetchSearchFilms()
+    .then(film => {
+      totalPages = film.total_pages;
+      renderPagination();
+      if (film.results.length === 0) {
+        // console.log('Search result not successful. Enter the correct movie name.');
+        errorSearch('Search result not successful. Enter the correct movie name.');
+        return;
+      }
+      // film.results.forEach(r => {
+      //   newFetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), r.genre_ids )
+      // })
+      // console.log(film);
+      NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
+      const newFilm = replacesDefaultImage(film.results);
+      film.results = newFilm;
+      //обновляем текущие фильмы в localStorage
+
+      NewFetchApi.saveInLocale(film);
+      NewFetchApi.renderCards();
+      // renderCardsSearchFilms();
+      // makeActiveBtn();
+    })
+    .catch(er => {
+      // console.log('Something went wrong, please try again later');
+      errorSearch('Something went wrong, please try again later');
+    });
+
+  cleanInput();
 }
+
+// функции отрисовки при переходе на страницы навигации
+// function homePageRender() {
+//   NewFetchApi.fetchPopularFilmsByPage().then(r => {
+//     NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+//     NewFetchApi.saveInLocale(r);
+//     // renderFile(r.results);
+//     NewFetchApi.renderCards();
+//   });
+// }
 ///////
 // функция рендера
 function renderFile(results) {
@@ -71,9 +112,16 @@ function renderFile(results) {
 ////////
 function onHomeClick(e) {
   e.preventDefault();
+  NewFetchApi.pageNumber =1
+  paginationElement.innerHTML = ''
+  // renderPagination()
+  
+  homePagination.classList.remove('visually-hidden')
+  libraryPagination.classList.add('visually-hidden')
 
-  console.log('функция onHomeClick');
-  homePageRender();
+  // console.log('функция onHomeClick');
+  fetchPopularFilms()
+  // homePageRender();
   if (headerEl.classList.contains('home-bgi')) {
     return;
   }
@@ -91,6 +139,7 @@ function onHomeClick(e) {
 }
 // Рендер кнопок
 
+
 function renderPaginationBtn() {
   const before = NewFetchApi.pageNumber - 2;
   const after = NewFetchApi.pageNumber + 2;
@@ -100,8 +149,22 @@ function renderPaginationBtn() {
       let button = document.createElement('button');
       button.innerText = i;
       paginationElement.appendChild(button);
+
     }
   }
+ 
+  //   const leftArr = document.createElement('button');
+  // leftArr.classList.add('pag-arrow', 'arrow_left');
+  // leftArr.setAttribute('data-action', 'prev-page')
+  // allPagination.prepend(leftArr);
+
+  // const rightArr = document.createElement('button');
+  // rightArr.classList.add('pag-arrow', 'arrow_right');
+  // rightArr.setAttribute('data-action', 'next-page')
+  // paginationElement.append(rightArr);
+
+
+
   // условия по добавлению трехточек и крайних страниц
   if (after < totalPages) {
     // условие проверяет частный случай, где текущий page = 497, нет необходимости рисовать treeDotsBlock 1..495,496,497,498,499,500
@@ -125,9 +188,15 @@ function renderPaginationBtn() {
       paintFirstPage();
     }
   }
-  arrowLeft.onclick = onArrowLeftClick;
-  arrowRight.onclick = onArrowRightClick;
+  
+  // addArrow()
+  // const arrowLeft = document.querySelector('.arrow_left');
+  // const arrowRight = document.querySelector('.arrow_right');
+  
+    arrowLeft.onclick = onArrowLeftClick;
+    arrowRight.onclick = onArrowRightClick;
 }
+
 // функция отрисовки первой страницы
 function paintFirstPage() {
   let button = document.createElement('button');
@@ -147,6 +216,23 @@ function addThreeDotsBlock() {
   threeDots.innerText = '...';
   return threeDots;
 }
+
+function addArrow() {
+    const leftArr = document.createElement('button');
+    leftArr.classList.add('pag-arrow', 'arrow_left');
+    leftArr.setAttribute('data-action', 'prev-page')
+    allPagination.prepend(leftArr);
+
+    const rightArr = document.createElement('button');
+    rightArr.classList.add('pag-arrow', 'arrow_right');
+    rightArr.setAttribute('data-action', 'next-page')
+  allPagination.append(rightArr);
+
+}
+
+
+
+
 // функция листания страниц влево
 function onArrowLeftClick() {
   if (NewFetchApi.pageNumber > 1) {
@@ -198,7 +284,7 @@ function onBtnClick(e) {
   NewFetchApi.pageNumber = Number(e.target.textContent);
 
   renderPagination();
-  console.log('NewFetchApi.query', NewFetchApi.query);
+  // console.log('NewFetchApi.query', NewFetchApi.query);
   if (NewFetchApi.query) {
     NewFetchApi.getPaginationPage('fetchSearchFilms');
   } else {
@@ -208,55 +294,31 @@ function onBtnClick(e) {
 
 paginationElement.addEventListener('click', onBtnClick);
 
+
+function disableArrowBtn() {
+  if (NewFetchApi.pageNumber === 1) {
+    arrowLeft.classList.add('disabled-arrow');
+  } else {
+    arrowLeft.classList.remove('disabled-arrow');
+  }
+  
+  if (NewFetchApi.pageNumber === totalPages) {
+    arrowRight.classList.add('disabled-arrow');
+  } else {
+    arrowRight.classList.remove('disabled-arrow');
+  }
+}
+
 function renderPagination() {
   renderPaginationBtn();
   makeActiveBtn();
+  disableArrowBtn()
 }
 
-// //поиск по названию фильма
+
 // btnSearchEl.addEventListener('click', foundFilmsByKeyword);
 
-//функция поиска по названию фильма
-function foundFilmsByKeyword(e) {
-  paginationElement.innerHTML = '';
-  NewFetchApi.resetPage();
-  e.preventDefault();
-  const inputSearchEl = e.target.closest('.search').querySelector('.search__input');
-  const query = inputSearchEl.value.trim();
 
-  if (checkQuery(query)) return;
-
-  NewFetchApi.query = query;
-  NewFetchApi.fetchSearchFilms()
-    .then(film => {
-      totalPages = film.total_pages;
-      renderPagination();
-      if (film.results.length === 0) {
-        // console.log('Search result not successful. Enter the correct movie name.');
-        errorSearch('Search result not successful. Enter the correct movie name.');
-        return;
-      }
-      // film.results.forEach(r => {
-      //   newFetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), r.genre_ids )
-      // })
-      // console.log(film);
-      NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
-      const newFilm = replacesDefaultImage(film.results);
-      film.results = newFilm;
-      //обновляем текущие фильмы в localStorage
-
-      NewFetchApi.saveInLocale(film);
-      NewFetchApi.renderCards();
-      // renderCardsSearchFilms();
-      // makeActiveBtn();
-    })
-    .catch(er => {
-      // console.log('Something went wrong, please try again later');
-      errorSearch('Something went wrong, please try again later');
-    });
-
-  cleanInput();
-}
 // export { homePageRender };
 ////////////////////////////////// ниже логика пагинации в запасе)
 

@@ -22,7 +22,8 @@ const refs = {
   navEl: document.querySelector('.navigation'),
   watchedEl: document.querySelector('.js-watched'),
   queueEl: document.querySelector('.js-queue'),
-  allPagination: document.querySelector('.pagination__container_pages'),
+  homePagination: document.querySelector('.pagination__home'),
+  libraryPagination: document.querySelector('.pagination__library'),
 };
 // export {
 //   logoEl,

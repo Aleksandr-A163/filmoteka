@@ -10,6 +10,7 @@ import './JSpart/modal_students';
 
 
 import './JSpart/pagination-and-Render';
+import './JSpart/loader';
 import './JSpart/header-setup';
 import './JSpart/theme-switch';
 

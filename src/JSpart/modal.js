@@ -1,7 +1,7 @@
 import modal from '../templates/modal.hbs';
 import fetchApi from './api-fetch';
 // import { libraryEl, watchedEl, queueEl, renderFile } from './header-setup';
-import { renderFile } from './header-setup';
+// import { renderFile } from './header-setup';
 import refs from './variables';
 const { libraryEl, watchedEl, queueEl,homeEl,logoEl, collectionList, ...rest } = refs;
 // const collectionList = document.getElementById('home');
@@ -33,6 +33,11 @@ homeEl.addEventListener('click', () => {
 logoEl.addEventListener('click', () => {
   NewFetchApi.list = 'home';
 })
+
+// функция рендера
+function renderFile(results) {
+  collectionList.innerHTML = render({ results });
+}
 
 function onUlElClick(e) {
   e.preventDefault();
