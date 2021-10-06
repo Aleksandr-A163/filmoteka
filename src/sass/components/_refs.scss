@@ -1,3 +1,22 @@
+.team {
+  width: 100%;
+  height: min-content;
+  text-align: center;
+  margin-bottom: 20px;
+  @include adaptive-size(tablet) {
+    width: 140px;
+  }
+  &__tumb {
+    max-width: 302px;
+    @include adaptive-size(tablet) {
+      height: 170px;
+    }
+  }
+  &__image {
+    box-shadow: $shadow;
+  }
+}
+
 .ref {
   display: flex;
   height: 46px;
@@ -5,7 +24,8 @@
   align-items: center;
   padding-top: 5px;
   color: $text-black-color;
-  transition: color $animation;
+  transition: all $animation;
+
   &:hover,
   :active,
   :focus {
@@ -15,7 +35,11 @@
     & .ref__icon {
       box-shadow: $shadow-hover;
     }
+    & .ref__title {
+      font-weight: 500;
+    }
   }
+
   &__icon {
     transition: box-shadow $animation;
     display: inline-block;
@@ -26,18 +50,17 @@
     background-position: center;
     border-radius: 50%;
     background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/433-github.png');
-    // &:hover,
-    // :active,
-    // :focus {
-    //   box-shadow: $shadow;
-    // }
   }
-  // &.githab {
-  // }
-  // &.telergam {
-  //   background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/406-telegram.png');
-  // }
-  // &.linkidin {
-  //   background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/459-linkedin2.png');
-  // }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 400;
+    display: inline-block;
+    padding: 5px;
+    text-align: start;
+    @include adaptive-size(tablet) {
+      line-height: 1.33;
+      font-size: 12px;
+    }
+  }
 }
