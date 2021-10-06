@@ -192,7 +192,7 @@ function onBackdropClick(e) {
   }
 }
 function onBtnCloseModalClick() {
-  modalEl.classList.remove('modal--students');
+  // modalEl.classList.remove('modal--students');
   backdropEl.classList.add('is-hidden');
   window.removeEventListener('keydown', onKeyPress);
   // modalImageEl.src = "";
