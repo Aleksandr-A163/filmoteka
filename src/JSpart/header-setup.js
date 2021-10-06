@@ -31,8 +31,8 @@ queueEl.addEventListener('click', onQueueClick);
 
 function onLibraryClick(e) {
   e.preventDefault();
-  homePagination.classList.add('visually-hidden')
-  libraryPagination.classList.remove('visually-hidden')
+  homePagination.classList.add('visually-hidden');
+  libraryPagination.classList.remove('visually-hidden');
 
   // renderLibPag(watchedFilmsPage)
 
@@ -53,14 +53,14 @@ function onLibraryClick(e) {
 }
 
 function onWatchedClick(e) {
-  paginationLibElement.innerHTML=''
+  paginationLibElement.innerHTML = '';
   myLibraryWatchedRender(e);
   watchedEl.classList.add('button--orange');
   queueEl.classList.remove('button--orange');
 }
 
 function onQueueClick(e) {
-  paginationLibElement.innerHTML=''
+  paginationLibElement.innerHTML = '';
   watchedEl.classList.remove('button--orange');
   queueEl.classList.add('button--orange');
   myLibraryQueueRender(e);
@@ -76,10 +76,10 @@ function myLibraryWatchedRender(e) {
     return;
   }
 
-    if (watchedFilms.length > 20) {
-      paginationLibElement.innerHTML=''
-      currentLibPage = 1
-  renderLibPag(watchedFilmsPage)
+  if (watchedFilms.length > 20) {
+    paginationLibElement.innerHTML = '';
+    currentLibPage = 1;
+    renderLibPag(watchedFilmsPage);
   }
   renderFile(watchedFilmsPage[0]);
 }
@@ -94,9 +94,9 @@ function myLibraryQueueRender(e) {
     return;
   }
   if (queueFilms.length > 20) {
-              paginationLibElement.innerHTML=''
-        currentLibPage = 1
-  renderLibPag(queueFilmsPage)
+    paginationLibElement.innerHTML = '';
+    currentLibPage = 1;
+    renderLibPag(queueFilmsPage);
   }
   renderFile(queueFilmsPage[0]);
 }
@@ -106,7 +106,6 @@ function renderFile(results) {
   collectionList.innerHTML = render({ results });
 }
 
-
 /////////////////////////////////////////////////////////////////////////////////////
 
 // Пагинация My Library
@@ -114,31 +113,37 @@ function renderFile(results) {
 const paginationLibElement = document.getElementById('paginationLibrary');
 
 const watchedFilms = JSON.parse(localStorage.getItem('watched'));
-const queueFilms = JSON.parse(localStorage.getItem('queue'))
- 
-const watchedFilmsPage = sliceLibraryOnPage(watchedFilms)
-const queueFilmsPage = sliceLibraryOnPage(queueFilms)
+const queueFilms = JSON.parse(localStorage.getItem('queue'));
+
+const watchedFilmsPage = sliceLibraryOnPage(watchedFilms);
+const queueFilmsPage = sliceLibraryOnPage(queueFilms);
 
 function sliceLibraryOnPage(value) {
+  if (value === null) {
+    return;
+  }
   // const NextMovie = JSON.parse(value);
   // console.log(value)
   const groupSize = 20;
-  const sliceArr = value.map( function(e, i){ 
-  return i%groupSize===0 ? value.slice(i,i+groupSize) : null; 
-  }).filter(function (e) { return e; });
-  return sliceArr
+  const sliceArr = value
+    .map(function (e, i) {
+      return i % groupSize === 0 ? value.slice(i, i + groupSize) : null;
+    })
+    .filter(function (e) {
+      return e;
+    });
+  return sliceArr;
 }
 
 // console.log(watchedFilmsPage)
 // console.log(queueFilmsPage)
-let currentLibPage = 1
-
+let currentLibPage = 1;
 
 function renderLibPag(value) {
-  const totalLibPages = value.length
+  const totalLibPages = value.length;
   // console.log(totalLibPages)
-  renderLibPaginationBtn(value, totalLibPages) 
-  makeActiveLibBtn()
+  renderLibPaginationBtn(value, totalLibPages);
+  makeActiveLibBtn();
 }
 function renderLibPaginationBtn(arrayPagination, totalLibPages) {
   const before = currentLibPage - 2;
@@ -146,20 +151,19 @@ function renderLibPaginationBtn(arrayPagination, totalLibPages) {
 
   if (totalLibPages > 4) {
     for (let i = before; i <= after; i += 1) {
-    if (i > 0 && i <= 2) {
-      let button = document.createElement('button');
-      button.innerText = i;
-      paginationLibElement.appendChild(button);
+      if (i > 0 && i <= 2) {
+        let button = document.createElement('button');
+        button.innerText = i;
+        paginationLibElement.appendChild(button);
+      }
     }
   }
-  }
   if (totalLibPages < 4) {
-    
     arrayPagination.forEach((e, i) => {
       let button = document.createElement('button');
       button.innerText = i + 1;
       paginationLibElement.appendChild(button);
-    })
+    });
   }
 }
 
@@ -172,18 +176,18 @@ function onLibBtnClick(e) {
 
   collectionList.innerHTML = '';
   paginationLibElement.innerHTML = '';
-  
+
   currentLibPage = Number(e.target.textContent);
   // console.log(currentLibPage)
 
   if (watchedEl.classList.contains('button--orange')) {
-  renderLibPag(watchedFilmsPage)
-    renderFile(watchedFilmsPage[currentLibPage-1]);
-}
+    renderLibPag(watchedFilmsPage);
+    renderFile(watchedFilmsPage[currentLibPage - 1]);
+  }
   if (queueEl.classList.contains('button--orange')) {
-  renderLibPag(queueFilmsPage)
-  renderFile(queueFilmsPage[currentLibPage -1]);
-}
+    renderLibPag(queueFilmsPage);
+    renderFile(queueFilmsPage[currentLibPage - 1]);
+  }
 }
 
 // console.log(currentLibPage)
@@ -192,7 +196,6 @@ function makeActiveLibBtn() {
   let pages = paginationLibElement.querySelectorAll('button');
 
   for (let i = 0; i < pages.length; i += 1) {
-    
     if (pages[i].classList.contains('active')) {
       pages[i].classList.remove('active');
     }

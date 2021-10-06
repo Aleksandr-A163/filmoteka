@@ -1,9 +1,10 @@
 import modal from '../templates/modal.hbs';
+import render from '../templates/card.hbs';
 import fetchApi from './api-fetch';
 // import { libraryEl, watchedEl, queueEl, renderFile } from './header-setup';
 // import { renderFile } from './header-setup';
 import refs from './variables';
-const { libraryEl, watchedEl, queueEl,homeEl,logoEl, collectionList, ...rest } = refs;
+const { libraryEl, watchedEl, queueEl, homeEl, logoEl, collectionList, ...rest } = refs;
 // const collectionList = document.getElementById('home');
 
 // collectionList взят из index.js
@@ -29,10 +30,10 @@ queueEl.addEventListener('click', () => {
 });
 homeEl.addEventListener('click', () => {
   NewFetchApi.list = 'home';
-})
+});
 logoEl.addEventListener('click', () => {
   NewFetchApi.list = 'home';
-})
+});
 
 // функция рендера
 function renderFile(results) {
@@ -191,7 +192,6 @@ function onBackdropClick(e) {
   }
 }
 function onBtnCloseModalClick() {
-
   modalEl.classList.remove('modal--students');
   backdropEl.classList.add('is-hidden');
   window.removeEventListener('keydown', onKeyPress);
