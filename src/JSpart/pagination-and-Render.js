@@ -96,7 +96,8 @@ function renderPaginationBtn() {
 
     }
   }
-  const leftArr = document.createElement('button');
+ 
+    const leftArr = document.createElement('button');
   leftArr.classList.add('pag-arrow', 'arrow_left');
   leftArr.setAttribute('data-action', 'prev-page')
   allPagination.prepend(leftArr);
@@ -104,7 +105,8 @@ function renderPaginationBtn() {
   const rightArr = document.createElement('button');
   rightArr.classList.add('pag-arrow', 'arrow_right');
   rightArr.setAttribute('data-action', 'next-page')
-  allPagination.append(rightArr);
+  paginationElement.append(rightArr);
+
 
 
   // условия по добавлению трехточек и крайних страниц
