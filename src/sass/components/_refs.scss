@@ -1,34 +1,43 @@
-.refs {
+.ref {
   display: flex;
-  justify-content: space-around;
+  height: 46px;
+  justify-content: start;
   align-items: center;
-  padding: 15px 0;
-  &__link {
-    display: block;
-    height: 30px;
-    width: 30px;
-    background-color: $white-color;
-    border: 2px $accent-lighter-color solid;
-    opacity: 0.75;
-    background-repeat: no-repeat;
-    background-size: 14px;
-    background-position: center;
-    border-radius: 25%;
-    &:hover,
-    :active,
-    :focus {
-      transition: background-color $animation, box-shadow $animation, opacity $animation;
-      background-color: $accent-lighter-color;
-      box-shadow: $shadow;
-    }
-    &.githab {
-      background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/433-github.png');
-    }
-    &.telergam {
-      background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/406-telegram.png');
-    }
-    &.linkidin {
-      background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/459-linkedin2.png');
+  padding-top: 5px;
+  color: $text-black-color;
+  transition: color $animation;
+  &:hover,
+  :active,
+  :focus {
+    color: $accent-lighter-color;
+    outline: none;
+    cursor: pointer;
+    & .ref__icon {
+      box-shadow: $shadow-hover;
     }
   }
+  &__icon {
+    transition: box-shadow $animation;
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: center;
+    border-radius: 50%;
+    background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/433-github.png');
+    // &:hover,
+    // :active,
+    // :focus {
+    //   box-shadow: $shadow;
+    // }
+  }
+  // &.githab {
+  // }
+  // &.telergam {
+  //   background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/406-telegram.png');
+  // }
+  // &.linkidin {
+  //   background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/459-linkedin2.png');
+  // }
 }
