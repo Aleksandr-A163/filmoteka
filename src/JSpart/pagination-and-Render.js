@@ -9,8 +9,7 @@ const NewFetchApi = new fetchApi();
 
 const listElement = document.querySelector('.collection');
 const paginationElement = document.getElementById('pagination');
-const arrowLeft = document.querySelector('.arrow_left');
-const arrowRight = document.querySelector('.arrow_right');
+
 const allPagination = document.querySelector('.pagination__container_pages');
 const btnSearchEl = document.querySelector('.search__button');
 
@@ -94,8 +93,18 @@ function renderPaginationBtn() {
       let button = document.createElement('button');
       button.innerText = i;
       paginationElement.appendChild(button);
+
     }
   }
+  const leftArr = document.createElement('button');
+  leftArr.classList.add('pag-arrow', 'arrow_left');
+  leftArr.setAttribute('data-action', 'prev-page')
+  allPagination.prepend(leftArr);
+
+  const rightArr = document.createElement('button');
+  rightArr.classList.add('pag-arrow', 'arrow_right');
+  rightArr.setAttribute('data-action', 'next-page')
+  allPagination.append(rightArr);
 
 
   // условия по добавлению трехточек и крайних страниц
@@ -121,12 +130,15 @@ function renderPaginationBtn() {
       paintFirstPage();
     }
   }
-
-addArrow()
-
+  
+  // addArrow()
+  const arrowLeft = document.querySelector('.arrow_left');
+  const arrowRight = document.querySelector('.arrow_right');
+  
     arrowLeft.onclick = onArrowLeftClick;
     arrowRight.onclick = onArrowRightClick;
 }
+
 // функция отрисовки первой страницы
 function paintFirstPage() {
   let button = document.createElement('button');
@@ -151,12 +163,13 @@ function addArrow() {
     const leftArr = document.createElement('button');
     leftArr.classList.add('pag-arrow', 'arrow_left');
     leftArr.setAttribute('data-action', 'prev-page')
-    paginationElement.prepend(leftArr);
+    allPagination.prepend(leftArr);
 
     const rightArr = document.createElement('button');
     rightArr.classList.add('pag-arrow', 'arrow_right');
     rightArr.setAttribute('data-action', 'next-page')
-    paginationElement.append(rightArr);  
+  allPagination.append(rightArr);
+
 }
 
 
