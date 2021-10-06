@@ -31,7 +31,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
   text-align: center;
   border-radius: $radius;
 
@@ -40,66 +40,36 @@
   transform: translate(-50%, -50%), scale(1);
   transition: transform $animation;
 
+  @include adaptive-size(mobile) {
+    width: 320px;
+    height: 958px;
+  }
+  @include adaptive-size(tablet) {
+    width: 708px;
+    height: 667px;
+  }
+  @include adaptive-size(desktop) {
+    height: 748px;
+  }
+
   & .dark-theme {
     background-color: $bg-dark-modal-color;
     color: $text-dark-theme-color;
   }
-  & .team-items {
-    list-style: none;
+}
+.team-items {
+  list-style: none;
+  max-width: fit-content;
 
-    @media screen and (min-width: $tablet) {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-    }
+  @include adaptive-size(tablet) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: -14px;
   }
-  & .button-modal {
-    margin: 10px 0;
-    padding: 8px 10px;
-    min-width: 180px;
-    @media screen and (min-width: $tablet) {
-      min-width: 180px;
-    }
+}
 
-    @media screen and (min-width: $desktop) {
-      min-width: 180px;
-    }
-  }
-  & .card {
-    height: min-content;
-  }
-  & .card__title {
-    font-size: 16px;
-    font-weight: 400;
-    display: inline-block;
-    padding: 5px;
-    text-transform: unset;
-    text-align: start;
-  }
-  & .card__tumb {
-    max-width: 302px;
-    // max-height: 326px;
-  }
-  & .card__image {
-    box-shadow: $shadow;
-  }
-
-  @media screen and (min-width: $tablet) {
-    width: 708px;
-    height: 667px;
-    padding: 10px;
-    & .card {
-      margin: 0 0 20px 0;
-      width: 140px;
-    }
-    & .card__tumb {
-      height: 170px;
-    }
-    & .card__title {
-      font-size: 12px;
-    }
-  }
-  @media screen and (min-width: $desktop) {
-    height: 778px;
-  }
+.button-modal {
+  padding: 8px 10px;
+  min-width: 180px;
 }
