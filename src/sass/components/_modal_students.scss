@@ -16,7 +16,6 @@
     opacity: 0;
     pointer-events: none;
   }
-
   &.is-hidden .modal--students {
     transform: translate(-50%, -50%) scale(1.2);
   }
@@ -24,9 +23,13 @@
 
 .modal--students {
   position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+
+  @include adaptive-size(tablet) {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 
   width: 100%;
   height: 100%;
@@ -40,6 +43,16 @@
   transform: translate(-50%, -50%), scale(1);
   transition: transform $animation;
 
+  &.dark-theme {
+    background-color: $bg-dark-modal-color;
+    color: $text-dark-theme-color;
+  }
+
+  & .button-modal {
+    padding: 8px 10px;
+    min-width: 180px;
+  }
+
   @include adaptive-size(mobile) {
     width: 320px;
     height: 958px;
@@ -51,13 +64,9 @@
   @include adaptive-size(desktop) {
     height: 748px;
   }
-
-  & .dark-theme {
-    background-color: $bg-dark-modal-color;
-    color: $text-dark-theme-color;
-  }
 }
 .team-items {
+  color: inherit;
   list-style: none;
   max-width: fit-content;
 
@@ -67,9 +76,4 @@
     justify-content: space-around;
     margin-bottom: -14px;
   }
-}
-
-.button-modal {
-  padding: 8px 10px;
-  min-width: 180px;
 }
