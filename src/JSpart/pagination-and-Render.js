@@ -59,7 +59,7 @@ function fetchPopularFilms() {
     NewFetchApi.renderCards();
     totalPages = r.total_pages;
     // renderPagination(r.total_pages, r.results);
-
+    libraryPagination.classList.add('visually-hidden');
     renderPagination();
   });
 }
@@ -118,6 +118,7 @@ function foundFilmsByKeyword(e) {
 ///////
 // функция рендера
 function renderFile(results) {
+  
   collectionList.innerHTML = render({ results });
 }
 ////////
