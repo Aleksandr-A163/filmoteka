@@ -182,9 +182,10 @@ function renderPaginationBtn() {
     }
     // условие 1..494,495,496,497,498,...500
     else {
+      paintLastPage();
+      if (document.body.clientWidth < 768) return;
       const threeDotsEl = addThreeDotsBlock();
       paginationElement.insertBefore(threeDotsEl, paginationElement[paginationElement.length - 2]);
-      paintLastPage();
     }
   }
   // условие отрисовки первой карточки и точек
@@ -192,9 +193,10 @@ function renderPaginationBtn() {
     if (before - 1 === 1) {
       paintFirstPage();
     } else {
+      paintFirstPage();
+      if (document.body.clientWidth < 768) return;
       const threeDotsEl = addThreeDotsBlock();
       paginationElement.prepend(threeDotsEl);
-      paintFirstPage();
     }
   }
 
