@@ -6,13 +6,24 @@ import errorSearch from './error-search';
 
 import replacesDefaultImage from './stopper';
 import refs from './variables';
-const { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl,  homePagination, libraryPagination, ...rest } = refs;
+const {
+  logoEl,
+  homeEl,
+  libraryEl,
+  headerEl,
+  searchEl,
+  btnsEl,
+  navEl,
+  homePagination,
+  libraryPagination,
+  ...rest
+} = refs;
 const NewFetchApi = new fetchApi();
 
 const listElement = document.querySelector('.collection');
 const paginationElement = document.getElementById('pagination');
-  const arrowLeft = document.querySelector('.arrow_left');
-  const arrowRight = document.querySelector('.arrow_right');
+const arrowLeft = document.querySelector('.arrow_left');
+const arrowRight = document.querySelector('.arrow_right');
 const allPagination = document.querySelector('.pagination__container_pages');
 const btnSearchEl = document.querySelector('.search__button');
 const paginationLibElement = document.getElementById('paginationLibrary');
@@ -112,15 +123,16 @@ function renderFile(results) {
 ////////
 function onHomeClick(e) {
   e.preventDefault();
-  NewFetchApi.pageNumber =1
-  paginationElement.innerHTML = ''
+  NewFetchApi.query = '';
+  NewFetchApi.pageNumber = 1;
+  paginationElement.innerHTML = '';
   // renderPagination()
-  
-  homePagination.classList.remove('visually-hidden')
-  libraryPagination.classList.add('visually-hidden')
+
+  homePagination.classList.remove('visually-hidden');
+  libraryPagination.classList.add('visually-hidden');
 
   // console.log('функция onHomeClick');
-  fetchPopularFilms()
+  fetchPopularFilms();
   // homePageRender();
   if (headerEl.classList.contains('home-bgi')) {
     return;
@@ -139,7 +151,6 @@ function onHomeClick(e) {
 }
 // Рендер кнопок
 
-
 function renderPaginationBtn() {
   const before = NewFetchApi.pageNumber - 2;
   const after = NewFetchApi.pageNumber + 2;
@@ -149,10 +160,9 @@ function renderPaginationBtn() {
       let button = document.createElement('button');
       button.innerText = i;
       paginationElement.appendChild(button);
-
     }
   }
- 
+
   //   const leftArr = document.createElement('button');
   // leftArr.classList.add('pag-arrow', 'arrow_left');
   // leftArr.setAttribute('data-action', 'prev-page')
@@ -162,8 +172,6 @@ function renderPaginationBtn() {
   // rightArr.classList.add('pag-arrow', 'arrow_right');
   // rightArr.setAttribute('data-action', 'next-page')
   // paginationElement.append(rightArr);
-
-
 
   // условия по добавлению трехточек и крайних страниц
   if (after < totalPages) {
@@ -188,13 +196,13 @@ function renderPaginationBtn() {
       paintFirstPage();
     }
   }
-  
+
   // addArrow()
   // const arrowLeft = document.querySelector('.arrow_left');
   // const arrowRight = document.querySelector('.arrow_right');
-  
-    arrowLeft.onclick = onArrowLeftClick;
-    arrowRight.onclick = onArrowRightClick;
+
+  arrowLeft.onclick = onArrowLeftClick;
+  arrowRight.onclick = onArrowRightClick;
 }
 
 // функция отрисовки первой страницы
@@ -218,20 +226,16 @@ function addThreeDotsBlock() {
 }
 
 function addArrow() {
-    const leftArr = document.createElement('button');
-    leftArr.classList.add('pag-arrow', 'arrow_left');
-    leftArr.setAttribute('data-action', 'prev-page')
-    allPagination.prepend(leftArr);
+  const leftArr = document.createElement('button');
+  leftArr.classList.add('pag-arrow', 'arrow_left');
+  leftArr.setAttribute('data-action', 'prev-page');
+  allPagination.prepend(leftArr);
 
-    const rightArr = document.createElement('button');
-    rightArr.classList.add('pag-arrow', 'arrow_right');
-    rightArr.setAttribute('data-action', 'next-page')
+  const rightArr = document.createElement('button');
+  rightArr.classList.add('pag-arrow', 'arrow_right');
+  rightArr.setAttribute('data-action', 'next-page');
   allPagination.append(rightArr);
-
 }
-
-
-
 
 // функция листания страниц влево
 function onArrowLeftClick() {
@@ -294,14 +298,13 @@ function onBtnClick(e) {
 
 paginationElement.addEventListener('click', onBtnClick);
 
-
 function disableArrowBtn() {
   if (NewFetchApi.pageNumber === 1) {
     arrowLeft.classList.add('disabled-arrow');
   } else {
     arrowLeft.classList.remove('disabled-arrow');
   }
-  
+
   if (NewFetchApi.pageNumber === totalPages) {
     arrowRight.classList.add('disabled-arrow');
   } else {
@@ -312,12 +315,10 @@ function disableArrowBtn() {
 function renderPagination() {
   renderPaginationBtn();
   makeActiveBtn();
-  disableArrowBtn()
+  disableArrowBtn();
 }
 
-
 // btnSearchEl.addEventListener('click', foundFilmsByKeyword);
-
 
 // export { homePageRender };
 ////////////////////////////////// ниже логика пагинации в запасе)
