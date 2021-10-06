@@ -70,35 +70,37 @@ function myLibraryWatchedRender(e) {
   e.preventDefault();
   collectionList.innerHTML = '';
   const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+  const watchedFilmsPage = sliceLibraryOnPage(watchedFilms);
   if (watchedFilms.length === 0) {
     collectionList.innerHTML =
       '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
     return;
   }
+  renderFile(watchedFilmsPage[0]);
 
   if (watchedFilms.length > 20) {
     paginationLibElement.innerHTML = '';
     currentLibPage = 1;
     renderLibPag(watchedFilmsPage);
   }
-  renderFile(watchedFilmsPage[0]);
 }
 
 function myLibraryQueueRender(e) {
   e.preventDefault();
   collectionList.innerHTML = '';
   const queueFilms = JSON.parse(localStorage.getItem('queue'));
+  const queueFilmsPage = sliceLibraryOnPage(queueFilms);
   if (queueFilms.length === 0) {
     collectionList.innerHTML =
       '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
     return;
   }
+  renderFile(queueFilmsPage[0]);
   if (queueFilms.length > 20) {
     paginationLibElement.innerHTML = '';
     currentLibPage = 1;
     renderLibPag(queueFilmsPage);
   }
-  renderFile(queueFilmsPage[0]);
 }
 
 // функция рендера
@@ -181,12 +183,16 @@ function onLibBtnClick(e) {
   // console.log(currentLibPage)
 
   if (watchedEl.classList.contains('button--orange')) {
-    renderLibPag(watchedFilmsPage);
+    const watchedFilms = JSON.parse(localStorage.getItem('watched'));
+    const watchedFilmsPage = sliceLibraryOnPage(watchedFilms);
     renderFile(watchedFilmsPage[currentLibPage - 1]);
+    renderLibPag(watchedFilmsPage);
   }
   if (queueEl.classList.contains('button--orange')) {
-    renderLibPag(queueFilmsPage);
+    const queueFilms = JSON.parse(localStorage.getItem('queue'));
+    const queueFilmsPage = sliceLibraryOnPage(queueFilms);
     renderFile(queueFilmsPage[currentLibPage - 1]);
+    renderLibPag(queueFilmsPage);
   }
 }
 
