@@ -48,6 +48,11 @@
     color: $text-dark-theme-color;
   }
 
+  & .button-modal {
+    padding: 8px 10px;
+    min-width: 180px;
+  }
+
   @include adaptive-size(mobile) {
     width: 320px;
     height: 958px;
@@ -71,9 +76,4 @@
     justify-content: space-around;
     margin-bottom: -14px;
   }
-}
-
-.button-modal {
-  padding: 8px 10px;
-  min-width: 180px;
 }
