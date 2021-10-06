@@ -59,19 +59,18 @@ body {
   font-size: toRem($main-font-size);
   line-height: toLineHeight(16, 12);
   color: $text-black-color;
-}
+  &.light-theme {
+    color: $text-black-color;
+  }
+  &.dark-theme {
+    background-color: #121212;
+    // background-color: rgba(18, 18, 18, 0.9);
+    color: rgb(255, 255, 255, 0.9);
+    &.dark-theme footer {
+      background-color: inherit;
+    }
+  }
 
-body.light-theme {
-  color: $text-black-color;
-}
-
-body.dark-theme {
-  background-color: #121212;
-  // background-color: rgba(18, 18, 18, 0.9);
-  color: rgb(255, 255, 255, 0.9);
-}
-
-.body__container {
   display: grid;
   grid-template-areas:
     'header header header'
@@ -80,11 +79,6 @@ body.dark-theme {
   grid-template-rows: 230px 1fr 100px;
   grid-template-columns: repeat(3, 1fr);
   height: 100vh;
-
-  grid-area: header;
-
-  max-width: 100%;
-  margin: 0 auto;
 
   @include adaptive-size(mobile) {
     max-width: $mobile;
@@ -100,13 +94,24 @@ body.dark-theme {
   }
 }
 
-.container-header {
-  padding: 0 20px;
+.body__container {
+  max-width: 100%;
+}
 
+.section-container {
+  padding: 0 20px;
+  margin: 0 auto;
+
+  @include adaptive-size(mobile) {
+    max-width: $mobile;
+  }
   @include adaptive-size(tablet) {
     padding: 0 75px;
+
+    max-width: $tablet;
   }
   @include adaptive-size(desktop) {
+    max-width: $desktop;
     padding: 0 71px;
   }
 }

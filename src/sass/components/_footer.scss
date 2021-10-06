@@ -6,6 +6,7 @@
   width: 100%;
 
   &__section {
+    @extend .section-container;
     font-family: $main-font;
     color: $text-footer-color;
     align-items: center;
@@ -14,7 +15,7 @@
     padding-bottom: 30px;
 
     @include adaptive-size(mobile) {
-      max-width: $mobile;
+      // max-width: $mobile;
       grid-gap: $set-gap;
 
       &__section-span {
@@ -22,12 +23,12 @@
       }
     }
     @include adaptive-size(tablet) {
-      max-width: $tablet;
+      // max-width: $tablet;
       font-size: 16px;
     }
     @include adaptive-size(desktop) {
       grid-gap: $set-gap;
-      max-width: $desktop;
+      // max-width: $desktop;
       font-size: 16px;
     }
   }
