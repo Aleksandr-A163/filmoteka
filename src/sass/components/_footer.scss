@@ -1,8 +1,6 @@
 .footer {
   grid-area: footer;
   background-color: $bg-second-color;
-  // margin-left: auto;
-  // margin-right: auto;
   width: 100%;
 
   &__section {
@@ -15,7 +13,6 @@
     padding-bottom: 30px;
 
     @include adaptive-size(mobile) {
-      // max-width: $mobile;
       grid-gap: $set-gap;
 
       &__section-span {
@@ -23,12 +20,10 @@
       }
     }
     @include adaptive-size(tablet) {
-      // max-width: $tablet;
       font-size: 16px;
     }
     @include adaptive-size(desktop) {
       grid-gap: $set-gap;
-      // max-width: $desktop;
       font-size: 16px;
     }
   }
