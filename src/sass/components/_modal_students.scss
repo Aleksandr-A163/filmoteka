@@ -46,7 +46,6 @@
   }
   & .team-items {
     list-style: none;
-    margin: 10px auto;
 
     @media screen and (min-width: $tablet) {
       display: flex;
@@ -55,7 +54,7 @@
     }
   }
   & .button-modal {
-    margin: 20px 0;
+    margin: 10px 0;
     padding: 8px 10px;
     min-width: 180px;
     @media screen and (min-width: $tablet) {

@@ -1,16 +1,23 @@
 .ref {
   display: flex;
-  height: 42px;
+  height: 46px;
   justify-content: start;
   align-items: center;
   padding-top: 5px;
   color: $text-black-color;
+  transition: color $animation;
   &:hover,
   :active,
   :focus {
     color: $accent-lighter-color;
+    outline: none;
+    cursor: pointer;
+    & .ref__icon {
+      box-shadow: $shadow-hover;
+    }
   }
   &__icon {
+    transition: box-shadow $animation;
     display: inline-block;
     height: 24px;
     width: 24px;
@@ -19,6 +26,11 @@
     background-position: center;
     border-radius: 50%;
     background-image: url('https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/master/PNG/32px/433-github.png');
+    // &:hover,
+    // :active,
+    // :focus {
+    //   box-shadow: $shadow;
+    // }
   }
   // &.githab {
   // }
