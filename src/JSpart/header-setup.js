@@ -121,7 +121,7 @@ const queueFilmsPage = sliceLibraryOnPage(queueFilms)
 
 function sliceLibraryOnPage(value) {
   // const NextMovie = JSON.parse(value);
-  console.log(value)
+  // console.log(value)
   const groupSize = 20;
   const sliceArr = value.map( function(e, i){ 
   return i%groupSize===0 ? value.slice(i,i+groupSize) : null; 
@@ -129,14 +129,14 @@ function sliceLibraryOnPage(value) {
   return sliceArr
 }
 
-console.log(watchedFilmsPage)
-console.log(queueFilmsPage)
+// console.log(watchedFilmsPage)
+// console.log(queueFilmsPage)
 let currentLibPage = 1
 
 
 function renderLibPag(value) {
   const totalLibPages = value.length
-  console.log(totalLibPages)
+  // console.log(totalLibPages)
   renderLibPaginationBtn(value, totalLibPages) 
   makeActiveLibBtn()
 }
@@ -174,7 +174,7 @@ function onLibBtnClick(e) {
   paginationLibElement.innerHTML = '';
   
   currentLibPage = Number(e.target.textContent);
-  console.log(currentLibPage)
+  // console.log(currentLibPage)
 
   if (watchedEl.classList.contains('button--orange')) {
   renderLibPag(watchedFilmsPage)
@@ -186,7 +186,7 @@ function onLibBtnClick(e) {
 }
 }
 
-console.log(currentLibPage)
+// console.log(currentLibPage)
 
 function makeActiveLibBtn() {
   let pages = paginationLibElement.querySelectorAll('button');
