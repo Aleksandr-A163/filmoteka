@@ -10,10 +10,24 @@
   @media screen and (min-width: $desktop) {
     width: 274px;
   }
+
+  &:hover,
+  &:focus {
+    .card__image {
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out 0s;
+    }
+    .card__title {
+      transition: all 0.3s ease-in-out;
+      color: $accent-lighter-color;
+      transform: translateY(-7px) scale(1.05) translateX(6px);
+    }    
+  }
 }
 
 .card__tumb {
   height: 398px;
+  overflow: hidden;
 }
 
 .card__image {
@@ -21,6 +35,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: $radius;
+
 }
 
 .card__title {
@@ -28,6 +43,7 @@
   font-size: 12px;
   line-height: 1.17;
   padding-top: 10px;
+
   @media screen and (min-width: $tablet) {
     line-height: 1.33;
   }
