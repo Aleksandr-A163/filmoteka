@@ -20,7 +20,8 @@ const {
   navEl,
   watchedEl,
   queueEl,
-  allPagination,
+  homePagination,
+  libraryPagination,
   ...rest
 } = refs;
 
@@ -30,8 +31,8 @@ queueEl.addEventListener('click', onQueueClick);
 
 function onLibraryClick(e) {
   e.preventDefault();
-  allPagination.classList.add('visually-hidden')
-  paginationLibElement.classList.remove('visually-hidden')
+  homePagination.classList.add('visually-hidden')
+  libraryPagination.classList.remove('visually-hidden')
 
   // renderLibPag(watchedFilmsPage)
 
@@ -76,6 +77,7 @@ function myLibraryWatchedRender(e) {
   }
 
     if (watchedFilms.length > 20) {
+      paginationLibElement.innerHTML=''
       currentLibPage = 1
   renderLibPag(watchedFilmsPage)
   }
@@ -91,7 +93,8 @@ function myLibraryQueueRender(e) {
       '<li class ="empty-my-library"><p class = "title-empty-my-library">You  have not watched films yet</p><img class="icon-empty-my-library" src="https://image.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg" alt ="not films here"></img></li>';
     return;
   }
-      if (queueFilms.length > 20) {
+  if (queueFilms.length > 20) {
+              paginationLibElement.innerHTML=''
         currentLibPage = 1
   renderLibPag(queueFilmsPage)
   }

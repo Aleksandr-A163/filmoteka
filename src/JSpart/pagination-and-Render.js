@@ -4,7 +4,7 @@ import cleanInput from './clean-input';
 import checkQuery from './check-query';
 import errorSearch from './error-search';
 import refs from './variables';
-const { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl, ...rest } = refs;
+const { logoEl, homeEl, libraryEl, headerEl, searchEl, btnsEl, navEl,  homePagination, libraryPagination, ...rest } = refs;
 const NewFetchApi = new fetchApi();
 
 const listElement = document.querySelector('.collection');
@@ -49,14 +49,14 @@ function fetchPopularFilms() {
   });
 }
 // функции отрисовки при переходе на страницы навигации
-function homePageRender() {
-  NewFetchApi.fetchPopularFilmsByPage().then(r => {
-    NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
-    NewFetchApi.saveInLocale(r);
-    // renderFile(r.results);
-    NewFetchApi.renderCards();
-  });
-}
+// function homePageRender() {
+//   NewFetchApi.fetchPopularFilmsByPage().then(r => {
+//     NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
+//     NewFetchApi.saveInLocale(r);
+//     // renderFile(r.results);
+//     NewFetchApi.renderCards();
+//   });
+// }
 ///////
 // функция рендера
 function renderFile(results) {
@@ -65,11 +65,16 @@ function renderFile(results) {
 ////////
 function onHomeClick(e) {
   e.preventDefault();
-  allPagination.classList.remove('visually-hidden')
-  paginationLibElement.classList.add('visually-hidden')
+  NewFetchApi.pageNumber =1
+  paginationElement.innerHTML = ''
+  // renderPagination()
+  
+  homePagination.classList.remove('visually-hidden')
+  libraryPagination.classList.add('visually-hidden')
 
   console.log('функция onHomeClick');
-  homePageRender();
+  fetchPopularFilms()
+  // homePageRender();
   if (headerEl.classList.contains('home-bgi')) {
     return;
   }
