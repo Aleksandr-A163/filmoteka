@@ -81,6 +81,7 @@ body {
 
   @include adaptive-size(mobile) {
     max-width: $mobile;
+    grid-gap: $set-gap;
   }
   @include adaptive-size(tablet) {
     grid-gap: $set-gap;
