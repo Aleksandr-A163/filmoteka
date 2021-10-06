@@ -1,15 +1,17 @@
 .container {
-  max-width: 280px;
-  padding: 20px 0;
-  margin: 0 auto;
+  @extend .section-container;
+  // max-width: 280px;
+  // padding: 20px 0;
+  // margin: 0 auto;
   @media screen and (min-width: $tablet) {
-    max-width: 618px;
-    padding: 30px 0 50px;
+    //   max-width: 618px;
+    //   padding: 30px 0 50px;
+    padding-top: 30px;
   }
-  @media screen and (min-width: $desktop) {
-    max-width: 882px;
-    padding-bottom: 46px;
-  }
+  // @media screen and (min-width: $desktop) {
+  //   max-width: 882px;
+  //   padding-bottom: 46px;
+  // };
 }
 .collection {
   list-style: none;

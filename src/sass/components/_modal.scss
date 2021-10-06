@@ -8,17 +8,18 @@
   opacity: 1;
   transition: opacity $animation;
 
-  @media screen and (max-width: 767px) {
+  @include adaptive-size(tablet-break) {
     overflow-y: scroll;
   }
-}
-.backdrop.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-}
 
-.backdrop.is-hidden .modal {
-  transform: translate(-50%, -50%) scale(1.2);
+  &.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.is-hidden .modal {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
 }
 
 .modal {
@@ -39,12 +40,12 @@
   transform: translate(-50%, -50%), scale(1);
   transition: transform $animation;
 
-  @media screen and (min-width: $mobile) {
+  @include adaptive-size(mobile) {
     width: 280px;
     height: 958px;
   }
 
-  @media screen and (min-width: $tablet) {
+  @include adaptive-size(tablet) {
     width: 618px;
     height: 562px;
     padding-top: 42px;
@@ -52,7 +53,7 @@
     padding-right: 30px;
   }
 
-  @media screen and (min-width: $desktop) {
+  @include adaptive-size(desktop) {
     width: 882px;
     height: 568px;
     padding-top: 48px;
@@ -65,23 +66,24 @@
     line-height: 1.15;
     text-transform: uppercase;
 
-    @media screen and (min-width: $desktop) {
+    @include adaptive-size(desktop) {
       font-size: 30px;
       line-height: 1.16;
     }
   }
-}
 
-.modal.dark-theme {
-  background-color: #333333;
-  // background-color: $text-footer-color;
-  color: rgb(255, 255, 255, 0.9);
-}
-.modal__content {
-  @media screen and (min-width: $tablet) {
-    display: flex;
+  &.dark-theme {
+    background-color: $bg-dark-modal-color;
+    color: $text-dark-theme-color;
+  }
+
+  &__content {
+    @include adaptive-size(tablet) {
+      display: flex;
+    }
   }
 }
+
 // -----изображение
 .thumb {
   width: 240px;
@@ -89,15 +91,16 @@
   border-radius: 5px;
   overflow: hidden;
 
-  @media screen and (min-width: $tablet) {
+  @include adaptive-size(tablet) {
     width: 264px;
     height: 373px;
   }
-  @media screen and (min-width: $desktop) {
+  @include adaptive-size(desktop) {
     width: 396px;
     height: 477px;
   }
 }
+
 .modal__image {
   width: 100%;
   height: auto;
@@ -106,48 +109,58 @@
 // ------текстовая часть
 .wrap-modal {
   display: flex;
-}
 
-.wrap-modal ul:not(:last-child) {
-  margin-right: 30px;
+  & ul:not(:last-child) {
+    margin-right: 30px;
+  }
 }
 
 .content__text {
   margin-top: 30px;
   width: 240px;
 
-  @media screen and (min-width: $tablet) {
+  @include adaptive-size(tablet) {
     margin-left: 30px;
     margin-top: 0px;
     width: 264px;
   }
-  @media screen and (min-width: $desktop) {
+
+  @include adaptive-size(desktop) {
     width: 396px;
   }
 }
+
 .modal__list {
   margin-bottom: 20px;
   font-size: 12px;
   line-height: 1.33;
   color: $modal-subtitle-color;
+
+  &--keys {
+    width: 122px;
+  }
+
+  & li:not(:last-child) {
+    margin-bottom: 10px;
+  }
 }
 
-.modal__list--keys {
-  width: 122px;
-}
 .modal__list--values {
-  // color: $text-black-color;
   color: inherit;
+
+  & li:nth-child(-n + 2) {
+    line-height: 1.16;
+  }
 }
 
-.modal__list--values li:nth-child(-n + 2) {
-  line-height: 1.16;
-}
 .modal-list__item {
   display: flex;
-}
-.modal__list li:not(:last-child) {
-  margin-bottom: 10px;
+
+  & span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .modal__rating {
@@ -159,25 +172,25 @@
   background-color: $bg-second-color;
   border-radius: $radius;
   color: $text-black-color;
-}
 
-.modal__rating--orange {
-  color: $text-white-color;
-  line-height: 14px;
-  height: 16px;
-  width: 36px;
-  padding-top: 1px;
-  text-align: center;
-  background-color: $accent-lighter-color;
-  border-radius: $radius;
-}
+  &--orange {
+    color: $text-white-color;
+    line-height: 14px;
+    height: 16px;
+    width: 36px;
+    padding-top: 1px;
+    text-align: center;
+    background-color: $accent-lighter-color;
+    border-radius: $radius;
+  }
 
-.modal__rating--slash {
-  line-height: 14px;
-  height: 16px;
-  padding-top: 1px;
-  padding-left: 3px;
-  padding-right: 3px;
+  &--slash {
+    line-height: 14px;
+    height: 16px;
+    padding-top: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
 }
 
 .modal-text__title {
@@ -187,6 +200,7 @@
   line-height: 1.33;
   text-transform: uppercase;
 }
+
 .modal-text__item {
   margin-bottom: 21px;
   font-weight: 500;
@@ -196,10 +210,12 @@
 
 .list-buttons {
   display: flex;
+
+  & li:not(:last-child) {
+    margin-right: 15px;
+  }
 }
-.list-buttons li:not(:last-child) {
-  margin-right: 15px;
-}
+
 .button-modal {
   padding-top: 14px;
   padding-bottom: 12px;
@@ -236,6 +252,7 @@
     border: none;
   }
 }
+
 .button-modal--orange {
   background: $accent-lighter-color;
   border: none;
@@ -245,7 +262,7 @@
 
   &:hover,
   &:focus {
-    background-color: $bg-first-color;
+    background-color: inherit;
     border: 1px solid $black-color;
     color: $text-black-color;
   }

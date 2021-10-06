@@ -3,7 +3,7 @@ import fetchApi from './api-fetch';
 // import { libraryEl, watchedEl, queueEl, renderFile } from './header-setup';
 // import { renderFile } from './header-setup';
 import refs from './variables';
-const { libraryEl, watchedEl, queueEl, collectionList, ...rest } = refs;
+const { libraryEl, watchedEl, queueEl,homeEl,logoEl, collectionList, ...rest } = refs;
 // const collectionList = document.getElementById('home');
 
 // collectionList взят из index.js
@@ -27,6 +27,12 @@ watchedEl.addEventListener('click', () => {
 queueEl.addEventListener('click', () => {
   NewFetchApi.list = 'queue';
 });
+homeEl.addEventListener('click', () => {
+  NewFetchApi.list = 'home';
+})
+logoEl.addEventListener('click', () => {
+  NewFetchApi.list = 'home';
+})
 
 // функция рендера
 function renderFile(results) {
