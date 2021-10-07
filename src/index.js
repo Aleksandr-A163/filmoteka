@@ -6,6 +6,8 @@ import './JSpart/loader';
 import './JSpart/header-setup';
 import './JSpart/theme-switch';
 import refs from './JSpart/variables';
+import './JSpart/top-button';
+
 const {
   collectionList,
   ...rest
