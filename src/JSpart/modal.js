@@ -4,6 +4,26 @@ import fetchApi from './api-fetch';
 import refs from './variables';
 const { libraryEl, watchedEl, queueEl, homeEl, logoEl, collectionList,modalContent, btnModalCloseEl, backdropEl,  ...rest } = refs;
 
+isGetQueue();
+isGetWatched();
+
+//функция проверки наличия в "просмотренных" фильмов и создания массива если нету
+function isGetWatched() {
+  if (localStorage.getItem('watched')) return;
+  localStorage.setItem('watched', '[]');
+}
+// функция рендера
+export function renderFile(results) {
+  collectionList.innerHTML = render({ results });
+}
+
+//функция проверки наличия в "очереди" фильмов и создания массива если нету
+function isGetQueue() {
+  if (localStorage.getItem('queue')) return;
+  localStorage.setItem('queue', '[]');
+
+}
+
 collectionList.addEventListener('click', onUlElClick);
 // переменная для фильма, который открыт в модальном окне
 let curFilm;
