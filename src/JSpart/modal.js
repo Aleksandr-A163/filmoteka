@@ -1,19 +1,11 @@
 import modal from '../templates/modal.hbs';
 import render from '../templates/card.hbs';
 import fetchApi from './api-fetch';
-// import { libraryEl, watchedEl, queueEl, renderFile } from './header-setup';
-// import { renderFile } from './header-setup';
 import refs from './variables';
 const { libraryEl, watchedEl, queueEl, homeEl, logoEl, collectionList, ...rest } = refs;
-// const collectionList = document.getElementById('home');
-
-// collectionList взят из index.js
-const modalEl = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal__content');
-
 const btnModalCloseEl = document.querySelector('.button-modal--close');
 const backdropEl = document.querySelector('.backdrop');
-const modalImageEl = document.querySelector('.modal__image');
 
 collectionList.addEventListener('click', onUlElClick);
 // переменная для фильма, который открыт в модальном окне
@@ -44,8 +36,6 @@ function sliceLibraryOnPage(value) {
   if (value === null) {
     return;
   }
-  // const NextMovie = JSON.parse(value);
-  // console.log(value)
   const groupSize = 20;
   const sliceArr = value
     .map(function (e, i) {
@@ -61,9 +51,6 @@ function onUlElClick(e) {
   e.preventDefault();
   const currentTarget = e.target.closest('.card')?.querySelector('.card__image').id;
   if (currentTarget === undefined) return;
-  // if (!e.target.classList.contains('card')) {
-  // return
-  // }
   window.addEventListener('keydown', onKeyPress);
   backdropEl.classList.remove('is-hidden');
 
@@ -110,12 +97,6 @@ function onUlElClick(e) {
     const cardBtn = event.target;
     const currentQueue = JSON.parse(localStorage.getItem('queue'));
     const currentWatched = JSON.parse(localStorage.getItem('watched'));
-
-    // const watchedFilms = JSON.parse(localStorage.getItem('watched'));
-    // const queueFilms = JSON.parse(localStorage.getItem('queue'));
-
-    // const watchedFilmsPage = sliceLibraryOnPage(watchedFilms);
-    // const queueFilmsPage = sliceLibraryOnPage(queueFilms);
 
     if (cardBtn.nodeName === 'BUTTON') {
       if (cardBtn.id === 'watchedInModal') {
@@ -192,7 +173,6 @@ function addToStore(store) {
   const NextMovie = JSON.parse(currentMovie);
   NextMovie.push(curFilm);
   localStorage.setItem(store, JSON.stringify(NextMovie));
-  //   console.log(NextQueue);
 }
 // Функция удаления фильма из хранилища
 function removeToStore(store) {
@@ -207,6 +187,7 @@ function renderModal(curFilm) {
   modalContent.innerHTML = modal({ curFilm });
 }
 
+// Функция закрытия модалки по эскейпу
 function onKeyPress(event) {
   if (event.code === 'Escape') {
     onBtnCloseModalClick();
@@ -215,14 +196,15 @@ function onKeyPress(event) {
 btnModalCloseEl.addEventListener('click', onBtnCloseModalClick);
 backdropEl.addEventListener('click', onBackdropClick);
 
+// Функция закрытия модалки по клику на бекдроп
 function onBackdropClick(e) {
   if (e.target === e.currentTarget) {
     onBtnCloseModalClick();
   }
 }
+
+// Функция закрытия модалки
 function onBtnCloseModalClick() {
-  // modalEl.classList.remove('modal--students');
   backdropEl.classList.add('is-hidden');
   window.removeEventListener('keydown', onKeyPress);
-  // modalImageEl.src = "";
 }

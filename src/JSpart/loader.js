@@ -1,5 +1,8 @@
-
-let mask = document.querySelector('.mask');
+import refs from './variables';
+const {
+  mask,
+  ...rest
+} = refs;
 
 window.addEventListener('load', onLoad);
 

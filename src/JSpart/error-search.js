@@ -1,4 +1,8 @@
-const errorEl = document.querySelector('.error');
+import refs from './variables';
+const {
+  errorEl,
+  ...rest
+} = refs;
 
 export default function errorSearch(text) {
   errorEl.textContent = text;
