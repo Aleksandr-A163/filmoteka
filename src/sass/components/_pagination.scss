@@ -50,7 +50,7 @@
     @include adaptive-size(mobile) {
       margin: 0px;
     }
-    @include adaptive-size(mobile) {
+    @include adaptive-size(tablet) {
       margin: 5px;
     }
 
