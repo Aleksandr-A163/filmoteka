@@ -281,7 +281,11 @@
 }
 
 .button-modal--trailer {
-  min-width: 230px;
+  min-width: 150px;
+
+  @include adaptive-size(tablet) {
+    min-width: 230px;
+  }
 }
 
 .button-modal--close {
