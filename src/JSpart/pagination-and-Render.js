@@ -164,6 +164,7 @@ function paintFirstPage() {
 // функция отрисовки последней страницы
 function paintLastPage() {
   let button = document.createElement('button');
+  button.classList.add('paintLastPage')
   button.innerText = totalPages;
   paginationElement.appendChild(button);
 }
