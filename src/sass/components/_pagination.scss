@@ -1,24 +1,22 @@
 .pagination {
-
-  &__container{
+  &__container {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  &__home, &__library {
+  &__home,
+  &__library {
     @include adaptive-size(mobile) {
       padding: 40px 0 10px;
+    }
+    @include adaptive-size(tablet) {
+      padding: 50px 0 30px;
+    }
+    @include adaptive-size(desktop) {
+      padding: 50px 0 30px;
+    }
   }
-  @include adaptive-size(tablet) {
-    padding: 50px 0 30px;
-
-  }
-  @include adaptive-size(desktop) {
-    padding: 50px 0 30px;
-  }
-}
-
 
   .list {
     width: 100%;
@@ -41,7 +39,6 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  
 
   button {
     width: 40px;
@@ -88,7 +85,6 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
 }
 
 .pag-arrow {
@@ -115,13 +111,12 @@
 }
 
 .threeDots {
-  display: flex;
+  display: inline-block;
   width: 40px;
   height: 40px;
   margin: 5px;
   border: none;
   background-color: transparent;
-  display: inline-block;
   text-align: center;
   padding: 10px 5px 1px 5px;
 }
