@@ -153,52 +153,76 @@ function onHomeClick(e) {
 // Рендер кнопок
 
 function renderPaginationBtn() {
-  const before = NewFetchApi.pageNumber - 2;
-  const after = NewFetchApi.pageNumber + 2;
+  
+  const num = NewFetchApi.pageNumber;
+  
 
-  for (let i = before; i <= after; i += 1) {
-    if (i > 0 && i <= totalPages) {
-      let button = document.createElement('button');
-      button.innerText = i;
-      paginationElement.appendChild(button);
+  
+  const createPaginationBtn = (before, after) => {
+  
+    for (let i = before; i <= after; i += 1) {
+      if (i > 0 && i <= totalPages) {
+        let button = document.createElement('button');
+        button.innerText = i;
+        paginationElement.appendChild(button);
+      }
     }
   }
 
+  
   //   const leftArr = document.createElement('button');
   // leftArr.classList.add('pag-arrow', 'arrow_left');
   // leftArr.setAttribute('data-action', 'prev-page')
   // allPagination.prepend(leftArr);
-
+  
   // const rightArr = document.createElement('button');
   // rightArr.classList.add('pag-arrow', 'arrow_right');
   // rightArr.setAttribute('data-action', 'next-page')
   // paginationElement.append(rightArr);
-
-  // условия по добавлению трехточек и крайних страниц
-  if (after < totalPages) {
-    // условие проверяет частный случай, где текущий page = 497, нет необходимости рисовать treeDotsBlock 1..495,496,497,498,499,500
-    if (after + 1 === totalPages) {
-      paintLastPage();
+  
+  const createPaginationDotsBtn = (before, after) => {
+    
+    // условия по добавлению трехточек и крайних страниц
+    if (after < totalPages) {
+      // условие проверяет частный случай, где текущий page = 497, нет необходимости рисовать treeDotsBlock 1..495,496,497,498,499,500
+      if (after + 1 === totalPages) {
+        paintLastPage();
+      }
+      // условие 1..494,495,496,497,498,...500
+      else {
+        paintLastPage();
+        if (document.body.clientWidth < 768) return;
+        const threeDotsEl = addThreeDotsBlock();
+        paginationElement.insertBefore(threeDotsEl, paginationElement[paginationElement.length - 2]);
+      }
     }
-    // условие 1..494,495,496,497,498,...500
-    else {
-      paintLastPage();
-      if (document.body.clientWidth < 768) return;
-      const threeDotsEl = addThreeDotsBlock();
-      paginationElement.insertBefore(threeDotsEl, paginationElement[paginationElement.length - 2]);
+    // условие отрисовки первой карточки и точек
+    if (before > 1) {
+      if (before - 1 === 1) {
+        paintFirstPage();
+      } else {
+        paintFirstPage();
+        if (document.body.clientWidth < 768) return;
+        const threeDotsEl = addThreeDotsBlock();
+        paginationElement.prepend(threeDotsEl);
+      }
     }
   }
-  // условие отрисовки первой карточки и точек
-  if (before > 1) {
-    if (before - 1 === 1) {
-      paintFirstPage();
-    } else {
-      paintFirstPage();
-      if (document.body.clientWidth < 768) return;
-      const threeDotsEl = addThreeDotsBlock();
-      paginationElement.prepend(threeDotsEl);
-    }
-  }
+  
+  if (document.body.clientWidth < 768) {
+    
+    const before = num - 1;
+    const after = num + 1;
+    createPaginationBtn(before, after);
+    createPaginationDotsBtn(before, after);
+  } else {
+    
+    const before = num - 2;
+    const after = num + 2;
+    createPaginationBtn(before, after);
+    createPaginationDotsBtn(before, after);
+  } 
+  
 
   // addArrow()
   // const arrowLeft = document.querySelector('.arrow_left');
