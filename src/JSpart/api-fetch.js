@@ -1,7 +1,9 @@
 import render from '../templates/card.hbs';
 import replacesDefaultImage from './stopper';
 
+
 // Общий класс с основными параметрами для запроса фильмов с АПИ
+
 class FetchApi {
   constructor() {
     this.searchQuery = '';
@@ -53,6 +55,18 @@ class FetchApi {
       error;
     }
   }
+
+  async fetchTrailer(id) {
+    try {
+      const response = await fetch(`${this.baseUrl}movie/${id}/videos?api_key=${this.key}&language=${this.language}`);
+      const data = await response.json();
+      const results = await data
+      return results;
+    } catch (error) {
+      error
+    }
+  }
+
 //  Функция замены жанров
 
   replaceGenreA(arrayGenre, film) {
