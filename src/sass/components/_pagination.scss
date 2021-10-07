@@ -47,7 +47,12 @@
     border: none;
     outline: none;
     cursor: pointer;
-    margin: 5px;
+    @include adaptive-size(mobile) {
+      margin: 0px;
+    }
+    @include adaptive-size(mobile) {
+      margin: 5px;
+    }
 
     transition: 0.5s;
     color: $btn-hover-color;
@@ -55,6 +60,16 @@
     font-family: $main-font, sans-serif;
     font-size: $main-font-size;
     background-color: transparent;
+  }
+  .paintLastPage {
+    @include adaptive-size(mobile) {
+      display: none;
+    }
+  }
+  .paintLastPage {
+    @include adaptive-size(tablet) {
+      display: block;
+    }
   }
 
   button:hover {
