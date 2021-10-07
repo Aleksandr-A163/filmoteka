@@ -2,7 +2,8 @@ import modal from '../templates/modal.hbs';
 import render from '../templates/card.hbs';
 import fetchApi from './api-fetch';
 import refs from './variables';
-const { libraryEl, watchedEl, queueEl, homeEl, logoEl, collectionList,modalContent, btnModalCloseEl, backdropEl,  ...rest } = refs;
+import * as basicLightbox from 'basiclightbox';
+const { trailer, libraryEl, watchedEl, queueEl, homeEl, logoEl, collectionList,modalContent, btnModalCloseEl, backdropEl,  ...rest } = refs;
 
 collectionList.addEventListener('click', onUlElClick);
 // переменная для фильма, который открыт в модальном окне
@@ -70,6 +71,28 @@ function onUlElClick(e) {
   //! Новый код//
   const buttonWatchedEl = document.getElementById('watchedInModal')
   const buttonQueueEl = document.getElementById('queueInModal')
+
+
+  const trailer = document.getElementById('trailer')
+  let trailerKey;
+  
+  
+  trailer.addEventListener('click', trailerFoo)
+  function trailerFoo(trailerKey) {
+    NewFetchApi.fetchTrailer(curFilm.id).then(e => {
+      trailerKey = e.results[0].key
+      const instance = basicLightbox.create(`
+    <iframe src="https://www.youtube.com/embed/${trailerKey}" width="1200" height="800" frameborder="0"></iframe>
+`)
+
+instance.show()
+    })
+
+    
+
+    
+    
+  }
   const containerBtnsRef= document.querySelector('.list-buttons')
   //**Текст кнопок после проверки на наличие в localStorage */
   //Watched

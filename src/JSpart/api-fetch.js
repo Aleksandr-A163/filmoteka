@@ -47,7 +47,16 @@ class FetchApi {
       error;
     }
   }
-
+  async fetchTrailer(id) {
+    try {
+      const response = await fetch(`${this.baseUrl}movie/${id}/videos?api_key=${this.key}&language=${this.language}`);
+      const data = await response.json();
+      const results = await data
+      return results;
+    } catch (error) {
+      error;
+    }
+  }
   replaceGenreA(arrayGenre, film) {
     // console.log(film);
     film.results.forEach(r => {
