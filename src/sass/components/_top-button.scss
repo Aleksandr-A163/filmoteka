@@ -1,11 +1,10 @@
 .scrollToTopBtn {
 
     cursor: pointer;
-    font-size: 18px;
-    line-height: 48px;
-    width: 48px;
-    bottom: 250px;
-     right: 20px;
+    width: 45px;
+    height: 45px;
+    bottom: 200px;
+     right: 100px;
   
     /* place it at the bottom right corner */
     position: fixed;
@@ -24,13 +23,20 @@
     transform: translateY(0);
   }
 
-.upp-button__svg {
+.upp-button {
     fill: currentColor;
   color: $accent-lighter-color;
     transition: fill $animation;
-  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../images/up-arrow.svg');
     &:hover,
     &:focus {
       fill: $accent-lighter-color;
     }
   }
+
+//   .up_arrow {
+//     background-repeat: no-repeat;
+//     background-image: url('../images/up-arrow.svg');
+//   }
