@@ -1,0 +1,54 @@
+.scrollToTopBtn {
+  opacity: 0;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+    bottom: 200px;
+    right: 100px;
+    position: fixed;
+    z-index: 100;
+    background-image: url('../images/up-arrow.svg');
+    transform: translateY(100px);
+    transition: all 0.5s ease;
+
+    @include adaptive-size(mobile) {
+      right: 10px;
+      width: 45px;
+    height: 45px;
+
+    }
+    @include adaptive-size(tablet) {
+      right: 70px;
+      width: 60px;
+      height: 60px;
+    }
+    @include adaptive-size(desktop) {
+      right: 100px;
+      width: 100px;
+      height: 100px;
+    }
+
+    &:hover {
+      fill:  red;
+      transform: translateY(-20px);
+      filter: hue-rotate(60deg);
+    }
+
+
+}
+ 
+  
+  .showBtn {
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+
+.upp-button {
+
+    transition: fill $animation;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: all .3s ease-in-out 0s;
+  }
+  
+

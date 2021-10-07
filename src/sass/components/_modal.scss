@@ -231,12 +231,12 @@
 
   transition: background-color $animation;
 
-  @media screen and (min-width: $tablet) {
+  @include adaptive-size(tablet) {
     min-width: 125px;
     font-size: 12px;
   }
 
-  @media screen and (min-width: $desktop) {
+  @include adaptive-size(desktop) {
     min-width: 136px;
   }
 
