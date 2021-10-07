@@ -49,7 +49,7 @@ class FetchApi {
   }
 
   replaceGenreA(arrayGenre, film) {
-    console.log(film);
+    // console.log(film);
     film.results.forEach(r => {
       for (let i = 0; i < arrayGenre.length; i += 1) {
         for (let j = 0; j < r.genre_ids.length; j += 1) {
