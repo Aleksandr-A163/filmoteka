@@ -55,7 +55,7 @@
 
   @include adaptive-size(desktop) {
     width: 882px;
-    height: 568px;
+    height: 650px;
     padding-top: 48px;
     padding-bottom: 41px;
   }
@@ -205,13 +205,20 @@
 
 .list-buttons {
   display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+ 
 
-  & li:not(:last-child) {
+
+  & li {
     margin-right: 15px;
   }
 }
 
 .button-modal {
+  margin: 10px;
   padding-top: 14px;
   padding-bottom: 12px;
   border-radius: 4px;
