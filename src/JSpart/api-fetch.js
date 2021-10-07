@@ -1,6 +1,7 @@
 import render from '../templates/card.hbs';
 import replacesDefaultImage from './stopper';
 
+// Общий класс с основными параметрами для запроса фильмов с АПИ
 class FetchApi {
   constructor() {
     this.searchQuery = '';
@@ -17,6 +18,7 @@ class FetchApi {
     return this.page;
   }
 
+   // Асинхронная функция для получения жанров фильмов с апи
   async fetchGenres() {
     const url = `${this.baseUrl}genre/movie/list?api_key=${this.key}&language=${this.language}`;
     try {
@@ -27,6 +29,8 @@ class FetchApi {
       error;
     }
   }
+
+   // Асинхронная функция для вывода популярных фильмов для конкретной страницы
   fetchPopularFilmsByPage() {
     const url = `${this.baseUrl}movie/popular?api_key=${this.key}&language=${this.language}&page=${this.page}`;
     return fetch(url)
@@ -35,6 +39,8 @@ class FetchApi {
         return results;
       });
   }
+
+  // Асинхронная функция для вывода фильмов через строку поиска 
   async fetchSearchFilms() {
     try {
       const response = await fetch(
@@ -47,6 +53,7 @@ class FetchApi {
       error;
     }
   }
+//  Функция замены жанров
 
   replaceGenreA(arrayGenre, film) {
     // console.log(film);
@@ -66,6 +73,8 @@ class FetchApi {
       };
     });
   }
+
+// Функция ренедера карточек фильмоы из локаал стораджа на странице сайта
 
   renderCards() {
     const collectionList = document.getElementById('home');
@@ -96,6 +105,7 @@ class FetchApi {
   set query(newQuery) {
     this.searchQuery = newQuery;
   }
+  
   getPaginationPage(fetchQuery) {
     this[fetchQuery]().then(r => {
       this.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);

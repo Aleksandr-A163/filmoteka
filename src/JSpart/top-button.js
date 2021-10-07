@@ -1,21 +1,24 @@
-// Назначаю константы для отслеживания
+// Назначаю константы для отслеживания элементов документа
 const target = document.querySelector("footer");
 const scrollToTopBtn = document.querySelector(".scrollToTopBtn");
 const rootElement = document.documentElement;
 
 
-function callback(entries, observer) {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      scrollToTopBtn.classList.add("showBtn");
-    } else {
+// При скроле на сайте запускает функцию подсчета проскроленыз пикселей
+window.onscroll = function() {scrollFunction()};
 
-      scrollToTopBtn.classList.remove("showBtn");
-    }
-  });
+
+// При скроле более 2500 пиксейлей заменяет класс у кнопки наверх и делает её видимой, если открутить назад, то кнопка скрывается
+function scrollFunction() {
+  if (document.body.scrollTop > 2500 || document.documentElement.scrollTop > 2500) {
+    scrollToTopBtn.classList.add("showBtn");
+  } else {
+    scrollToTopBtn.classList.remove("showBtn");
+  }
 }
 
-// Функция скрола наверх страницы
+
+// Функция скрола наверх страницы при клике на кнопку
 function scrollToTop() {
   rootElement.scrollTo({
     top: 0,
@@ -24,8 +27,5 @@ function scrollToTop() {
 }
 scrollToTopBtn.addEventListener("click", scrollToTop);
 
-// Next we instantiate the observer with the function we created above. This takes an optional configuration
-// object that we will use in the other examples.
-const observer = new IntersectionObserver(callback);
-// Finally start observing the target element
-observer.observe(target);
+
+

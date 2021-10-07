@@ -1,42 +1,54 @@
 .scrollToTopBtn {
-
+  opacity: 0;
     cursor: pointer;
-    width: 45px;
-    height: 45px;
+    width: 100px;
+    height: 100px;
     bottom: 200px;
-     right: 100px;
-  
-    /* place it at the bottom right corner */
+    right: 100px;
     position: fixed;
-    /* keep it at the top of everything else */
     z-index: 100;
-    /* hide with opacity */
-    opacity: 0;
-    /* also add a translate effect */
+    background-image: url('../images/up-arrow.svg');
     transform: translateY(100px);
-    /* and a transition */
     transition: all 0.5s ease;
-  }
+
+    @include adaptive-size(mobile) {
+      right: 10px;
+      width: 45px;
+    height: 45px;
+
+    }
+    @include adaptive-size(tablet) {
+      right: 70px;
+      width: 60px;
+      height: 60px;
+    }
+    @include adaptive-size(desktop) {
+      right: 100px;
+      width: 100px;
+      height: 100px;
+    }
+
+    &:hover {
+      fill:  red;
+      transform: translateY(-20px);
+      filter: hue-rotate(60deg);
+    }
+
+
+}
+ 
   
   .showBtn {
-    opacity: 1;
+    opacity: 0.8;
     transform: translateY(0);
   }
 
 .upp-button {
-    fill: currentColor;
-  color: $accent-lighter-color;
+
     transition: fill $animation;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('../images/up-arrow.svg');
-    &:hover,
-    &:focus {
-      fill: $accent-lighter-color;
-    }
+    transition: all .3s ease-in-out 0s;
   }
+  
 
-//   .up_arrow {
-//     background-repeat: no-repeat;
-//     background-image: url('../images/up-arrow.svg');
-//   }
