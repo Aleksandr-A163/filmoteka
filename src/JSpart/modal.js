@@ -82,16 +82,11 @@ function onUlElClick(e) {
     NewFetchApi.fetchTrailer(curFilm.id).then(e => {
       trailerKey = e.results[0].key
       const instance = basicLightbox.create(`
-    <iframe src="https://www.youtube.com/embed/${trailerKey}" width="1200" height="800" frameborder="0"></iframe>
+    <iframe class="trailerPlayer" src="https://www.youtube.com/embed/${trailerKey}" width="1200" height="800" frameborder="0"></iframe>
 `)
 
 instance.show()
-    })
-
-    
-
-    
-    
+    }) 
   }
   const containerBtnsRef= document.querySelector('.list-buttons')
   //**Текст кнопок после проверки на наличие в localStorage */

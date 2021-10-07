@@ -1,6 +1,7 @@
 import render from '../templates/card.hbs';
 import replacesDefaultImage from './stopper';
 
+
 class FetchApi {
   constructor() {
     this.searchQuery = '';
@@ -54,7 +55,7 @@ class FetchApi {
       const results = await data
       return results;
     } catch (error) {
-      error;
+      error
     }
   }
   replaceGenreA(arrayGenre, film) {
