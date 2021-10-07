@@ -1,0 +1,36 @@
+.scrollToTopBtn {
+
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 48px;
+    width: 48px;
+    bottom: 250px;
+     right: 20px;
+  
+    /* place it at the bottom right corner */
+    position: fixed;
+    /* keep it at the top of everything else */
+    z-index: 100;
+    /* hide with opacity */
+    opacity: 0;
+    /* also add a translate effect */
+    transform: translateY(100px);
+    /* and a transition */
+    transition: all 0.5s ease;
+  }
+  
+  .showBtn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+.upp-button__svg {
+    fill: currentColor;
+  color: $accent-lighter-color;
+    transition: fill $animation;
+  
+    &:hover,
+    &:focus {
+      fill: $accent-lighter-color;
+    }
+  }
