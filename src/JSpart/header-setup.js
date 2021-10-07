@@ -8,7 +8,6 @@ export {
   collectionList,
   myLibraryWatchedRender,
   myLibraryQueueRender,
-  renderFile,
 };
 const {
   homeEl,
@@ -29,6 +28,7 @@ libraryEl.addEventListener('click', onLibraryClick);
 watchedEl.addEventListener('click', onWatchedClick);
 queueEl.addEventListener('click', onQueueClick);
 
+// Функция обработки события при нажатии на My Library
 function onLibraryClick(e) {
   e.preventDefault();
   homePagination.classList.add('visually-hidden');
@@ -52,6 +52,7 @@ function onLibraryClick(e) {
   navEl.classList.remove('mar-bot-input');
 }
 
+// Функция обработки события при нажатии на Watched
 function onWatchedClick(e) {
   paginationLibElement.innerHTML = '';
   myLibraryWatchedRender(e);
@@ -59,6 +60,7 @@ function onWatchedClick(e) {
   queueEl.classList.remove('button--orange');
 }
 
+// Функция обработки события при нажатии на Queue
 function onQueueClick(e) {
   paginationLibElement.innerHTML = '';
   watchedEl.classList.remove('button--orange');
@@ -66,6 +68,7 @@ function onQueueClick(e) {
   myLibraryQueueRender(e);
 }
 
+// Функция рендера библиотеки фильмов раздела Watched
 function myLibraryWatchedRender(e) {
   e.preventDefault();
   collectionList.innerHTML = '';
@@ -85,6 +88,7 @@ function myLibraryWatchedRender(e) {
   }
 }
 
+// Функция рендера библиотеки фильмов раздела Queue
 function myLibraryQueueRender(e) {
   e.preventDefault();
   collectionList.innerHTML = '';
@@ -114,18 +118,11 @@ function renderFile(results) {
 
 const paginationLibElement = document.getElementById('paginationLibrary');
 
-const watchedFilms = JSON.parse(localStorage.getItem('watched'));
-const queueFilms = JSON.parse(localStorage.getItem('queue'));
-
-const watchedFilmsPage = sliceLibraryOnPage(watchedFilms);
-const queueFilmsPage = sliceLibraryOnPage(queueFilms);
-
+// Функция разделющаяgj страницам массив фильмов из LocalStorage 
 function sliceLibraryOnPage(value) {
   if (value === null) {
     return;
   }
-  // const NextMovie = JSON.parse(value);
-  // console.log(value)
   const groupSize = 20;
   const sliceArr = value
     .map(function (e, i) {
@@ -137,16 +134,16 @@ function sliceLibraryOnPage(value) {
   return sliceArr;
 }
 
-// console.log(watchedFilmsPage)
-// console.log(queueFilmsPage)
 let currentLibPage = 1;
 
+// Функция рендера пагинации библиотеки
 function renderLibPag(value) {
   const totalLibPages = value.length;
-  // console.log(totalLibPages)
   renderLibPaginationBtn(value, totalLibPages);
   makeActiveLibBtn();
 }
+
+// Функция рендера кнопок пагинации библиотеки
 function renderLibPaginationBtn(arrayPagination, totalLibPages) {
   const before = currentLibPage - 2;
   const after = currentLibPage + 2;
@@ -169,6 +166,7 @@ function renderLibPaginationBtn(arrayPagination, totalLibPages) {
   }
 }
 
+// Функция нажатия перехода на нужную страницу при нажатии на кнопку
 function onLibBtnClick(e) {
   e.preventDefault();
 
@@ -178,9 +176,7 @@ function onLibBtnClick(e) {
 
   collectionList.innerHTML = '';
   paginationLibElement.innerHTML = '';
-
   currentLibPage = Number(e.target.textContent);
-  // console.log(currentLibPage)
 
   if (watchedEl.classList.contains('button--orange')) {
     const watchedFilms = JSON.parse(localStorage.getItem('watched'));
@@ -196,8 +192,7 @@ function onLibBtnClick(e) {
   }
 }
 
-// console.log(currentLibPage)
-
+// Функция выделяющая кнопку акттивной страницы
 function makeActiveLibBtn() {
   let pages = paginationLibElement.querySelectorAll('button');
 

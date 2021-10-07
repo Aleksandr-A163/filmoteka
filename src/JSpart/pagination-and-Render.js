@@ -1,9 +1,7 @@
 import fetchApi from './api-fetch';
-import render from '../templates/card.hbs';
 import cleanInput from './clean-input';
 import checkQuery from './check-query';
 import errorSearch from './error-search';
-
 import replacesDefaultImage from './stopper';
 import refs from './variables';
 const {
@@ -16,22 +14,15 @@ const {
   navEl,
   homePagination,
   libraryPagination,
+  collectionList,
+  paginationElement,
+  arrowLeft,
+  arrowRight,
+  btnSearchEl,
   ...rest
 } = refs;
 const NewFetchApi = new fetchApi();
 
-const listElement = document.querySelector('.collection');
-const paginationElement = document.getElementById('pagination');
-const arrowLeft = document.querySelector('.arrow_left');
-const arrowRight = document.querySelector('.arrow_right');
-const allPagination = document.querySelector('.pagination__container_pages');
-const btnSearchEl = document.querySelector('.search__button');
-const paginationLibElement = document.getElementById('paginationLibrary');
-
-// let currentPage = 1;
-// const pagesOnWindow = 5;
-// let pageCount;
-// let rows = 20;
 let totalPages;
 
 //поиск по названию фильма
@@ -58,7 +49,6 @@ function fetchPopularFilms() {
     NewFetchApi.saveInLocale(r);
     NewFetchApi.renderCards();
     totalPages = r.total_pages;
-    // renderPagination(r.total_pages, r.results);
     libraryPagination.classList.add('visually-hidden');
     renderPagination();
   });
@@ -80,61 +70,34 @@ function foundFilmsByKeyword(e) {
       totalPages = film.total_pages;
       renderPagination();
       if (film.results.length === 0) {
-        // console.log('Search result not successful. Enter the correct movie name.');
         errorSearch('Search result not successful. Enter the correct movie name.');
         return;
       }
-      // film.results.forEach(r => {
-      //   newFetchApi.replaceGenre(JSON.parse(localStorage.getItem('genres')), r.genre_ids )
-      // })
-      // console.log(film);
       NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), film);
       const newFilm = replacesDefaultImage(film.results);
       film.results = newFilm;
-      //обновляем текущие фильмы в localStorage
-
       NewFetchApi.saveInLocale(film);
       NewFetchApi.renderCards();
-      // renderCardsSearchFilms();
-      // makeActiveBtn();
     })
     .catch(er => {
-      // console.log('Something went wrong, please try again later');
       errorSearch('Something went wrong, please try again later');
     });
 
   cleanInput();
 }
 
-// функции отрисовки при переходе на страницы навигации
-// function homePageRender() {
-//   NewFetchApi.fetchPopularFilmsByPage().then(r => {
-//     NewFetchApi.replaceGenreA(JSON.parse(localStorage.getItem('genres')), r);
-//     NewFetchApi.saveInLocale(r);
-//     // renderFile(r.results);
-//     NewFetchApi.renderCards();
-//   });
-// }
-///////
-// функция рендера
-function renderFile(results) {
-  
-  collectionList.innerHTML = render({ results });
-}
-////////
+// Функция обработки события при нажатии на Home
 function onHomeClick(e) {
   e.preventDefault();
   NewFetchApi.query = '';
   NewFetchApi.pageNumber = 1;
   paginationElement.innerHTML = '';
-  // renderPagination()
 
   homePagination.classList.remove('visually-hidden');
   libraryPagination.classList.add('visually-hidden');
 
-  // console.log('функция onHomeClick');
   fetchPopularFilms();
-  // homePageRender();
+
   if (headerEl.classList.contains('home-bgi')) {
     return;
   }
@@ -147,8 +110,6 @@ function onHomeClick(e) {
   btnsEl.classList.remove('show');
   btnsEl.classList.add('hide');
   navEl.classList.add('mar-bot-input');
-  // console.log(NewFetchApi.list);
-  // NewFetchApi.list = 'home';
 }
 // Рендер кнопок
 
@@ -163,16 +124,6 @@ function renderPaginationBtn() {
       paginationElement.appendChild(button);
     }
   }
-
-  //   const leftArr = document.createElement('button');
-  // leftArr.classList.add('pag-arrow', 'arrow_left');
-  // leftArr.setAttribute('data-action', 'prev-page')
-  // allPagination.prepend(leftArr);
-
-  // const rightArr = document.createElement('button');
-  // rightArr.classList.add('pag-arrow', 'arrow_right');
-  // rightArr.setAttribute('data-action', 'next-page')
-  // paginationElement.append(rightArr);
 
   // условия по добавлению трехточек и крайних страниц
   if (after < totalPages) {
@@ -200,10 +151,6 @@ function renderPaginationBtn() {
     }
   }
 
-  // addArrow()
-  // const arrowLeft = document.querySelector('.arrow_left');
-  // const arrowRight = document.querySelector('.arrow_right');
-
   arrowLeft.onclick = onArrowLeftClick;
   arrowRight.onclick = onArrowRightClick;
 }
@@ -226,18 +173,6 @@ function addThreeDotsBlock() {
   threeDots.classList.add('threeDots');
   threeDots.innerText = '...';
   return threeDots;
-}
-
-function addArrow() {
-  const leftArr = document.createElement('button');
-  leftArr.classList.add('pag-arrow', 'arrow_left');
-  leftArr.setAttribute('data-action', 'prev-page');
-  allPagination.prepend(leftArr);
-
-  const rightArr = document.createElement('button');
-  rightArr.classList.add('pag-arrow', 'arrow_right');
-  rightArr.setAttribute('data-action', 'next-page');
-  allPagination.append(rightArr);
 }
 
 // функция листания страниц влево
@@ -265,6 +200,7 @@ function drawPageWhenClickOnArrow() {
   renderPagination();
 }
 
+// Функция выделяющая кнопку акттивной страницы
 function makeActiveBtn() {
   let pages = paginationElement.querySelectorAll('button');
 
@@ -278,6 +214,7 @@ function makeActiveBtn() {
   }
 }
 
+// Функция нажатия перехода на нужную страницу при нажатии на кнопку
 function onBtnClick(e) {
   e.preventDefault();
 
@@ -285,13 +222,11 @@ function onBtnClick(e) {
     return;
   }
 
-  listElement.innerHTML = '';
+  collectionList.innerHTML = '';
   paginationElement.innerHTML = '';
-
   NewFetchApi.pageNumber = Number(e.target.textContent);
-
   renderPagination();
-  // console.log('NewFetchApi.query', NewFetchApi.query);
+
   if (NewFetchApi.query) {
     NewFetchApi.getPaginationPage('fetchSearchFilms');
   } else {
@@ -301,6 +236,7 @@ function onBtnClick(e) {
 
 paginationElement.addEventListener('click', onBtnClick);
 
+// Делает неактивными стрелки на 1 и последней странице
 function disableArrowBtn() {
   if (NewFetchApi.pageNumber === 1) {
     arrowLeft.classList.add('disabled-arrow');
@@ -315,139 +251,9 @@ function disableArrowBtn() {
   }
 }
 
+// Функция рендера пагинации
 function renderPagination() {
   renderPaginationBtn();
   makeActiveBtn();
   disableArrowBtn();
 }
-
-// btnSearchEl.addEventListener('click', foundFilmsByKeyword);
-
-// export { homePageRender };
-////////////////////////////////// ниже логика пагинации в запасе)
-
-// function renderPagination(totalPages, listItems) {
-//   paginationElement.innerHTML = '';
-//   currentPage = 1;
-
-//   function setupPagination(items, wrapper) {
-//     wrapper.innerHTML = '';
-
-//     pageCount = totalPages;
-//     let maxLeftPage = currentPage - Math.floor(pagesOnWindow / 2);
-//     let maxRightPage = currentPage + Math.floor(pagesOnWindow / 2);
-
-//     if (maxLeftPage < 1) {
-//       maxLeftPage = 1;
-//       maxRightPage = pagesOnWindow;
-//     }
-//     if (maxRightPage > totalPages) {
-//       maxLeftPage = totalPages - (pagesOnWindow - 1);
-
-//       if (maxLeftPage < 1) {
-//         maxLeftPage = 1;
-//       }
-//       maxRightPage = totalPages;
-//     }
-
-//     for (let i = 1; i <= totalPages; i++) {
-//       if (maxLeftPage !== 1 && i == 1) {
-//         let btn = paginationButton(i);
-//         wrapper.appendChild(btn);
-//       }
-//       if (maxRightPage !== totalPages && i == totalPages) {
-//         let btn = paginationButton(i);
-//         wrapper.appendChild(btn);
-//       }
-//       if (i >= maxLeftPage && i <= maxRightPage) {
-//         let btn = paginationButton(i);
-//         wrapper.appendChild(btn);
-//       }
-
-//       if (
-//         totalPages >= 6 &&
-//         i == 1 &&
-//         currentPage !== 1 &&
-//         currentPage !== 2 &&
-//         currentPage !== 3
-//       ) {
-//         const threeDotsEl = addThreeDotsBlock();
-//         wrapper.insertBefore(threeDotsEl, wrapper[wrapper.length - 2]);
-//       }
-//       if (
-//         pageCount >= 7 &&
-//         i == pageCount - 1 &&
-//         currentPage !== pageCount &&
-//         currentPage !== pageCount - 2 &&
-//         currentPage !== pageCount - 1
-//       ) {
-//         const threeDotsEl = addThreeDotsBlock();
-//         wrapper.insertBefore(threeDotsEl, wrapper[1]);
-//       }
-//     }
-//   }
-
-//   function paginationButton(page) {
-//     console.log(page);
-//     let button = document.createElement('button');
-//     button.innerText = page;
-
-//     if (currentPage == page) button.classList.add('active');
-
-//     button.addEventListener('click', () => {
-//       currentPage = page;
-//       FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
-
-//       let current_btn = document.querySelector('.pagenumbers button.active');
-//       current_btn.classList.remove('active');
-
-//       button.classList.add('active');
-//       setupPagination(listItems, paginationElement, rows);
-//     });
-//     return button;
-//   }
-
-//   function onArrowLeftClick() {
-//     if (currentPage > 1) {
-//       currentPage--;
-//       FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
-//       setupPagination(listItems, paginationElement, rows);
-//     }
-//   }
-
-//   function onArrowRightClick() {
-//     if (currentPage < totalPages) {
-//       currentPage++;
-//       FetchApi.getPaginationPage('fetchPopularFilmsByPage', currentPage);
-//       setupPagination(listItems, paginationElement, rows);
-//     }
-//   }
-
-//   setupPagination(listItems, paginationElement, rows);
-//   arrowLeft.onclick = onArrowLeftClick;
-//   arrowRight.onclick = onArrowRightClick;
-// }
-
-// // отключение стрелок на первой и последней странице
-// paginationElement.addEventListener('click', disableArrowBtnAfterPageClick);
-
-// function disableArrowBtnAfterPageClick(event) {
-//   if (event.target.tagName != 'BUTTON') {
-//     return;
-//   } else {
-//     disableArrowBtn(pageCount);
-//   }
-// }
-// function disableArrowBtn(totalPages) {
-//   if (currentPage === 1) {
-//     arrowLeft.classList.add('disabled-arrow');
-//   } else {
-//     arrowLeft.classList.remove('disabled-arrow');
-//   }
-
-//   if (currentPage === totalPages) {
-//     arrowRight.classList.add('disabled-arrow');
-//   } else {
-//     arrowRight.classList.remove('disabled-arrow');
-//   }
-// }

@@ -1,16 +1,3 @@
-// const logoEl = document.querySelector('.js-logo');
-// const homeEl = document.querySelector('.js-home');
-// const collectionList = document.getElementById('home');
-// const libraryEl = document.querySelector('.js-library');
-// const headerEl = document.querySelector('header');
-// const searchEl = document.querySelector('.search');
-// const btnsEl = document.querySelector('.btns');
-// const navEl = document.querySelector('.navigation');
-// const watchedEl = document.querySelector('.js-watched');
-// const queueEl = document.querySelector('.js-queue');
-
-// const allPagination = document.querySelector('.pagination__container_pages');
-
 const refs = {
   logoEl: document.querySelector('.js-logo'),
   homeEl: document.querySelector('.js-home'),
@@ -22,20 +9,29 @@ const refs = {
   navEl: document.querySelector('.navigation'),
   watchedEl: document.querySelector('.js-watched'),
   queueEl: document.querySelector('.js-queue'),
+  paginationElement: document.getElementById('pagination'),
   homePagination: document.querySelector('.pagination__home'),
   libraryPagination: document.querySelector('.pagination__library'),
+  arrowLeft: document.querySelector('.arrow_left'),
+  arrowRight: document.querySelector('.arrow_right'),
+  btnSearchEl: document.querySelector('.search__button'),
+  checkboxEl: document.querySelector('.theme-switch__toggle'),
+  bodyEl: document.querySelector('body'),
+  modalEl: document.querySelector('.modal'),
+  studentsModalEl: document.querySelector('.modal--students'),
+  modalCloseEl: document.querySelector('.close__svg'),
+  backdropStEl: document.querySelector('.backdrop--students'),
+  listStudents: document.querySelector('.team-items'),
+  linkToDev: document.getElementById('openModalLink'),
+  closeModalBtn: document.getElementById('closeModalStBtn'),
+  mask: document.querySelector('.mask'),
+  errorEl: document.querySelector('.error'),
+  modalContent: document.querySelector('.modal__content'),
+  btnModalCloseEl: document.querySelector('.button-modal--close'),
+  backdropEl: document.querySelector('.backdrop'),
+  buttonWatchedEl: document.getElementById('watchedInModal'),
+  buttonQueueEl: document.getElementById('queueInModal'),
+  containerBtnsRef: document.querySelector('.list-buttons'),
 };
-// export {
-//   logoEl,
-//   homeEl,
-//   collectionList,
-//   libraryEl,
-//   headerEl,
-//   searchEl,
-//   btnsEl,
-//   navEl,
-//   watchedEl,
-//   queueEl,
-//   allPagination,
-// };
+
 export default refs;

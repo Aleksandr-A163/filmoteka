@@ -1,10 +1,14 @@
 import studentsData from '../JSON/arr.json';
 import studentsTemplate from '../templates/modal_students.hbs';
+import refs from './variables';
+const {
+  backdropStEl,
+  listStudents,
+  linkToDev,
+  closeModalBtn,
+  ...rest
+} = refs;
 
-const backdropStEl = document.querySelector('.backdrop--students');
-const listStudents = document.querySelector('.team-items');
-const linkToDev = document.getElementById('openModalLink');
-const closeModalBtn = document.getElementById('closeModalStBtn');
 
 const studentItems = studentsData.map(studentsTemplate).join(' ');
 

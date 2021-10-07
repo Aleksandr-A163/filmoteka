@@ -1,10 +1,14 @@
-// переключение темы
-const checkboxEl = document.querySelector('.theme-switch__toggle');
-const bodyEl = document.querySelector('body');
-const modalEl = document.querySelector('.modal');
-const studentsModalEl = document.querySelector('.modal--students');
+import refs from './variables';
+const {
+    checkboxEl,
+    bodyEl,
+    modalEl,
+    studentsModalEl,
+    modalCloseEl,
+  ...rest
+} = refs;
 
-const modalCloseEl = document.querySelector('.close__svg');
+// переключение темы
 const Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
