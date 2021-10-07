@@ -26,6 +26,12 @@ const refs = {
   closeModalBtn: document.getElementById('closeModalStBtn'),
   mask: document.querySelector('.mask'),
   errorEl: document.querySelector('.error'),
+  modalContent: document.querySelector('.modal__content'),
+  btnModalCloseEl: document.querySelector('.button-modal--close'),
+  backdropEl: document.querySelector('.backdrop'),
+  buttonWatchedEl: document.getElementById('watchedInModal'),
+  buttonQueueEl: document.getElementById('queueInModal'),
+  containerBtnsRef: document.querySelector('.list-buttons'),
 };
 
 export default refs;

@@ -1,5 +1,5 @@
 export default function replacesDefaultImage(arr) {
-  const defaultImage = 'https://i.postimg.cc/VNTY47h0/image.jpg';
+  const defaultImage = 'https://i.postimg.cc/VNTY47h0/image.jpg'; 
 
   const newArr = arr.map(element => {
     if (element.backdrop_path !== null && element.poster_path !== null) {

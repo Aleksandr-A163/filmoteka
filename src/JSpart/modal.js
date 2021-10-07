@@ -2,10 +2,7 @@ import modal from '../templates/modal.hbs';
 import render from '../templates/card.hbs';
 import fetchApi from './api-fetch';
 import refs from './variables';
-const { libraryEl, watchedEl, queueEl, homeEl, logoEl, collectionList, ...rest } = refs;
-const modalContent = document.querySelector('.modal__content');
-const btnModalCloseEl = document.querySelector('.button-modal--close');
-const backdropEl = document.querySelector('.backdrop');
+const { libraryEl, watchedEl, queueEl, homeEl, logoEl, collectionList,modalContent, btnModalCloseEl, backdropEl,  ...rest } = refs;
 
 collectionList.addEventListener('click', onUlElClick);
 // переменная для фильма, который открыт в модальном окне
@@ -71,10 +68,9 @@ function onUlElClick(e) {
   renderModal(curFilm);
 
   //! Новый код//
-  const buttonWatchedEl = document.getElementById('watchedInModal');
-  const buttonQueueEl = document.getElementById('queueInModal');
-  const containerBtnsRef = document.querySelector('.list-buttons');
-
+  const buttonWatchedEl = document.getElementById('watchedInModal')
+  const buttonQueueEl = document.getElementById('queueInModal')
+  const containerBtnsRef= document.querySelector('.list-buttons')
   //**Текст кнопок после проверки на наличие в localStorage */
   //Watched
   if (arrayWatched.some(e => e.id === Number(currentTarget))) {
