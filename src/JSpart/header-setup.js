@@ -152,9 +152,9 @@ function renderLibPaginationBtn(arrayPagination, totalLibPages) {
     for (let i = before; i <= after; i += 1) {
       if (i > 0 && i <= 2) {
         let li = document.createElement('li');
-        let button = document.createElement('button');
-        button.innerText = i;
-        li.appendChild(button);
+        let a = document.createElement('a');
+        a.innerText = i;
+        li.appendChild(a);
         paginationLibElement.appendChild(li);
       }
     }
@@ -162,9 +162,9 @@ function renderLibPaginationBtn(arrayPagination, totalLibPages) {
   if (totalLibPages < 4) {
     arrayPagination.forEach((e, i) => {
       let li = document.createElement('li');
-      let button = document.createElement('button');
-      button.innerText = i + 1;
-      li.appendChild(button);
+      let a = document.createElement('a');
+      a.innerText = i + 1;
+      li.appendChild(a);
       paginationLibElement.appendChild(li);
     });
   }
@@ -174,7 +174,7 @@ function renderLibPaginationBtn(arrayPagination, totalLibPages) {
 function onLibBtnClick(e) {
   e.preventDefault();
 
-  if (e.target.tagName !== 'BUTTON') {
+  if (e.target.tagName !== 'A') {
     return;
   }
 
@@ -198,7 +198,7 @@ function onLibBtnClick(e) {
 
 // Функция выделяющая кнопку акттивной страницы
 function makeActiveLibBtn() {
-  let pages = paginationLibElement.querySelectorAll('button');
+  let pages = paginationLibElement.querySelectorAll('a');
 
   for (let i = 0; i < pages.length; i += 1) {
     if (pages[i].classList.contains('active')) {

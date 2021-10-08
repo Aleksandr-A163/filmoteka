@@ -3,6 +3,85 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      appearance: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      @include adaptive-size(mobile) {
+        margin: 0px;
+      }
+      @include adaptive-size(tablet) {
+        margin: 5px;
+      }
+
+      transition: 0.5s;
+      color: $text-black-color;
+      font-family: $main-font, sans-serif;
+      font-size: $main-font-size;
+      font-weight: 500;
+      background-color: transparent;
+    }
+    a:hover {
+      background-color: $btn-hover-color;
+      color: $text-white-color;
+      border-radius: 5px;
+    }
+
+    a.active {
+      background-color: $accent-lighter-color;
+      color: $text-white-color;
+      border-radius: 5px;
+    }
+
+    .pag-arrow {
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      background-position: center;
+      border: none;
+
+      background-color: #f7f7f7;
+
+      transition: background-color 0.25s ease-in;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: $btn-hover-color;
+        color: $text-white-color;
+        border-radius: 5px;
+      }
+
+      &:active {
+        background-color: green;
+      }
+    }
+
+    .threeDots {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      border: none;
+      background-color: transparent;
+      text-align: center;
+      padding: 10px 5px 1px 5px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .disabled-arrow {
+      pointer-events: none;
+      background-color: #c2c0c4;
+    }
   }
 
   &__home,
@@ -40,27 +119,6 @@
   justify-content: center;
   align-items: center;
 
-  button {
-    width: 40px;
-    height: 40px;
-    appearance: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    @include adaptive-size(mobile) {
-      margin: 0px;
-    }
-    @include adaptive-size(tablet) {
-      margin: 5px;
-    }
-
-    transition: 0.5s;
-    color: $text-black-color;
-    font-family: $main-font, sans-serif;
-    font-size: $main-font-size;
-    font-weight: 500;
-    background-color: transparent;
-  }
   .paintLastPage {
     @include adaptive-size(mobile) {
       display: none;
@@ -68,20 +126,8 @@
   }
   .paintLastPage {
     @include adaptive-size(tablet) {
-      display: block;
+      display: flex;
     }
-  }
-
-  button:hover {
-    background-color: $btn-hover-color;
-    color: $text-white-color;
-    border-radius: 5px;
-  }
-
-  button.active {
-    background-color: $accent-lighter-color;
-    color: $text-white-color;
-    border-radius: 5px;
   }
 }
 
@@ -100,47 +146,4 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-}
-
-.pag-arrow {
-  width: 40px;
-  height: 40px;
-  margin: 5px;
-  background-position: center;
-  border: none;
-
-  background-color: #f7f7f7;
-
-  transition: background-color 0.25s ease-in;
-  border-radius: 5px;
-
-  &:hover {
-    background-color: $btn-hover-color;
-    color: $text-white-color;
-    border-radius: 5px;
-  }
-
-  &:active {
-    background-color: green;
-  }
-}
-
-.threeDots {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  margin: 5px;
-  border: none;
-  background-color: transparent;
-  text-align: center;
-  padding: 10px 5px 1px 5px;
-}
-
-.hide {
-  display: none;
-}
-
-.disabled-arrow {
-  pointer-events: none;
-  background-color: #c2c0c4;
 }
