@@ -22,6 +22,8 @@
 }
 
 .modal--students {
+  
+
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -59,10 +61,10 @@
   }
   @include adaptive-size(tablet) {
     width: 708px;
-    height: 667px;
+    height: 700px;
   }
   @include adaptive-size(desktop) {
-    height: 748px;
+    height: 790px;
   }
 }
 .team-items {
