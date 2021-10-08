@@ -151,17 +151,21 @@ function renderLibPaginationBtn(arrayPagination, totalLibPages) {
   if (totalLibPages > 4) {
     for (let i = before; i <= after; i += 1) {
       if (i > 0 && i <= 2) {
+        let li = document.createElement('li');
         let button = document.createElement('button');
         button.innerText = i;
-        paginationLibElement.appendChild(button);
+        li.appendChild(button);
+        paginationLibElement.appendChild(li);
       }
     }
   }
   if (totalLibPages < 4) {
     arrayPagination.forEach((e, i) => {
+      let li = document.createElement('li');
       let button = document.createElement('button');
       button.innerText = i + 1;
-      paginationLibElement.appendChild(button);
+      li.appendChild(button);
+      paginationLibElement.appendChild(li);
     });
   }
 }

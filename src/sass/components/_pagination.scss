@@ -55,10 +55,10 @@
     }
 
     transition: 0.5s;
-    color: $btn-hover-color;
-
+    color: $text-black-color;
     font-family: $main-font, sans-serif;
     font-size: $main-font-size;
+    font-weight: 500;
     background-color: transparent;
   }
   .paintLastPage {

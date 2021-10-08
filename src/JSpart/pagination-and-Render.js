@@ -23,6 +23,8 @@ const {
 } = refs;
 const NewFetchApi = new fetchApi();
 
+
+
 let totalPages;
 
 //поиск по названию фильма
@@ -119,11 +121,14 @@ function renderPaginationBtn() {
 
   for (let i = before; i <= after; i += 1) {
     if (i > 0 && i <= totalPages) {
+      let li = document.createElement('li')
       let button = document.createElement('button');
       button.innerText = i;
-      paginationElement.appendChild(button);
+      li.appendChild(button);
+      paginationElement.appendChild(li);
     }
   }
+  
 
   // условия по добавлению трехточек и крайних страниц
   if (after < totalPages) {
@@ -133,21 +138,22 @@ function renderPaginationBtn() {
     }
     // условие 1..494,495,496,497,498,...500
     else {
-      paintLastPage();
       if (document.body.clientWidth < 768) return;
       const threeDotsEl = addThreeDotsBlock();
-      paginationElement.insertBefore(threeDotsEl, paginationElement[paginationElement.length - 2]);
+      paginationElement.appendChild(threeDotsEl);
+      paintLastPage();
     }
   }
+
   // условие отрисовки первой карточки и точек
   if (before > 1) {
     if (before - 1 === 1) {
       paintFirstPage();
     } else {
-      paintFirstPage();
       if (document.body.clientWidth < 768) return;
       const threeDotsEl = addThreeDotsBlock();
       paginationElement.prepend(threeDotsEl);
+      paintFirstPage();
     }
   }
 
@@ -157,20 +163,24 @@ function renderPaginationBtn() {
 
 // функция отрисовки первой страницы
 function paintFirstPage() {
+  let li = document.createElement('li');
   let button = document.createElement('button');
   button.innerText = 1;
-  paginationElement.prepend(button);
+  li.appendChild(button);
+  paginationElement.prepend(li);
 }
 // функция отрисовки последней страницы
 function paintLastPage() {
+  let li = document.createElement('li');
   let button = document.createElement('button');
   button.classList.add('paintLastPage')
   button.innerText = totalPages;
-  paginationElement.appendChild(button);
+  li.appendChild(button);
+  paginationElement.appendChild(li);
 }
 // функция отрисовки 3-х точек
 function addThreeDotsBlock() {
-  const threeDots = document.createElement('div');
+  const threeDots = document.createElement('span');
   threeDots.classList.add('threeDots');
   threeDots.innerText = '...';
   return threeDots;
