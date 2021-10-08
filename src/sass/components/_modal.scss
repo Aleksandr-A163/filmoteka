@@ -29,7 +29,7 @@
   transform: translate(-50%, -50%);
 
   width: 100%;
-  height: auto;
+  height: 100%;
   overflow: auto;
   padding-top: 48px;
   padding-bottom: 40px;
@@ -46,6 +46,7 @@
 
   @include adaptive-size(tablet) {
     width: 618px;
+    height: max-content;
     padding-top: 42px;
     padding-left: 30px;
     padding-right: 30px;
@@ -53,7 +54,6 @@
 
   @include adaptive-size(desktop) {
     width: 882px;
-    height: 568px;
     padding-top: 48px;
     padding-bottom: 41px;
   }
