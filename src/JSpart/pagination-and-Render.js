@@ -122,9 +122,9 @@ function renderPaginationBtn() {
   for (let i = before; i <= after; i += 1) {
     if (i > 0 && i <= totalPages) {
       let li = document.createElement('li')
-      let button = document.createElement('button');
-      button.innerText = i;
-      li.appendChild(button);
+      let a = document.createElement('a');
+      a.innerText = i;
+      li.appendChild(a);
       paginationElement.appendChild(li);
     }
   }
@@ -164,18 +164,18 @@ function renderPaginationBtn() {
 // функция отрисовки первой страницы
 function paintFirstPage() {
   let li = document.createElement('li');
-  let button = document.createElement('button');
-  button.innerText = 1;
-  li.appendChild(button);
+  let a = document.createElement('a');
+  a.innerText = 1;
+  li.appendChild(a);
   paginationElement.prepend(li);
 }
 // функция отрисовки последней страницы
 function paintLastPage() {
   let li = document.createElement('li');
-  let button = document.createElement('button');
-  button.classList.add('paintLastPage')
-  button.innerText = totalPages;
-  li.appendChild(button);
+  let a = document.createElement('a');
+  a.classList.add('paintLastPage')
+  a.innerText = totalPages;
+  li.appendChild(a);
   paginationElement.appendChild(li);
 }
 // функция отрисовки 3-х точек
@@ -213,7 +213,7 @@ function drawPageWhenClickOnArrow() {
 
 // Функция выделяющая кнопку акттивной страницы
 function makeActiveBtn() {
-  let pages = paginationElement.querySelectorAll('button');
+  let pages = paginationElement.querySelectorAll('a');
 
   for (let i = 0; i < pages.length; i += 1) {
     if (pages[i].classList.contains('active')) {
@@ -229,7 +229,7 @@ function makeActiveBtn() {
 function onBtnClick(e) {
   e.preventDefault();
 
-  if (e.target.tagName !== 'BUTTON') {
+  if (e.target.tagName !== 'A') {
     return;
   }
 
