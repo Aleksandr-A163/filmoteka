@@ -7,8 +7,8 @@ const {
 window.addEventListener('load', onLoad);
 
 function onLoad() {
-    mask.classList.add('hide-load');
+   mask.classList.add('hide-load');
     setTimeout(() => {
         mask.remove();
-    }, 600);
+    }, 400);
 }

@@ -1,13 +1,24 @@
 .mask {
     position: fixed;
     top: 50%;
-    left: 50%;
     //transform: translate(-50%, -50%);
     z-index: 100;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: 0.5s;
+
+    @include adaptive-size(mobile) {
+        grid-gap: $set-gap;
+        left: 41%;
+
+      }
+    @include adaptive-size(tablet) {
+        left: 45%;
+    }
+    @include adaptive-size(desktop) {
+      left: 48%;
+    }
 }
 .loader {
     width: 75px;
